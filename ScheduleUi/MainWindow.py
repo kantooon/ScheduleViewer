@@ -160,6 +160,7 @@ class MainWindow(QtGui.QMainWindow):
             table.setItem(r, 5, arr_time)
             table.setItem(r, 7, ac_type)
             table.setItem(r, 8, flt_level)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
     
     
