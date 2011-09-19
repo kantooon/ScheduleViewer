@@ -118,8 +118,8 @@ class MainWindow(QtGui.QMainWindow):
         if nr_flights==0:
             self.popMessage('Error', 'No results found')
         self.ui.labelSelectedFlights.setText(str(nr_flights))
-        self.clearFlights()
         table=self.ui.tableWidget
+        table.setRowCount(0)
         table.setRowCount(nr_flights)
         r=0
         for flight in flightlist:
@@ -169,5 +169,13 @@ class MainWindow(QtGui.QMainWindow):
         table=self.ui.tableWidget
         #table.clear()
         table.setRowCount(0)
+        self.ui.callsignEdit.setText('')
+        self.ui.depAirportEdit.setText('')
+        self.ui.depTimeEdit.setText('')
+        self.ui.depDayEdit.setText('')
+        self.ui.acTypeEdit.setText('')
+        self.ui.airlineEdit.setText('')
+        self.ui.arrAirportEdit.setText('')
+        self.ui.arrTimeEdit.setText('')
     
     
