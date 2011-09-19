@@ -56,19 +56,19 @@ class FlightsDatabase():
     
 
     def queryFlights(self, params):
-        ##
+        ## forget about sql injection, must make LIKE % work as expected :)
         query='SELECT * FROM flights WHERE'
         query_params=[]
         for cond,  value in params.iteritems():
             if cond=='ac_type':
                 query=query+' '+cond+' LIKE \''+value+'-%\' AND '
             elif cond=='airline':
-                query=query+' '+'ac_type'+' LIKE \'%-'+value+'\' AND '
+                query=query+' '+'ac_type'+' LIKE \'%-'+value+'%\' AND '
             else:
                 query=query+' '+cond+'=? AND '
                 query_params.append(value)
         query=query+' 1=1 ORDER BY id ASC'
-        print query, query_params
+        #print query, query_params
         self.cursor.execute(query, query_params)
         rows=self.cursor.fetchall()
         return rows

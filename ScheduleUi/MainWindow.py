@@ -18,7 +18,7 @@
 
 from PyQt4 import QtCore, QtGui
 import Ui_MainWindow, Messages
-#AboutDialog, HelpDialog
+#, AboutDialog, HelpDialog
 from Logic.database_thread import DatabaseThread
 import os, io, time
 
@@ -42,6 +42,8 @@ class MainWindow(QtGui.QMainWindow):
     
     def showImportDialog(self):
         dir = QtGui.QFileDialog.getExistingDirectory(self,"Open Directory",  os.getcwd(), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
+        if len(dir)==0 or dir=='':
+            return
         self.emit(QtCore.SIGNAL('import'), str(dir))
 
 

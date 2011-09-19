@@ -45,12 +45,10 @@ class  DatabaseThread(QtCore.QThread):
         for conf in conf_files:
             fr=open(conf,'rb')
             content= fr.readlines()
-            
             for line in content:
                 if line.find('#')==0 or len(line)<2:
                     continue
                 stubs1=line.split("   ")
-                print stubs1
                 for i in stubs1[3]:
                     if i.isdigit():
                         flight=[stubs1[1],stubs1[2],i,stubs1[5],stubs1[7],stubs1[4],stubs1[6],stubs1[9],stubs1[8]]
