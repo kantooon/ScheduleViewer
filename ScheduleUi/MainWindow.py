@@ -30,6 +30,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.databaseThread=DatabaseThread()
         self.startDBThread()
+        self.page=0
 
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
         #self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
@@ -67,10 +68,11 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.databaseThread, QtCore.SIGNAL('message_success'), self.popMessage, QtCore.Qt.QueuedConnection)
 
         self.connect(self, QtCore.SIGNAL('import'), self.databaseThread.importConfs, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
         
-        self.databaseThread.getNrFlights()
+        self.emit(QtCore.SIGNAL('nr_flights'))
   
 
     def popMessage(self, type, message): 
@@ -162,6 +164,7 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def clearFlights(self):
+        self.page=0
         table=self.ui.tableWidget
         #table.clear()
         table.setRowCount(0)

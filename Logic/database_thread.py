@@ -36,7 +36,7 @@ class  DatabaseThread(QtCore.QThread):
     
     def run(self):
         self.exec_()
-        
+        del self.db
         return
     
     
