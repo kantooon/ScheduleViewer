@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Sep 19 22:28:09 2011
+# Created: Tue Sep 20 00:05:49 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(7, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(8, item)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(103)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(105)
         self.tableWidget.verticalHeader().setVisible(False)
         self.groupBox = QtGui.QGroupBox(self.flightsTab)
         self.groupBox.setGeometry(QtCore.QRect(5, 5, 1011, 176))
@@ -196,6 +196,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Flightgear schedule manager", None, QtGui.QApplication.UnicodeUTF8))
+        self.tableWidget.setSortingEnabled(True)
         self.tableWidget.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("MainWindow", "Callsign", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("MainWindow", "Flight rules", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.horizontalHeaderItem(2).setText(QtGui.QApplication.translate("MainWindow", "Dep. airport", None, QtGui.QApplication.UnicodeUTF8))
