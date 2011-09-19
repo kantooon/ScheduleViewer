@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1049</width>
-    <height>742</height>
+    <width>1070</width>
+    <height>740</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
      <rect>
       <x>5</x>
       <y>15</y>
-      <width>1031</width>
+      <width>1061</width>
       <height>651</height>
      </rect>
     </property>
@@ -39,7 +39,7 @@
        <rect>
         <x>5</x>
         <y>180</y>
-        <width>1011</width>
+        <width>1041</width>
         <height>431</height>
        </rect>
       </property>
@@ -65,7 +65,7 @@
        <bool>true</bool>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>105</number>
+       <number>100</number>
       </attribute>
       <attribute name="verticalHeaderVisible">
        <bool>false</bool>
@@ -74,7 +74,7 @@
        <bool>false</bool>
       </attribute>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>105</number>
+       <number>100</number>
       </attribute>
       <column>
        <property name="text">
@@ -121,13 +121,18 @@
         <string>Flt. level</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>id</string>
+       </property>
+      </column>
      </widget>
      <widget class="QGroupBox" name="groupBox">
       <property name="geometry">
        <rect>
         <x>5</x>
         <y>5</y>
-        <width>1011</width>
+        <width>1041</width>
         <height>176</height>
        </rect>
       </property>
@@ -137,7 +142,7 @@
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>20</x>
          <y>30</y>
          <width>991</width>
          <height>91</height>
@@ -316,7 +321,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Selected flights</string>
+        <string>Selected flights:</string>
        </property>
       </widget>
       <widget class="QLabel" name="labelTotalFlights">
@@ -375,7 +380,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1049</width>
+     <width>1070</width>
      <height>21</height>
     </rect>
    </property>

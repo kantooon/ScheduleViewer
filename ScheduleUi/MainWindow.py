@@ -90,7 +90,7 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def showNrFlights(self, nr):
-        self.ui.labelTotalFlights.setText(nr)
+        self.ui.labelTotalFlights.setText('<b>'+nr+'</b>')
     
     
     def sendQuery(self):
@@ -124,12 +124,14 @@ class MainWindow(QtGui.QMainWindow):
         nr_flights=len(flightlist)
         if nr_flights==0:
             self.popMessage('Error', 'No results found')
-        self.ui.labelSelectedFlights.setText(str(nr_flights))
+        self.ui.labelSelectedFlights.setText('<b>'+str(nr_flights)+'</b>')
         table=self.ui.tableWidget
         table.setRowCount(0)
         table.setRowCount(nr_flights)
         r=0
         for flight in flightlist:
+            id=QtGui.QTableWidgetItem(str(flight[0]), 0)
+            id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             callsign=QtGui.QTableWidgetItem(str(flight[1]), 0)
             callsign.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -167,6 +169,7 @@ class MainWindow(QtGui.QMainWindow):
             table.setItem(r, 5, arr_time)
             table.setItem(r, 7, ac_type)
             table.setItem(r, 8, flt_level)
+            table.setItem(r, 9, id)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
     

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Tue Sep 20 00:05:49 2011
+# Created: Tue Sep 20 00:22:16 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,25 +12,25 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1049, 742)
+        MainWindow.resize(1070, 740)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icons/main.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.tabWidget = QtGui.QTabWidget(self.centralwidget)
-        self.tabWidget.setGeometry(QtCore.QRect(5, 15, 1031, 651))
+        self.tabWidget.setGeometry(QtCore.QRect(5, 15, 1061, 651))
         self.tabWidget.setObjectName("tabWidget")
         self.flightsTab = QtGui.QWidget()
         self.flightsTab.setObjectName("flightsTab")
         self.tableWidget = QtGui.QTableWidget(self.flightsTab)
-        self.tableWidget.setGeometry(QtCore.QRect(5, 180, 1011, 431))
+        self.tableWidget.setGeometry(QtCore.QRect(5, 180, 1041, 431))
         self.tableWidget.setMinimumSize(QtCore.QSize(840, 291))
         self.tableWidget.setMaximumSize(QtCore.QSize(1200, 436))
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(9)
+        self.tableWidget.setColumnCount(10)
         self.tableWidget.setRowCount(0)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, item)
@@ -50,13 +50,15 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(7, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(8, item)
-        self.tableWidget.horizontalHeader().setDefaultSectionSize(105)
+        item = QtGui.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(9, item)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
         self.tableWidget.verticalHeader().setVisible(False)
         self.groupBox = QtGui.QGroupBox(self.flightsTab)
-        self.groupBox.setGeometry(QtCore.QRect(5, 5, 1011, 176))
+        self.groupBox.setGeometry(QtCore.QRect(5, 5, 1041, 176))
         self.groupBox.setObjectName("groupBox")
         self.gridLayoutWidget = QtGui.QWidget(self.groupBox)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 30, 991, 91))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 30, 991, 91))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout = QtGui.QGridLayout(self.gridLayoutWidget)
         self.gridLayout.setObjectName("gridLayout")
@@ -168,7 +170,7 @@ class Ui_MainWindow(object):
         self.progressBar.setObjectName("progressBar")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1049, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1070, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -206,6 +208,7 @@ class Ui_MainWindow(object):
         self.tableWidget.horizontalHeaderItem(6).setText(QtGui.QApplication.translate("MainWindow", "Dep. day", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.horizontalHeaderItem(7).setText(QtGui.QApplication.translate("MainWindow", "Aircraft type", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.horizontalHeaderItem(8).setText(QtGui.QApplication.translate("MainWindow", "Flt. level", None, QtGui.QApplication.UnicodeUTF8))
+        self.tableWidget.horizontalHeaderItem(9).setText(QtGui.QApplication.translate("MainWindow", "id", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("MainWindow", "Filters", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MainWindow", "Callsign", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MainWindow", "Dep. airport", None, QtGui.QApplication.UnicodeUTF8))
@@ -221,7 +224,7 @@ class Ui_MainWindow(object):
         self.deleteButton.setText(QtGui.QApplication.translate("MainWindow", "Delete flights", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateButton.setText(QtGui.QApplication.translate("MainWindow", "Empty database", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.flightsTab), QtGui.QApplication.translate("MainWindow", "Flights", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.aircraftTab), QtGui.QApplication.translate("MainWindow", "Aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
