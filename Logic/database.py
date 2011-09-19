@@ -76,8 +76,11 @@ class FlightsDatabase():
     
     def addFlight(self, flight):
         self.cursor.execute('INSERT OR ROLLBACK INTO flights (callsign, flt_rules, dep_day, dep_airport, arr_airport, dep_time, arr_time, ac_type, flt_level) VALUES (?,?,?,?,?,?,?,?,?)', flight)
-        self.conn.commit()
+        #self.conn.commit() # call commit on the whole chunk to speed things up
     
+    
+    def commitTransaction(self):
+        self.conn.commit()
     
     def editFlight(self, flight):
         self.cursor.execute('UPDATE OR ROLLBACK flights SET callsign=?, flt_rules=?, dep_day=?, dep_airport=?, arr_airport=?, dep_time=?, arr_time=?, ac_type=?, flt_level=? WHERE id=?', flight)

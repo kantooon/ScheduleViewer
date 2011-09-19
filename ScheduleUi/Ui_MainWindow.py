@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Sep 19 20:30:01 2011
+# Created: Mon Sep 19 22:28:09 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1054, 713)
+        MainWindow.resize(1049, 742)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icons/main.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -151,17 +151,24 @@ class Ui_MainWindow(object):
         self.label_10.setObjectName("label_10")
         self.labelTotalFlights = QtGui.QLabel(self.groupBox)
         self.labelTotalFlights.setGeometry(QtCore.QRect(140, 125, 56, 15))
+        self.labelTotalFlights.setText("")
         self.labelTotalFlights.setObjectName("labelTotalFlights")
         self.labelSelectedFlights = QtGui.QLabel(self.groupBox)
         self.labelSelectedFlights.setGeometry(QtCore.QRect(140, 150, 66, 16))
+        self.labelSelectedFlights.setText("")
         self.labelSelectedFlights.setObjectName("labelSelectedFlights")
         self.tabWidget.addTab(self.flightsTab, "")
         self.aircraftTab = QtGui.QWidget()
         self.aircraftTab.setObjectName("aircraftTab")
         self.tabWidget.addTab(self.aircraftTab, "")
+        self.progressBar = QtGui.QProgressBar(self.centralwidget)
+        self.progressBar.setEnabled(False)
+        self.progressBar.setGeometry(QtCore.QRect(10, 670, 1021, 23))
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setObjectName("progressBar")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1054, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1049, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -214,8 +221,6 @@ class Ui_MainWindow(object):
         self.truncateButton.setText(QtGui.QApplication.translate("MainWindow", "Empty database", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights", None, QtGui.QApplication.UnicodeUTF8))
-        self.labelTotalFlights.setText(QtGui.QApplication.translate("MainWindow", " ", None, QtGui.QApplication.UnicodeUTF8))
-        self.labelSelectedFlights.setText(QtGui.QApplication.translate("MainWindow", " ", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.flightsTab), QtGui.QApplication.translate("MainWindow", "Flights", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.aircraftTab), QtGui.QApplication.translate("MainWindow", "Aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))

@@ -42,6 +42,10 @@ class  DatabaseThread(QtCore.QThread):
     
     def importConfs(self, path):
         conf_files=glob.glob(path+'/*/*.conf')
+        if conf_files==None:
+            return
+        progress_overall=0
+        progress_overall_step=100 / len(conf_files)
         try:
             for conf in conf_files:
                 fr=open(conf,'rb')
@@ -54,6 +58,10 @@ class  DatabaseThread(QtCore.QThread):
                         if i.isdigit():
                             flight=[stubs1[1],stubs1[2],i,stubs1[5],stubs1[7],stubs1[4],stubs1[6],stubs1[9],stubs1[8]]
                             self.db.addFlight(flight)
+                            
+                self.db.commitTransaction()
+                progress_overall=progress_overall+progress_overall_step
+                self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
             self.emit(QtCore.SIGNAL('message_success'), 'Info','Flights have been imported')
         except:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Flights could not be imported')

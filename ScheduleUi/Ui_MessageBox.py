@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MessageBox.ui'
 #
-# Created: Mon Sep 19 20:30:01 2011
+# Created: Mon Sep 19 22:28:10 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
