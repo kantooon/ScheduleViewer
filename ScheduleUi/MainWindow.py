@@ -17,7 +17,7 @@
 #
 
 from PyQt4 import QtCore, QtGui
-import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog
+import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog
 from Logic.database_thread import DatabaseThread
 import os, io, time
 
@@ -30,6 +30,7 @@ class MainWindow(QtGui.QMainWindow):
         self.databaseThread=DatabaseThread()
         self.startDBThread()
         self.page=0
+        self.flightlist=[]
     
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
         self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
@@ -37,8 +38,13 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
         self.connect(self.ui.showButton, QtCore.SIGNAL("clicked()"), self.sendQuery)
         self.connect(self.ui.clearButton, QtCore.SIGNAL("clicked()"), self.clearFlights)
+        self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDelete, QtCore.Qt.QueuedConnection)
 
 
+    def confirmDelete(self):
+        self.confirmDialog = ConfirmDialog.ConfirmDialog()
+        self.connect(self.confirmDialog, QtCore.SIGNAL("accepted()"), self.databaseThread.emptyFlights, QtCore.Qt.QueuedConnection)
+    
     
     def showImportDialog(self):
         self.importDialog=ImportDialog.ImportDialog()
@@ -52,7 +58,7 @@ class MainWindow(QtGui.QMainWindow):
     def showExportDialog(self):
         self.exportDialog=ExportDialog.ExportDialog()
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.exportDialog, QtCore.SLOT('close()'))
-        self.connect(self.exportDialog, QtCore.SIGNAL('start_import'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
+        self.connect(self.exportDialog, QtCore.SIGNAL('start_export'), self.exportConfs, QtCore.Qt.QueuedConnection)
         self.ui.progressBar.setVisible(True)
         self.ui.progressBar.setEnabled(True)
         self.exportDialog.show()
@@ -89,7 +95,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
-        self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.databaseThread.emptyFlights, QtCore.Qt.QueuedConnection)
+        #self.connect(self, QtCore.SIGNAL("delete_all"), self.databaseThread.emptyFlights, QtCore.Qt.QueuedConnection)
         
         self.emit(QtCore.SIGNAL('nr_flights'))
   
@@ -136,6 +142,7 @@ class MainWindow(QtGui.QMainWindow):
         nr_flights=len(flightlist)
         if nr_flights==0:
             self.popMessage('Error', 'No results found')
+        self.flightlist=flightlist
         self.ui.labelSelectedFlights.setText('<b>'+str(nr_flights)+'</b>')
         table=self.ui.tableWidget
         table.setRowCount(0)
@@ -201,3 +208,13 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.arrTimeEdit.setText('')
     
     
+    def exportConfs(self, dir,  separate_airlines, what):
+        
+        if what=='view':
+            flightlist=self.flightlist
+        elif what=='selected':
+            #TODO: export selected flights
+            flightlist=self.flightlist
+        elif what=='database':
+            flightlist=[]
+        self.emit(QtCore.SIGNAL('export'), dir, separate_airlines, flightlist)

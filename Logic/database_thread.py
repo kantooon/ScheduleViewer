@@ -70,7 +70,7 @@ class  DatabaseThread(QtCore.QThread):
                 self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
             self.emit(QtCore.SIGNAL('import_progress'), 100)
             self.emit(QtCore.SIGNAL('message_success'), 'Info','Flights have been imported')
-            
+            self.getNrFlights()
         except:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Flights could not be imported')
             self.emit(QtCore.SIGNAL('import_progress'), 0)
@@ -94,11 +94,13 @@ class  DatabaseThread(QtCore.QThread):
     def deleteFlights(self, flightlist):
         for flight in flightlist:
             self.db.deleteFlight(flight)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Flights have been deleted')
         
     
     def emptyFlights(self):
         self.db.emptyFlights()
         self.emit(QtCore.SIGNAL('message_success'), 'Info',  'Flights have been deleted')
+        self.emit(QtCore.SIGNAL('show_total_nr'), '0')
 
     
