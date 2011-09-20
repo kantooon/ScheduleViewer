@@ -17,8 +17,7 @@
 #
 
 from PyQt4 import QtCore, QtGui
-import Ui_MainWindow, Messages,  ImportDialog
-#, AboutDialog, HelpDialog
+import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog
 from Logic.database_thread import DatabaseThread
 import os, io, time
 
@@ -33,9 +32,9 @@ class MainWindow(QtGui.QMainWindow):
         self.page=0
     
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
-        #self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
-        #self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
-        #self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
+        self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
+        self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
+        self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
         self.connect(self.ui.showButton, QtCore.SIGNAL("clicked()"), self.sendQuery)
         self.connect(self.ui.clearButton, QtCore.SIGNAL("clicked()"), self.clearFlights)
 
@@ -43,12 +42,20 @@ class MainWindow(QtGui.QMainWindow):
     
     def showImportDialog(self):
         self.importDialog=ImportDialog.ImportDialog()
-        self.connect(self.importDialog, QtCore.SIGNAL("accepted()"), self.sendQuery)
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.importDialog, QtCore.SLOT('close()'))
         self.connect(self.importDialog, QtCore.SIGNAL('start_import'), self.databaseThread.importConfs, QtCore.Qt.QueuedConnection)
         self.ui.progressBar.setVisible(True)
         self.ui.progressBar.setEnabled(True)
         self.importDialog.show()
+    
+    
+    def showExportDialog(self):
+        self.exportDialog=ExportDialog.ExportDialog()
+        self.connect(self, QtCore.SIGNAL('destroyed()'), self.exportDialog, QtCore.SLOT('close()'))
+        self.connect(self.exportDialog, QtCore.SIGNAL('start_import'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
+        self.exportDialog.show()
     
     
     def trackProgress(self, nr):
@@ -58,7 +65,7 @@ class MainWindow(QtGui.QMainWindow):
             self.ui.progressBar.setEnabled(False)
 
 
-    """
+
     def showAboutDialog(self):
         self.aboutDialog=AboutDialog.AboutDialog()
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.aboutDialog, QtCore.SLOT('close()'))
@@ -67,7 +74,7 @@ class MainWindow(QtGui.QMainWindow):
     def showHelpDialog(self):
         self.helpDialog=HelpDialog.HelpDialog()
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.helpDialog, QtCore.SLOT('close()'))
-    """
+
  
     def startDBThread(self):
         #self.databaseThread.setTable('flights')

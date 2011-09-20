@@ -77,7 +77,7 @@ class  DatabaseThread(QtCore.QThread):
         
     
     
-    def exportConfs(self, path):
+    def exportConfs(self, path, separate_airlines, what):
         pass 
     
     

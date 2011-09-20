@@ -1,0 +1,41 @@
+<h3>ScheduleViewer Help</h3>
+<br/><br/>
+<b>Basic usage:</b><br/>
+<i>Import schedules in *.conf format:</i>
+<p>
+Go to <b>File -> Import</b> and choose the path (directory) where to look for conf files.
+Leave empty the <b>Depth level</b> field to look only in this directory. Enter a number in this field to make
+the import tool search all directories <b>below</b> the selected one, at the level you give via this number.
+For example, if you enter <b>1</b>, the import tool will look in all subdirectories of the specified path, but <b>not</b> in the specified directory, or in any subdirectories nested at a depth greater than 1.<br/>This is usefull if you have cloned the AI schedule repository, and you want to scan all directories of airlines it includes, without scanning the root directory or the subdirectories which contain separate files for each airline resulting from a common PDF timetable.
+<br/>
+</p>
+<br/>
+<i>Export schedules from the database in *.conf format</i>
+<p>
+Go to <b>File -> Export</b> and choose the path (directory where the conf files will be written), then check the <b>Separate airlines</b> to write separate files for each airline (default option).
+<br/>
+Next choose which flight schedules will be exported (all flights in the table being displayed by filters, only flights selected by you, or the whole database of flight schedules. 
+</p>
+<br/>
+<i>Using the <b>Filter query tool</b> window</i>
+<p>
+The <b>Filters</b> help you display flight schedules that fulfill your criteria.
+<br/>
+In the filter fields, enter airport, time, type or airline and click <b>Show</b>. The airport names are standard ICAO, the airline names are standard ICAO, and the aircraft type are standard IATA. Times are format <b>HH:MM</b>. The day is a number from 0 to 6, with 0 being Sunday.
+To clear the table view and the filter form, click <b>Clear</b>.
+<br/>
+</p>
+<p>
+The <b>Empty database</b> button truncates the Flights database table, leaving an empty slate. Use with care.
+</p>
+<p>
+The <b>Edit flight</b> and <b>Delete flights</b> buttons are obvious, but you can select multiple flights at the same time with CTRL and SHIFT
+ to delete Double click a table field to edit it, when you are finished click <b>Edit</b>.
+</p>
+<br/>
+<h3>Getting more help and reporting bugs</h3>
+
+<p>The support forum is located at <a href="http://www.flightgear.org/forums/viewforum.php?f=23">the Flightgear AI traffic forum</a>. 
+<br/>
+If you have encountered a bug, please bear in mind that this project is developed with very limited resources. If you report the bug, chances are good that it will be solved. When reporting bugs, please provide a complete description of the problem, together with the debug and error logs available in the /logs directory.
+</p>
