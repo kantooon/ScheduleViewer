@@ -159,7 +159,7 @@ class MainWindow(QtGui.QMainWindow):
             flt_rules.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             dep_day=QtGui.QTableWidgetItem(str(flight[3]), 0)
-            dep_day.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            dep_day.setTextAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
             
             dep_airport=QtGui.QTableWidgetItem(str(flight[4]), 0)
             dep_airport.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
