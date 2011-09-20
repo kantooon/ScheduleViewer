@@ -64,6 +64,8 @@ class FlightsDatabase():
                 query=query+' '+cond+' LIKE \''+value+'-%\' AND '
             elif cond=='airline':
                 query=query+' '+'ac_type'+' LIKE \'%-'+value+'%\' AND '
+            elif cond=='dep_day':
+                query=query+' '+'dep_day'+' LIKE \'%'+value+'%\' AND '
             else:
                 query=query+' '+cond+'=? AND '
                 query_params.append(value)
