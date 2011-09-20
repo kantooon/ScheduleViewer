@@ -16,9 +16,10 @@ Linux:
  ScheduleViewer needs both Python >= 2.6 and PyQt >= 4.6 to run.
  It may run on older versions of Python and PyQt with unpredictable
  results.
- 
+ To recreate the database and administer the tables, it is recommended to
+ have the command line sqlite3 client.
  On Debian based distributions:
-    apt-get install python python-qt4 libsqlite3-0 python-pysqlite2 
+    apt-get install python python-qt4 sqlite3 libsqlite3-0 python-pysqlite2 
  This will install dependencies needed to run ScheduleViewer.
 
 Windows XP: 

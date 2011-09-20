@@ -130,10 +130,15 @@ class  DatabaseThread(QtCore.QThread):
     
     
     def deleteFlights(self, flightlist):
+        if flightlist==None or len(flightlist)==0:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','No flights selected')
+            return
         for flight in flightlist:
             self.db.deleteFlight(flight)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        self.db.commitTransaction()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Flights have been deleted')
+        self.emit(QtCore.SIGNAL('update_required'))
         
     
     def emptyFlights(self):

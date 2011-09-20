@@ -38,6 +38,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
         self.connect(self.ui.showButton, QtCore.SIGNAL("clicked()"), self.sendQuery)
         self.connect(self.ui.clearButton, QtCore.SIGNAL("clicked()"), self.clearFlights)
+        self.connect(self.ui.deleteButton, QtCore.SIGNAL("clicked()"), self.deleteFlights)
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDelete, QtCore.Qt.QueuedConnection)
 
 
@@ -90,12 +91,13 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr"), self.showNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('message_success'), self.popMessage, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('import_progress'), self.trackProgress, QtCore.Qt.QueuedConnection)
+        self.connect(self.databaseThread, QtCore.SIGNAL('update_required'), self.sendQuery, QtCore.Qt.QueuedConnection)
 
         #self.connect(self, QtCore.SIGNAL('import'), self.databaseThread.importConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
-        #self.connect(self, QtCore.SIGNAL("delete_all"), self.databaseThread.emptyFlights, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("delete_flights"), self.databaseThread.deleteFlights, QtCore.Qt.QueuedConnection)
         
         self.emit(QtCore.SIGNAL('nr_flights'))
   
@@ -218,3 +220,32 @@ class MainWindow(QtGui.QMainWindow):
         elif what=='database':
             flightlist=[]
         self.emit(QtCore.SIGNAL('export'), dir, separate_airlines, flightlist)
+    
+    
+    def deleteFlights(self):
+        ids=[]
+        rows=[]
+        table=self.ui.tableWidget
+        sel_ranges=table.selectedRanges()
+        for sel_range in sel_ranges:
+            if sel_range.topRow()== sel_range.bottomRow():
+                row=sel_range.topRow()
+                item=table.item(row, 9)
+                if item==0:
+                    print 'item not found'
+                    continue
+                id=int(item.text())
+                if id not in ids:
+                    ids.append(id)
+                QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+            else:
+                for row in range(sel_range.topRow(), sel_range.bottomRow()+1):
+                    item=table.item(row, 9)
+                    if item==0:
+                        print 'item not found'
+                        continue
+                    id=int(item.text())
+                    if id not in ids:
+                        ids.append(id)
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        self.emit(QtCore.SIGNAL('delete_flights'), ids)
