@@ -24,7 +24,7 @@ class FlightsDatabase():
             self.conn=sqlite3.connect(os.path.join(os.getcwd(), 'database', 'flights.db'))
             self.cursor=self.conn.cursor()
         except Exception as eroare:
-            print "Preferences: could not connect to database:",  eroare
+            print "DB: could not connect to database:",  eroare
     
     
     def __del__(self):

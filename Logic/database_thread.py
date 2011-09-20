@@ -39,10 +39,16 @@ class  DatabaseThread(QtCore.QThread):
 
     
     
-    def importConfs(self, path):
-        conf_files=glob.glob(os.path.join(path,'*','*.conf'))
+    def importConfs(self, path, recurse):
+        expr="os.path.join(path,"
+        
+        for i in range(0, recurse):
+            expr=expr+"'*',"
+        expr=expr+"'*.conf')"
+        conf_files=glob.glob(eval(expr))
         #print conf_files
-        if conf_files==None:
+        if conf_files==None or len(conf_files)==0:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Import failed: no files found')
             return
         progress_overall=0
         progress_overall_step=100 / len(conf_files)

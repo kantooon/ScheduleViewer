@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Tue Sep 20 00:22:16 2011
+# Created: Tue Sep 20 11:54:04 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -165,7 +165,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.aircraftTab, "")
         self.progressBar = QtGui.QProgressBar(self.centralwidget)
         self.progressBar.setEnabled(False)
-        self.progressBar.setGeometry(QtCore.QRect(10, 670, 1021, 23))
+        self.progressBar.setGeometry(QtCore.QRect(10, 670, 1051, 23))
         self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -197,7 +197,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Flightgear schedule manager", None, QtGui.QApplication.UnicodeUTF8))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "Flightgear AI schedule manager", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.setSortingEnabled(True)
         self.tableWidget.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("MainWindow", "Callsign", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("MainWindow", "Flight rules", None, QtGui.QApplication.UnicodeUTF8))

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Flightgear schedule manager</string>
+   <string>Flightgear AI schedule manager</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources.qrc">
@@ -366,7 +366,7 @@
      <rect>
       <x>10</x>
       <y>670</y>
-      <width>1021</width>
+      <width>1051</width>
       <height>23</height>
      </rect>
     </property>

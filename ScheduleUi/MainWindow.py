@@ -17,7 +17,7 @@
 #
 
 from PyQt4 import QtCore, QtGui
-import Ui_MainWindow, Messages
+import Ui_MainWindow, Messages,  ImportDialog
 #, AboutDialog, HelpDialog
 from Logic.database_thread import DatabaseThread
 import os, io, time
@@ -27,11 +27,11 @@ class MainWindow(QtGui.QMainWindow):
         QtGui.QMainWindow.__init__(self)
         self.ui = Ui_MainWindow.Ui_MainWindow()
         self.ui.setupUi(self)
-
+        self.ui.progressBar.setVisible(False)
         self.databaseThread=DatabaseThread()
         self.startDBThread()
         self.page=0
-
+    
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
         #self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
         #self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
@@ -42,15 +42,20 @@ class MainWindow(QtGui.QMainWindow):
 
     
     def showImportDialog(self):
-        dir = QtGui.QFileDialog.getExistingDirectory(self,"Import from Directory",  os.getcwd(), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
-        if dir==None or len(dir)==0 or dir=='':
-            return
-        self.emit(QtCore.SIGNAL('import'), str(dir))
+        self.importDialog=ImportDialog.ImportDialog()
+        self.connect(self.importDialog, QtCore.SIGNAL("accepted()"), self.sendQuery)
+        self.connect(self, QtCore.SIGNAL('destroyed()'), self.importDialog, QtCore.SLOT('close()'))
+        self.connect(self.importDialog, QtCore.SIGNAL('start_import'), self.databaseThread.importConfs, QtCore.Qt.QueuedConnection)
+        self.ui.progressBar.setVisible(True)
         self.ui.progressBar.setEnabled(True)
+        self.importDialog.show()
     
     
     def trackProgress(self, nr):
         self.ui.progressBar.setValue(nr)
+        if nr==100:
+            self.ui.progressBar.setVisible(False)
+            self.ui.progressBar.setEnabled(False)
 
 
     """
@@ -73,7 +78,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.databaseThread, QtCore.SIGNAL('message_success'), self.popMessage, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('import_progress'), self.trackProgress, QtCore.Qt.QueuedConnection)
 
-        self.connect(self, QtCore.SIGNAL('import'), self.databaseThread.importConfs, QtCore.Qt.QueuedConnection)
+        #self.connect(self, QtCore.SIGNAL('import'), self.databaseThread.importConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)

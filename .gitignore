@@ -2,4 +2,5 @@
 *.e4p
 .eric4project
 *.db
+*.log
 
