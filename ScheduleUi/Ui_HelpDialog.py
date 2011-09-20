@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/HelpDialog.ui'
 #
-# Created: Tue Sep 20 13:36:47 2011
+# Created: Tue Sep 20 19:55:11 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!

@@ -53,7 +53,12 @@ To display flights according to your criteria, fill in the fields which you want
 the results filtered on, and click Show(). 
 Other operations on the database will be implemented soon.
 See Help -> Help for additional instructions.
-    
+
+
+Known issues:
+=============
+Export only works for the whole database and is very slow.
+
 
 License information:
 ====================

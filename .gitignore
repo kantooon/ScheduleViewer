@@ -1,5 +1,7 @@
+.directory
 *.pyc
 *.e4p
 .eric4project
 *.log
+*.conf
 

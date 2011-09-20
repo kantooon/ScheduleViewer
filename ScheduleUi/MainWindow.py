@@ -31,6 +31,10 @@ class MainWindow(QtGui.QMainWindow):
         self.startDBThread()
         self.page=0
         self.flightlist=[]
+        self.del_shortcut=QtGui.QShortcut(self)
+        self.del_shortcut.setKey(QtGui.QKeySequence(QtGui.QKeySequence.Delete))
+        self.del_shortcut.setAutoRepeat(False)
+        self.del_shortcut.setContext(QtCore.Qt.ApplicationShortcut)
     
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
         self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
@@ -39,6 +43,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.showButton, QtCore.SIGNAL("clicked()"), self.sendQuery)
         self.connect(self.ui.clearButton, QtCore.SIGNAL("clicked()"), self.clearFlights)
         self.connect(self.ui.deleteButton, QtCore.SIGNAL("clicked()"), self.deleteFlights)
+        self.connect(self.del_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDelete, QtCore.Qt.QueuedConnection)
 
 
