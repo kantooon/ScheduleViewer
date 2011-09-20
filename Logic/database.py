@@ -66,6 +66,12 @@ class FlightsDatabase():
                 query=query+' '+'ac_type'+' LIKE \'%-'+value+'%\' AND '
             elif cond=='dep_day':
                 query=query+' '+'dep_day'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='callsign':
+                query=query+' '+'callsign'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='dep_time':
+                query=query+' '+'dep_time'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='arr_time':
+                query=query+' '+'arr_time'+' LIKE \'%'+value+'%\' AND '
             else:
                 query=query+' '+cond+'=? AND '
                 query_params.append(value)
