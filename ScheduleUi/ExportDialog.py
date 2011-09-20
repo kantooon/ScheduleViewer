@@ -33,7 +33,7 @@ class ExportDialog(QtGui.QDialog):
     
     
     def browseDir(self):
-        dir = QtGui.QFileDialog.getExistingDirectory(self,"Import from Directory",  os.getcwd(), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
+        dir = QtGui.QFileDialog.getExistingDirectory(self,"Import from Directory",  os.path.join(os.getcwd(), 'exported_flights'), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
         if dir==None or len(dir)==0 or dir=='':
             return 
         else:

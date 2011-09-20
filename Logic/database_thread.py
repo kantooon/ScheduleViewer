@@ -84,7 +84,39 @@ class  DatabaseThread(QtCore.QThread):
     
     
     def exportConfs(self, path, separate_airlines, what):
-        pass 
+        if len(what)==0:
+            flights=self.db.getAllFlights()
+            airlines=[]
+            for flight in flights:
+                airline=flight[8][4:]
+                if airline not in airlines:
+                    airlines.append(airline)
+                QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+            progress_overall=0
+            progress_overall_step=100 / len(airlines)
+            for airline in airlines:
+                airline = airline[0:3]
+                fw=open(os.path.join(path,airline+'.conf'),'wb')
+                buf=''
+                params=dict({'airline':airline})
+                flights=self.db.queryFlights(params)
+                #progress_airline=0
+                #progress_airline_step=100 / len(flights)
+                for flight in flights:
+                    conf = "FLIGHT   "+flight[1]+"   "+flight[2]+"   "+flight[3]+"   "+flight[6]+"   "+flight[4] \
+                    +"   "+flight[7]+"   "+flight[5]+"   "+str(flight[9])+"   "+flight[8]
+                    buf=buf+conf
+                    #progress_airline=progress_airline+progress_airline_step
+                    #self.emit(QtCore.SIGNAL('import_progress'), progress_airline)
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
+                "################### ######### ####### ############### ############### #################\n\n"+buf
+                fw.write(file_content)
+                fw.close()
+                progress_overall=progress_overall+progress_overall_step
+                self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+            self.emit(QtCore.SIGNAL('import_progress'), 100)
+            self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
     
     
     def runQuery(self, params):
