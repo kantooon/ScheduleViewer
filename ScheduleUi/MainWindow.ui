@@ -10,6 +10,9 @@
     <height>740</height>
    </rect>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::StrongFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>Flightgear AI schedule manager</string>
   </property>
@@ -238,6 +241,12 @@
            <iconset resource="../resources.qrc">
             <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
           </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item row="1" column="9">
@@ -455,6 +464,134 @@
     <hint type="destinationlabel">
      <x>550</x>
      <y>356</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>callsignEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>152</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>arrAirportEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>367</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acTypeEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>956</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>airlineEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>152</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>arrTimeEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>depAirportEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>367</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>depDayEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>764</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>depTimeEdit</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>764</x>
+     <y>161</y>
     </hint>
    </hints>
   </connection>

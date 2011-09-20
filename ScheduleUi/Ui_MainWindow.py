@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Tue Sep 20 13:36:44 2011
+# Created: Tue Sep 20 15:22:11 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,6 +13,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1070, 740)
+        MainWindow.setFocusPolicy(QtCore.Qt.StrongFocus)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icons/main.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -114,6 +115,8 @@ class Ui_MainWindow(object):
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/icons/icons/dialog-ok-apply.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.showButton.setIcon(icon1)
+        self.showButton.setAutoDefault(False)
+        self.showButton.setDefault(True)
         self.showButton.setObjectName("showButton")
         self.gridLayout.addWidget(self.showButton, 1, 7, 1, 1)
         self.clearButton = QtGui.QPushButton(self.gridLayoutWidget)
@@ -207,6 +210,14 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("activated()"), MainWindow.close)
+        QtCore.QObject.connect(self.callsignEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.arrAirportEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.acTypeEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.airlineEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.arrTimeEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.depAirportEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.depDayEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
+        QtCore.QObject.connect(self.depTimeEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
