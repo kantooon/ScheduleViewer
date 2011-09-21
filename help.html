@@ -1,5 +1,4 @@
 <h3>ScheduleViewer Help</h3>
-<br/><br/>
 <b>Basic usage:</b><br/>
 <i>Import schedules in *.conf format:</i>
 <p>
@@ -25,19 +24,20 @@ In the filter fields, enter airport, time, type or airline and click <b>Show</b>
 <br/>
 <b>"Smart"</b> filters are available for the <i>callsign, departure time, departure day, arrival time, arrival day</i> fields. To use them, input only part of the string you want to search for, like for instance <b>10:</b>, which will fetch all flights with departing hour 10, or <b>:30</b> which will fetch all flights departing at hour:30 minutes. This is the case for the day too, if you want to search for flights that take place on Sunday but not on Monday, you would enter <b>0.</b> - notice the dot after 0. The callsign can also be entered partially, for instance <b>SpeedBird</b> which will fetch BAW flights.
 <br/>
-To clear the table view and the filter form, click <b>Clear</b>.
+<b>Note:</b> For readability and display reasons, the dots from <b>Departure day</b> have been replaced with <b>#</b> or <b>-</b>. When editing, you should enter the same character as is being displayed, it will be converted to dots automatically inside the database. The filter field accepts only dots as substitute for days.
 <br/>
-<h4>Known issues:</h4>
-Export only works for the whole database and is very slow.<br/>
-If you order the table by a column other than id and then apply filters, the table will be corrupted. To solve this, simply order by id again, then order by the column you want.
+To clear the table view and the filter form, click <b>Clear</b>.
 </p>
 <p>
 The <b>Empty database</b> button truncates the Flights database table, leaving an empty slate. Use with care.
 </p>
 <p>
-The <b>Edit flight</b> and <b>Delete flights</b> buttons are obvious, but you can select multiple flights at the same time with CTRL and SHIFT
- to delete Double click a table field to edit it, when you are finished click <b>Edit</b>.
+You can select multiple flights at the same time with CTRL and SHIFT to delete. The Del key is a shortcut for the delete button. You will not be asked again so be carefull.<br/>
+Double click a table field to edit it, when you are finished press <b>Enter</b>.
 </p>
+<h4>Known issues:</h4>
+Export only works for the whole database and is very slow.<br/>
+If you order the table by a column other than id and then apply filters, the table will be corrupted. To solve this, simply order by id again, then order by the column you want. The table will display normally.
 <br/>
 <h3>Getting more help and reporting bugs</h3>
 

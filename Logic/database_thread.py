@@ -61,13 +61,15 @@ class  DatabaseThread(QtCore.QThread):
                         continue
                     stubs1=line.split("   ")
                     ## do not add individual daily flights, add weekly ones
-                    flight=[stubs1[1],stubs1[2],stubs1[3],stubs1[5],stubs1[7],stubs1[4],stubs1[6],stubs1[9],stubs1[8]]
+                    ac_type=stubs1[9].rstrip('\n')
+                    flight=[stubs1[1],stubs1[2],stubs1[3],stubs1[5],stubs1[7],stubs1[4],stubs1[6],ac_type,stubs1[8]]
                     self.db.addFlight(flight)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
                     """
                     for i in stubs1[3]:
                         if i.isdigit():
-                            flight=[stubs1[1],stubs1[2],i,stubs1[5],stubs1[7],stubs1[4],stubs1[6],stubs1[9],stubs1[8]]
+                            ac_type=stubs1[9].rstrip('\n')
+                            flight=[stubs1[1],stubs1[2],i,stubs1[5],stubs1[7],stubs1[4],stubs1[6],ac_type,stubs1[8]]
                             self.db.addFlight(flight)
                             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
                     """
@@ -104,7 +106,7 @@ class  DatabaseThread(QtCore.QThread):
                 #progress_airline_step=100 / len(flights)
                 for flight in flights:
                     conf = "FLIGHT   "+flight[1]+"   "+flight[2]+"   "+flight[3]+"   "+flight[6]+"   "+flight[4] \
-                    +"   "+flight[7]+"   "+flight[5]+"   "+str(flight[9])+"   "+flight[8]
+                    +"   "+flight[7]+"   "+flight[5]+"   "+str(flight[9])+"   "+flight[8]+"\n"
                     buf=buf+conf
                     #progress_airline=progress_airline+progress_airline_step
                     #self.emit(QtCore.SIGNAL('import_progress'), progress_airline)
@@ -147,3 +149,6 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('show_total_nr'), '0')
 
     
+    def editFlight(self, params):
+        self.db.editFlight(params)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Flight saved')

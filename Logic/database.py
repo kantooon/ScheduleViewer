@@ -63,7 +63,7 @@ class FlightsDatabase():
             if cond=='ac_type':
                 query=query+' '+cond+' LIKE \''+value+'-%\' AND '
             elif cond=='airline':
-                query=query+' '+'ac_type'+' LIKE \'%-'+value+'%\' AND '
+                query=query+' '+'ac_type'+' LIKE \'%-'+value+'\' AND '
             elif cond=='dep_day':
                 query=query+' '+'dep_day'+' LIKE \'%'+value+'%\' AND '
             elif cond=='callsign':
@@ -90,8 +90,15 @@ class FlightsDatabase():
     def commitTransaction(self):
         self.conn.commit()
     
-    def editFlight(self, flight):
+    
+    def editWholeFlight(self, flight):
         self.cursor.execute('UPDATE OR ROLLBACK flights SET callsign=?, flt_rules=?, dep_day=?, dep_airport=?, arr_airport=?, dep_time=?, arr_time=?, ac_type=?, flt_level=? WHERE id=?', flight)
+        self.conn.commit()
+    
+    
+    def editFlight(self, params):
+        query="UPDATE OR ROLLBACK flights SET "+params[0][0]+"=? WHERE id=?"
+        self.cursor.execute(query, (params[0][1], params[1][1]))
         self.conn.commit()
     
     

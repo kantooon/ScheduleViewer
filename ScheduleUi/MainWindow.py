@@ -45,6 +45,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.deleteButton, QtCore.SIGNAL("clicked()"), self.deleteFlights)
         self.connect(self.del_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDelete, QtCore.Qt.QueuedConnection)
+        #self.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int,int)"), self.itemModified)
 
 
     def confirmDelete(self):
@@ -103,6 +104,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_flights"), self.databaseThread.deleteFlights, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("edit_record"), self.databaseThread.editFlight, QtCore.Qt.QueuedConnection)
         
         self.emit(QtCore.SIGNAL('nr_flights'))
   
@@ -142,7 +144,7 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def updateFlights(self, flightlist):
-        
+        self.disconnect(self.ui.tableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModified)
         if flightlist==None:
             self.popMessage('Error', 'No results found')
             return
@@ -158,6 +160,7 @@ class MainWindow(QtGui.QMainWindow):
         for flight in flightlist:
             id=QtGui.QTableWidgetItem(str(flight[0]), 0)
             id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            id.setFlags(QtCore.Qt.NoItemFlags)
             
             callsign=QtGui.QTableWidgetItem(str(flight[1]), 0)
             callsign.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -165,7 +168,7 @@ class MainWindow(QtGui.QMainWindow):
             flt_rules=QtGui.QTableWidgetItem(str(flight[2]), 0)
             flt_rules.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
-            dep_day=QtGui.QTableWidgetItem(str(flight[3]), 0)
+            dep_day=QtGui.QTableWidgetItem(str(flight[3]).replace('.', '#'), 0)
             dep_day.setTextAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
             
             dep_airport=QtGui.QTableWidgetItem(str(flight[4]), 0)
@@ -198,6 +201,7 @@ class MainWindow(QtGui.QMainWindow):
             table.setItem(r, 9, id)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
+        self.connect(self.ui.tableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModified)
     
     
     def clearFlights(self):
@@ -254,3 +258,40 @@ class MainWindow(QtGui.QMainWindow):
                         ids.append(id)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.emit(QtCore.SIGNAL('delete_flights'), ids)
+    
+    
+    def itemModified(self, item):
+        table=self.ui.tableWidget
+        column=item.column()
+        if column==9:
+            #we don't like them messing with our precious ids
+            self.sendQuery()
+            return
+        row=item.row()
+        new_data=str(item.text())
+        param_list=[]
+        if column==0:
+            param_list.append(('callsign', new_data))
+        elif column==1:
+            param_list.append(('flt_rules', new_data))
+        elif column==2:
+            param_list.append(('dep_airport', new_data))
+        elif column==3:
+            param_list.append(('arr_airport', new_data))
+        elif column==4:
+            param_list.append(('dep_time', new_data))
+        elif column==5:
+            param_list.append(('arr_time', new_data))
+        elif column==6:
+            new_data=new_data.replace('#','.')
+            param_list.append(('dep_day', new_data))
+        elif column==7:
+            param_list.append(('ac_type', new_data))
+        elif column==8:
+            param_list.append(('flt_level', new_data))
+        item_id=table.item(row, 9)
+        
+        id=int(item_id.text())
+        #print id,  new_data
+        param_list.append(('id', id))
+        self.emit(QtCore.SIGNAL('edit_record'), param_list)
