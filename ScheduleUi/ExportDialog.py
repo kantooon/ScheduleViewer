@@ -33,7 +33,7 @@ class ExportDialog(QtGui.QDialog):
     
     
     def browseDir(self):
-        dir = QtGui.QFileDialog.getExistingDirectory(self,"Import from Directory",  os.path.join(os.getcwd(), 'exported_flights'), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
+        dir = QtGui.QFileDialog.getExistingDirectory(self,"Export to Directory",  os.path.join(os.getcwd(), 'exported_flights'), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
         if dir==None or len(dir)==0 or dir=='':
             return 
         else:
@@ -43,7 +43,7 @@ class ExportDialog(QtGui.QDialog):
     def doExport(self):
         dir=str(self.ui.pathEdit.text())
         if dir==None or dir=='':
-            print 'Import: No files specified'
+            print 'Export: No output directory given'
             return
         sep_airlines=self.ui.airlinesCheckBox.isChecked()
         what=''

@@ -86,39 +86,118 @@ class  DatabaseThread(QtCore.QThread):
     
     
     def exportConfs(self, path, separate_airlines, what):
-        if len(what)==0:
-            flights=self.db.getAllFlights()
-            airlines=[]
-            for flight in flights:
-                airline=flight[8][4:]
-                if airline not in airlines:
-                    airlines.append(airline)
-                QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
-            progress_overall=0
-            progress_overall_step=100 / len(airlines)
-            for airline in airlines:
-                airline = airline[0:3]
-                fw=open(os.path.join(path,airline+'.conf'),'wb')
+        ##separate airline files option
+        if separate_airlines==True:
+            ## all database exported
+            if len(what)==0:
+                flights=self.db.getAllFlights()
+                airlines=[]
+                for flight in flights:
+                    airline=str(flight[8][4:])
+                    if airline not in airlines:
+                        airlines.append(airline)
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                progress_overall=0
+                progress_overall_step=100 / len(airlines)
+                for airline in airlines:
+                    airline = airline[0:3]
+                    fw=open(os.path.join(path,airline+'.conf'),'wb')
+                    buf=''
+                    params=dict({'airline':airline})
+                    flights=self.db.queryFlights(params)
+                    #progress_airline=0
+                    #progress_airline_step=100 / len(flights)
+                    for flight in flights:
+                        conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
+                        +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
+                        buf=buf+conf
+                        #progress_airline=progress_airline+progress_airline_step
+                        #self.emit(QtCore.SIGNAL('import_progress'), progress_airline)
+                        QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                    file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
+                    "################### ######### ####### ############### ############### #################\n\n"+buf
+                    fw.write(file_content)
+                    fw.close()
+                    progress_overall=progress_overall+progress_overall_step
+                    self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+                self.emit(QtCore.SIGNAL('import_progress'), 100)
+                self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
+            ## only flights in view
+            else:
+                flights=what
+                airlines=[]
+                for flight in flights:
+                    airline=str(flight[8][4:])
+                    if airline not in airlines:
+                        airlines.append(airline)
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                progress_overall=0
+                progress_overall_step=100 / len(airlines)
+                for airline in airlines:
+                    airline = airline[0:3]
+                    fw=open(os.path.join(path,airline+'.conf'),'wb')
+                    buf=''
+                    #progress_airline=0
+                    #progress_airline_step=100 / len(flights)
+                    for flight in flights:
+                        if str(flight[8][4:])==airline:
+                            conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
+                            +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
+                            buf=buf+conf
+                            #progress_airline=progress_airline+progress_airline_step
+                            #self.emit(QtCore.SIGNAL('import_progress'), progress_airline)
+                        QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                    file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
+                    "################### ######### ####### ############### ############### #################\n\n"+buf
+                    fw.write(file_content)
+                    fw.close()
+                    progress_overall=progress_overall+progress_overall_step
+                    self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+                self.emit(QtCore.SIGNAL('import_progress'), 100)
+                self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
+        
+        ## one large file with all flights
+        else:
+            ## all database flights exported
+            if len(what)==0:
+                flights=self.db.getAllFlights()
+                progress_overall=0
+                progress_overall_step=100 / len(flights)
+                fw=open(os.path.join(path,'view.conf'),'wb')
                 buf=''
-                params=dict({'airline':airline})
-                flights=self.db.queryFlights(params)
-                #progress_airline=0
-                #progress_airline_step=100 / len(flights)
                 for flight in flights:
                     conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
                     +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
                     buf=buf+conf
-                    #progress_airline=progress_airline+progress_airline_step
-                    #self.emit(QtCore.SIGNAL('import_progress'), progress_airline)
+                    progress_overall=progress_overall+progress_overall_step
+                    self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
                 file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
                 "################### ######### ####### ############### ############### #################\n\n"+buf
                 fw.write(file_content)
                 fw.close()
-                progress_overall=progress_overall+progress_overall_step
-                self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
-            self.emit(QtCore.SIGNAL('import_progress'), 100)
-            self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
+                self.emit(QtCore.SIGNAL('import_progress'), 100)
+                self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
+            ## only flights in view
+            else:
+                flights=what
+                progress_overall=0
+                progress_overall_step=100 / len(flights)
+                fw=open(os.path.join(path,'view.conf'),'wb')
+                buf=''
+                for flight in flights:
+                    conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
+                    +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
+                    buf=buf+conf
+                    progress_overall=progress_overall+progress_overall_step
+                    self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
+                "################### ######### ####### ############### ############### #################\n\n"+buf
+                fw.write(file_content)
+                fw.close()
+                self.emit(QtCore.SIGNAL('import_progress'), 100)
+                self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
     
     
     def runQuery(self, params):

@@ -222,8 +222,18 @@ class MainWindow(QtGui.QMainWindow):
     def exportConfs(self, dir,  separate_airlines, what):
         
         if what=='view':
+            if len(self.flightlist)==0:
+                self.popMessage('Error', 'No flights in current view')
+                self.ui.progressBar.setVisible(False)
+                self.ui.progressBar.setEnabled(False)
+                return
             flightlist=self.flightlist
         elif what=='selected':
+            if len(self.flightlist)==0:
+                self.popMessage('Error', 'No flights are currently selected')
+                self.ui.progressBar.setVisible(False)
+                self.ui.progressBar.setEnabled(False)
+                return
             #TODO: export selected flights
             flightlist=self.flightlist
         elif what=='database':
