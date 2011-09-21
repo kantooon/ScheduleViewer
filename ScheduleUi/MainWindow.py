@@ -31,6 +31,7 @@ class MainWindow(QtGui.QMainWindow):
         self.startDBThread()
         self.page=0
         self.flightlist=[]
+        self.flightlist_selected=[]
         self.del_shortcut=QtGui.QShortcut(self)
         self.del_shortcut.setKey(QtGui.QKeySequence(QtGui.QKeySequence.Delete))
         self.del_shortcut.setAutoRepeat(False)
@@ -230,12 +231,43 @@ class MainWindow(QtGui.QMainWindow):
             flightlist=self.flightlist
         elif what=='selected':
             if len(self.flightlist)==0:
+                self.popMessage('Error', 'No flights in current view')
+                self.ui.progressBar.setVisible(False)
+                self.ui.progressBar.setEnabled(False)
+                return
+            table=self.ui.tableWidget
+            sel_ranges=table.selectedRanges()
+            for sel_range in sel_ranges:
+                if sel_range.topRow()== sel_range.bottomRow():
+                    row=sel_range.topRow()
+                    item=table.item(row, 9)
+                    if item==0:
+                        print 'item not found'
+                        continue
+                    id=int(item.text())
+                    for flight in self.flightlist:
+                        if id==flight[0]:
+                            self.flightlist_selected.append(flight)
+                        QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                else:
+                    for row in range(sel_range.topRow(), sel_range.bottomRow()+1):
+                        item=table.item(row, 9)
+                        if item==0:
+                            print 'item not found'
+                            continue
+                        id=int(item.text())
+                        for flight in self.flightlist:
+                            if id==flight[0]:
+                                self.flightlist_selected.append(flight)
+                            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+            
+            if len(self.flightlist_selected)==0:
                 self.popMessage('Error', 'No flights are currently selected')
                 self.ui.progressBar.setVisible(False)
                 self.ui.progressBar.setEnabled(False)
                 return
-            #TODO: export selected flights
-            flightlist=self.flightlist
+            flightlist=self.flightlist_selected
+            self.flightlist_selected=[]
         elif what=='database':
             flightlist=[]
         self.emit(QtCore.SIGNAL('export'), dir, separate_airlines, flightlist)
