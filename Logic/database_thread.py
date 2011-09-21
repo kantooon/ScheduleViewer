@@ -105,8 +105,8 @@ class  DatabaseThread(QtCore.QThread):
                 #progress_airline=0
                 #progress_airline_step=100 / len(flights)
                 for flight in flights:
-                    conf = "FLIGHT   "+flight[1]+"   "+flight[2]+"   "+flight[3]+"   "+flight[6]+"   "+flight[4] \
-                    +"   "+flight[7]+"   "+flight[5]+"   "+str(flight[9])+"   "+flight[8]+"\n"
+                    conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
+                    +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
                     buf=buf+conf
                     #progress_airline=progress_airline+progress_airline_step
                     #self.emit(QtCore.SIGNAL('import_progress'), progress_airline)
