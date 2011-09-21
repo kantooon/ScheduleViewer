@@ -11,9 +11,10 @@ For example, if you enter <b>1</b>, the import tool will look in all subdirector
 <br/>
 <i>Export schedules from the database in *.conf format</i>
 <p>
-Go to <b>File -> Export</b> and choose the path (directory where the conf files will be written), then check the <b>Separate airlines</b> to write separate files for each airline (default option).
+Go to <b>File -> Export</b> and choose the path (directory where the conf files will be written), then check the <b>Separate airlines</b> to write separate files for each airline (default option). Uncheck to write all flights in the same file (flights.conf or view.conf).
+By default the export directory is <b>exported_flights</b> under the main application directory.
 <br/>
-Next choose which flight schedules will be exported (all flights in the table being displayed by filters, only flights selected by you, or the whole database of flight schedules. 
+Next choose which flight schedules will be exported: all flights in the current view (table being displayed by filters), only flights selected by you, or the whole database of flight schedules. 
 </p>
 <br/>
 <i>Using the <b>Filter query tool</b> window</i>
@@ -21,6 +22,7 @@ Next choose which flight schedules will be exported (all flights in the table be
 The <b>Filters</b> help you display flight schedules that fulfill your criteria.
 <br/>
 In the filter fields, enter airport, time, type or airline and click <b>Show</b>. The airport names are standard ICAO, the airline names are standard ICAO, and the aircraft type are standard IATA. Times are format <b>HH:MM</b>. The day is a number from 0 to 6, with 0 being Sunday.
+The search is case insensitive.
 <br/>
 <b>"Smart"</b> filters are available for the <i>callsign, departure time, departure day, arrival time, arrival day</i> fields. To use them, input only part of the string you want to search for, like for instance <b>10:</b>, which will fetch all flights with departing hour 10, or <b>:30</b> which will fetch all flights departing at hour:30 minutes. This is the case for the day too, if you want to search for flights that take place on Sunday but not on Monday, you would enter <b>0.</b> - notice the dot after 0. The callsign can also be entered partially, for instance <b>SpeedBird</b> which will fetch BAW flights.
 <br/>
@@ -36,7 +38,6 @@ You can select multiple flights at the same time with CTRL and SHIFT to delete. 
 Double click a table field to edit it, when you are finished press <b>Enter</b>.
 </p>
 <h4>Known issues:</h4>
-Export only works for the whole database and is very slow.<br/>
 If you order the table by a column other than id and then apply filters, the table will be corrupted. To solve this, simply order by id again, then order by the column you want. The table will display normally.
 <br/>
 <h3>Getting more help and reporting bugs</h3>

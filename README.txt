@@ -14,6 +14,7 @@ Requirements:
 =============
 Linux: 
  ScheduleViewer needs both Python >= 2.6 and PyQt >= 4.6 to run.
+ Python 3.* is not supported.
  It may run on older versions of Python and PyQt with unpredictable
  results.
  To recreate the database and administer the tables, it is recommended to
@@ -23,7 +24,10 @@ Linux:
  This will install dependencies needed to run ScheduleViewer.
 
 Windows XP: 
- The program requires the Python interpreter and the PyQt bindings to run.
+ The program requires the Python interpreter and the PyQt bindings to run. See:
+ http://www.riverbankcomputing.co.uk/software/pyqt/download
+ http://www.python.org/download/releases/2.7.2/
+ Python 3.* is not supported.
 
 
 Quick Installation:
@@ -37,7 +41,8 @@ Linux:
     
 Windows:
  Extract the folder to a convenient location on your drive.
- Run C:\Python27\python.exe viewer.py from the application directory.
+ Make sure you meet the requirements listed above.
+ Run "C:\Python27\python.exe viewer.py" from the application directory.
  
  
 Basic usage:
@@ -51,13 +56,11 @@ This operation could take a long time.
 
 To display flights according to your criteria, fill in the fields which you want
 the results filtered on, and click Show(). 
-Other operations on the database will be implemented soon.
 See Help -> Help for additional instructions.
 
 
 Known issues:
 =============
-Export only works for the whole database and is very slow.
 If you order the table by a column other than id and then apply filters,
 the table will be corrupted. To solve this, simply order by id again, then order by
 the column you want.

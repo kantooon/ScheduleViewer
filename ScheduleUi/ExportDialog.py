@@ -43,8 +43,7 @@ class ExportDialog(QtGui.QDialog):
     def doExport(self):
         dir=str(self.ui.pathEdit.text())
         if dir==None or dir=='':
-            print 'Export: No output directory given'
-            return
+            dir=os.path.join(os.getcwd(), 'exported_flights')
         sep_airlines=self.ui.airlinesCheckBox.isChecked()
         what=''
         if self.ui.allRadioButton.isChecked()==True:
