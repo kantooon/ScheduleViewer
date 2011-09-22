@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Wed Sep 21 14:09:52 2011
+# Created: Thu Sep 22 17:12:22 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -163,6 +163,9 @@ class Ui_MainWindow(object):
         self.labelSelectedFlights.setText("")
         self.labelSelectedFlights.setObjectName("labelSelectedFlights")
         self.tabWidget.addTab(self.flightsTab, "")
+        self.tab = QtGui.QWidget()
+        self.tab.setObjectName("tab")
+        self.tabWidget.addTab(self.tab, "")
         self.aircraftTab = QtGui.QWidget()
         self.aircraftTab.setObjectName("aircraftTab")
         self.tabWidget.addTab(self.aircraftTab, "")
@@ -195,12 +198,28 @@ class Ui_MainWindow(object):
         self.actionHelp.setObjectName("actionHelp")
         self.actionAbout = QtGui.QAction(MainWindow)
         self.actionAbout.setObjectName("actionAbout")
+        self.actionImport_fleet = QtGui.QAction(MainWindow)
+        self.actionImport_fleet.setObjectName("actionImport_fleet")
+        self.actionImport_aircraft = QtGui.QAction(MainWindow)
+        self.actionImport_aircraft.setObjectName("actionImport_aircraft")
+        self.actionExport_fleet = QtGui.QAction(MainWindow)
+        self.actionExport_fleet.setObjectName("actionExport_fleet")
+        self.actionExport_aircraft = QtGui.QAction(MainWindow)
+        self.actionExport_aircraft.setObjectName("actionExport_aircraft")
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
         self.menuFile.addAction(self.actionImport)
         self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionImport_fleet)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionImport_aircraft)
+        self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionExport)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionExport_fleet)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionExport_aircraft)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -250,6 +269,7 @@ class Ui_MainWindow(object):
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.flightsTab), QtGui.QApplication.translate("MainWindow", "Flights", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtGui.QApplication.translate("MainWindow", "Fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.aircraftTab), QtGui.QApplication.translate("MainWindow", "Aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.menuEdit.setTitle(QtGui.QApplication.translate("MainWindow", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "&Help", None, QtGui.QApplication.UnicodeUTF8))
@@ -264,6 +284,10 @@ class Ui_MainWindow(object):
         self.actionHelp.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+H", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setText(QtGui.QApplication.translate("MainWindow", "A&bout", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAbout.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+B", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionImport_fleet.setText(QtGui.QApplication.translate("MainWindow", "Import &fleet...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionImport_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Import &aircraft...", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExport_fleet.setText(QtGui.QApplication.translate("MainWindow", "Export fleet", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionExport_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Export aircraft", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 

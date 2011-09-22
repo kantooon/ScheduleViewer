@@ -361,6 +361,11 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Fleet</string>
+     </attribute>
+    </widget>
     <widget class="QWidget" name="aircraftTab">
      <attribute name="title">
       <string>Aircraft</string>
@@ -412,7 +417,15 @@
     </property>
     <addaction name="actionImport"/>
     <addaction name="separator"/>
+    <addaction name="actionImport_fleet"/>
+    <addaction name="separator"/>
+    <addaction name="actionImport_aircraft"/>
+    <addaction name="separator"/>
     <addaction name="actionExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_fleet"/>
+    <addaction name="separator"/>
+    <addaction name="actionExport_aircraft"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -459,6 +472,26 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionImport_fleet">
+   <property name="text">
+    <string>Import &amp;fleet...</string>
+   </property>
+  </action>
+  <action name="actionImport_aircraft">
+   <property name="text">
+    <string>Import &amp;aircraft...</string>
+   </property>
+  </action>
+  <action name="actionExport_fleet">
+   <property name="text">
+    <string>Export fleet</string>
+   </property>
+  </action>
+  <action name="actionExport_aircraft">
+   <property name="text">
+    <string>Export aircraft</string>
    </property>
   </action>
  </widget>
