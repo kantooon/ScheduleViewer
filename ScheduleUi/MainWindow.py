@@ -38,6 +38,8 @@ class MainWindow(QtGui.QMainWindow):
         self.del_shortcut.setContext(QtCore.Qt.ApplicationShortcut)
     
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
+        self.connect(self.ui.actionImport_fleet, QtCore.SIGNAL("triggered()"), self.importFleet)
+        self.connect(self.ui.actionImport_aircraft, QtCore.SIGNAL("triggered()"), self.importAircraft)
         self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
         self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
@@ -52,6 +54,16 @@ class MainWindow(QtGui.QMainWindow):
     def confirmDelete(self):
         self.confirmDialog = ConfirmDialog.ConfirmDialog()
         self.connect(self.confirmDialog, QtCore.SIGNAL("accepted()"), self.databaseThread.emptyFlights, QtCore.Qt.QueuedConnection)
+    
+    
+    def importFleet(self):
+        filename = QtGui.QFileDialog.getOpenFileName(self,"Import fleet info",  os.getcwd(), "Text files (*.txt)")
+        self.emit(QtCore.SIGNAL('import_fleet'), filename)
+    
+    
+    def importAircraft(self):
+        filename = QtGui.QFileDialog.getOpenFileName(self,"Import fleet info",  os.getcwd(), "Text files (*.txt)")
+        self.emit(QtCore.SIGNAL('import_aircraft'), filename)
     
     
     def showImportDialog(self):
@@ -106,6 +118,8 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_flights"), self.databaseThread.deleteFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("edit_record"), self.databaseThread.editFlight, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('import_fleet'), self.databaseThread.importFleet, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('import_aircraft'), self.databaseThread.importAircraft, QtCore.Qt.QueuedConnection)
         
         self.emit(QtCore.SIGNAL('nr_flights'))
   

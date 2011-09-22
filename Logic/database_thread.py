@@ -38,6 +38,27 @@ class  DatabaseThread(QtCore.QThread):
         self.exec_()
 
     
+    def importFleet(self, filename):
+        fr=open(filename, 'rb')
+        content= fr.readlines()
+        for line in content:
+            if line.find('#')==0 or len(line)<2:
+                continue
+            stubs=line.split()
+            stubs=stubs[1:]
+            self.db.addFleet(stubs)
+            self.db.commitTransaction()
+    
+    
+    def importAircraft(self, filename):
+        fr=open(filename, 'rb')
+        content= fr.readlines()
+        for line in content:
+            if line.find('#')==0 or len(line)<2:
+                continue
+            stubs=line.split()
+            print stubs
+    
     
     def importConfs(self, path, recurse):
         expr="os.path.join(path,"
