@@ -397,23 +397,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>Dep. day</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="8">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Ac. type</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="9">
-         <widget class="QLineEdit" name="acTypeEdit_fleet"/>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_18">
           <property name="text">
@@ -425,7 +408,7 @@
          <widget class="QLineEdit" name="airlineEdit_fleet"/>
         </item>
         <item row="1" column="7">
-         <widget class="QPushButton" name="showButton_2">
+         <widget class="QPushButton" name="showButton_fleet">
           <property name="text">
            <string>Show</string>
           </property>
@@ -452,48 +435,77 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="5">
-         <widget class="QLineEdit" name="arrTimeEdit_fleet"/>
-        </item>
-        <item row="1" column="4">
-         <widget class="QLabel" name="label_16">
-          <property name="text">
-           <string>Arr. time</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_17">
-          <property name="text">
-           <string>Arr. airport</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="4">
          <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>Dep. time</string>
+           <string>Number of aircraft</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_12">
           <property name="text">
-           <string>Dep. airport</string>
+           <string>Designation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLineEdit" name="designationEdit_fleet"/>
+        </item>
+        <item row="0" column="5">
+         <widget class="QLineEdit" name="nrAircraftEdit_fleet"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Hubs</string>
           </property>
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QLineEdit" name="arrAirportEdit_fleet"/>
+         <widget class="QLineEdit" name="hubsEdit_fleet"/>
         </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="depAirportEdit_fleet"/>
+        <item row="1" column="4">
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>Ac. type</string>
+          </property>
+         </widget>
         </item>
-        <item row="0" column="5">
-         <widget class="QLineEdit" name="depTimeEdit_fleet"/>
+        <item row="1" column="5">
+         <widget class="QLineEdit" name="acTypeEdit_fleet"/>
         </item>
-        <item row="0" column="7">
-         <widget class="QLineEdit" name="depDayEdit_fleet"/>
+        <item row="1" column="6">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="1" column="8">
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
        </layout>
       </widget>
@@ -510,7 +522,7 @@
         <item>
          <widget class="QPushButton" name="editFleetButton">
           <property name="text">
-           <string>Edit flight</string>
+           <string>Edit fleet</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -521,7 +533,7 @@
         <item>
          <widget class="QPushButton" name="deleteFleetButton">
           <property name="text">
-           <string>Delete flights</string>
+           <string>Delete fleet</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -532,7 +544,7 @@
         <item>
          <widget class="QPushButton" name="truncateFleetButton">
           <property name="text">
-           <string>Empty database</string>
+           <string>Empty fleet database</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -552,7 +564,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Total nr. of flights:</string>
+        <string>Total nr. of fleets:</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_20">
@@ -565,7 +577,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>Selected flights:</string>
+        <string>Selected fleets:</string>
        </property>
       </widget>
       <widget class="QLabel" name="labelTotalFleet">
@@ -594,6 +606,84 @@
         <string/>
        </property>
       </widget>
+     </widget>
+     <widget class="QTableWidget" name="fleetTableWidget">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>185</y>
+        <width>1041</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>840</width>
+        <height>291</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1200</width>
+        <height>436</height>
+       </size>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>145</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>145</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Airline</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Aircraft type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nr. aircraft</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Hubs</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Callsign</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Designation</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>id</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QWidget" name="aircraftTab">
@@ -869,6 +959,102 @@
     </hint>
     <hint type="destinationlabel">
      <x>764</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>callsignEdit_fleet</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_fleet</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>airlineEdit_fleet</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_fleet</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>designationEdit_fleet</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_fleet</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>410</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acTypeEdit_fleet</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_fleet</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>693</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nrAircraftEdit_fleet</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_fleet</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>693</x>
+     <y>121</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>hubsEdit_fleet</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_fleet</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>410</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>857</x>
      <y>161</y>
     </hint>
    </hints>

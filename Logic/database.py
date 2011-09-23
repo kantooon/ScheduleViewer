@@ -172,7 +172,7 @@ class FlightsDatabase():
         #self.conn.commit() #manually commit to speed things up
     
     
-    def emptyFlights(self):
+    def emptyFleet(self):
         self.cursor.execute('DELETE FROM fleet')
         self.conn.commit()
 
