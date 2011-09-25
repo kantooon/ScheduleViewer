@@ -167,8 +167,8 @@ class FlightsDatabase():
         self.conn.commit()
     
     
-    def deleteFleet(self, flight):
-        self.cursor.execute('DELETE FROM fleet WHERE id=?', (flight, ))
+    def deleteFleet(self, fleet):
+        self.cursor.execute('DELETE FROM fleet WHERE id=?', (fleet, ))
         #self.conn.commit() #manually commit to speed things up
     
     

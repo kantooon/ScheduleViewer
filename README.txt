@@ -6,9 +6,9 @@ ScheduleViewer is a program that can:
 3. Delete flightplans
 4. Edit flightplans
 5. Export flightplans
+6. Perform the above operations for airline fleets and aircraft
 
-At the moment only points 1 and 2 are functional
-
+Point 6 is not functional yet.
 
 Requirements:
 =============

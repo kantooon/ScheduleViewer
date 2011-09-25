@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Fri Sep 23 20:22:52 2011
+# Created: Sun Sep 25 13:49:07 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -341,7 +341,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("activated()"), MainWindow.close)
         QtCore.QObject.connect(self.callsignEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
         QtCore.QObject.connect(self.arrAirportEdit, QtCore.SIGNAL("returnPressed()"), self.showButton.click)
