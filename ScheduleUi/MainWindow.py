@@ -48,6 +48,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.actionImport_fleet, QtCore.SIGNAL("triggered()"), self.importFleet)
         self.connect(self.ui.actionImport_aircraft, QtCore.SIGNAL("triggered()"), self.importAircraft)
         self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
+        self.connect(self.ui.actionExport_fleet, QtCore.SIGNAL("triggered()"), self.exportFleet)
         self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
         
@@ -108,6 +109,13 @@ class MainWindow(QtGui.QMainWindow):
         self.exportDialog.show()
     
     
+    def exportFleet(self):
+        dir = QtGui.QFileDialog.getExistingDirectory(self,"Export to Directory",  os.path.join(os.getcwd(), 'fleet_info'), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
+        if dir==None or dir=='':
+            dir=os.path.join(os.getcwd(), 'fleet_info')
+        self.emit(QtCore.SIGNAL('export_fleet'), str(dir))
+    
+    
     def trackProgress(self, nr):
         self.ui.progressBar.setValue(nr)
         if nr==100:
@@ -142,6 +150,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('nr_fleets'), self.databaseThread.getNrFleets, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('export_fleet'), self.databaseThread.exportFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query_fleet'), self.databaseThread.runQueryFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_flights"), self.databaseThread.deleteFlights, QtCore.Qt.QueuedConnection)

@@ -46,6 +46,7 @@ class  DatabaseThread(QtCore.QThread):
                 continue
             stubs=line.split()
             stubs=stubs[1:]
+            stubs[5]=stubs[5].rstrip('\n')
             self.db.addFleet(stubs)
             self.db.commitTransaction()
     
@@ -211,6 +212,26 @@ class  DatabaseThread(QtCore.QThread):
                 fw.close()
                 self.emit(QtCore.SIGNAL('import_progress'), 100)
                 self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
+    
+    
+    def exportFleet(self, dir_path):
+        fleets=self.db.getAllFleets()
+        progress_overall=0
+        progress_overall_step=100 / len(fleets)
+        fw=open(os.path.join(dir_path,'fleetinfo.txt'),'wb')
+        buf=''
+        for fleet in fleets:
+            conf = "ENTRY   "+str(fleet[1])+"   "+str(fleet[2])+"   "+str(fleet[3])+"   "+str(fleet[4])+"   "+str(fleet[5])+"   "+str(fleet[6])+"\n"
+            buf=buf+conf
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        file_content="###Airline   Ac. Type   Nr. Aircraft     Hubs     Callsign    Designation\n"+\
+        "######### ######### ####### ############### ############### #################\n\n"+buf
+        fw.write(file_content)
+        fw.close()
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
     
     
     def runQuery(self, params):
