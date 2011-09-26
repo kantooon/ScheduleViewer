@@ -361,3 +361,9 @@ class  DatabaseThread(QtCore.QThread):
         self.db.editAircraft(params)
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft saved')
 
+    
+    def getMissingAircraft(self):
+        self.db.missingAircraftTypes()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Missing Aircraft added')
+
+    

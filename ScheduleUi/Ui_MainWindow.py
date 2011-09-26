@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Sep 26 14:38:13 2011
+# Created: Mon Sep 26 17:57:00 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,10 @@ class Ui_MainWindow(object):
         self.tableWidget.setGeometry(QtCore.QRect(5, 180, 1041, 431))
         self.tableWidget.setMinimumSize(QtCore.QSize(840, 291))
         self.tableWidget.setMaximumSize(QtCore.QSize(1200, 436))
+        self.tableWidget.setDragEnabled(False)
+        self.tableWidget.setDragDropOverwriteMode(False)
+        self.tableWidget.setDragDropMode(QtGui.QAbstractItemView.NoDragDrop)
+        self.tableWidget.setDefaultDropAction(QtCore.Qt.IgnoreAction)
         self.tableWidget.setAlternatingRowColors(True)
         self.tableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidget.setObjectName("tableWidget")
@@ -126,7 +130,7 @@ class Ui_MainWindow(object):
         self.clearButton.setObjectName("clearButton")
         self.gridLayout.addWidget(self.clearButton, 1, 9, 1, 1)
         self.verticalLayoutWidget = QtGui.QWidget(self.groupBox)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(525, 126, 476, 46))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(525, 126, 506, 46))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.horizontalLayout = QtGui.QHBoxLayout(self.verticalLayoutWidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -349,10 +353,13 @@ class Ui_MainWindow(object):
         self.clearButton_aircraft.setObjectName("clearButton_aircraft")
         self.gridLayout_4.addWidget(self.clearButton_aircraft, 1, 9, 1, 1)
         self.verticalLayoutWidget_3 = QtGui.QWidget(self.groupBox_3)
-        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(525, 126, 476, 46))
+        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(435, 126, 602, 46))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
         self.horizontalLayout_3 = QtGui.QHBoxLayout(self.verticalLayoutWidget_3)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.addMissingAircraftButton = QtGui.QPushButton(self.verticalLayoutWidget_3)
+        self.addMissingAircraftButton.setObjectName("addMissingAircraftButton")
+        self.horizontalLayout_3.addWidget(self.addMissingAircraftButton)
         self.editAircraftButton = QtGui.QPushButton(self.verticalLayoutWidget_3)
         self.editAircraftButton.setIcon(icon3)
         self.editAircraftButton.setObjectName("editAircraftButton")
@@ -557,6 +564,7 @@ class Ui_MainWindow(object):
         self.label_34.setText(QtGui.QApplication.translate("MainWindow", "Perf. class", None, QtGui.QApplication.UnicodeUTF8))
         self.showButton_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Show", None, QtGui.QApplication.UnicodeUTF8))
         self.clearButton_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Clear", None, QtGui.QApplication.UnicodeUTF8))
+        self.addMissingAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Add missing ac.", None, QtGui.QApplication.UnicodeUTF8))
         self.editAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Edit aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Delete aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Empty aircraft database", None, QtGui.QApplication.UnicodeUTF8))

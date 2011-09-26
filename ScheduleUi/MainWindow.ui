@@ -58,6 +58,18 @@
         <height>436</height>
        </size>
       </property>
+      <property name="dragEnabled">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::NoDragDrop</enum>
+      </property>
+      <property name="defaultDropAction">
+       <enum>Qt::IgnoreAction</enum>
+      </property>
       <property name="alternatingRowColors">
        <bool>true</bool>
       </property>
@@ -267,7 +279,7 @@
         <rect>
          <x>525</x>
          <y>126</y>
-         <width>476</width>
+         <width>506</width>
          <height>46</height>
         </rect>
        </property>
@@ -825,13 +837,20 @@
       <widget class="QWidget" name="verticalLayoutWidget_3">
        <property name="geometry">
         <rect>
-         <x>525</x>
+         <x>435</x>
          <y>126</y>
-         <width>476</width>
+         <width>602</width>
          <height>46</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="addMissingAircraftButton">
+          <property name="text">
+           <string>Add missing ac.</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QPushButton" name="editAircraftButton">
           <property name="text">

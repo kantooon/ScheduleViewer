@@ -243,9 +243,35 @@ class FlightsDatabase():
     def deleteAircraft(self, aircraft):
         self.cursor.execute('DELETE FROM aircraft WHERE id=?', (aircraft, ))
         #self.conn.commit() #manually commit to speed things up
-    
+
     
     def emptyAircraft(self):
         self.cursor.execute('DELETE FROM aircraft')
         self.conn.commit()
+    
+    
+    def missingAircraftTypes(self):
+        self.cursor.execute('SELECT DISTINCT ac_type FROM flights ORDER BY ac_type ASC')
+        rows=self.cursor.fetchall()
+        acs1=[]
+        acs2=[]
+        for row in rows:
+            ac=str(row[0])
+            stubs=ac.split("-")
+            ac=stubs[0]
+            if ac not in acs1:
+                acs1.append(ac)
+        self.cursor.execute('SELECT ac_type FROM aircraft ORDER BY ac_type ASC')
+        rows2=self.cursor.fetchall()
+        for row in rows2:
+            ac=str(row[0])
+            if ac not in acs2:
+                acs2.append(ac)
+        set1=set(acs1)
+        set2=set(acs2)
+        diff=set1-set2
+        for ac in diff:
+            self.cursor.execute('INSERT OR ROLLBACK INTO aircraft (ac_type, designation, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,"","","","","","","")', (ac, ))
+        self.conn.commit()
+
 

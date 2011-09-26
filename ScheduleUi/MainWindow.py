@@ -78,6 +78,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.deleteAircraftButton, QtCore.SIGNAL("clicked()"), self.deleteAircraft)
         self.connect(self.del_aircraft_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteAircraftButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateAircraftButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self.ui.addMissingAircraftButton, QtCore.SIGNAL("clicked()"), self.databaseThread.getMissingAircraft, QtCore.Qt.QueuedConnection)
 
         
         #self.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int,int)"), self.itemModified)
