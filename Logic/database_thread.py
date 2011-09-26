@@ -58,7 +58,15 @@ class  DatabaseThread(QtCore.QThread):
             if line.find('#')==0 or len(line)<2:
                 continue
             stubs=line.split()
-            print stubs
+            stubs.reverse()
+            stubs[0]=stubs[0].rstrip('\n')
+            stubs.reverse()
+            length=len(stubs)
+            if length <8:
+                for i in range(0, 8-length ):
+                    stubs.append("")
+            self.db.addAircraft(stubs)
+            self.db.commitTransaction()
     
     
     def importConfs(self, path, recurse):
@@ -231,7 +239,28 @@ class  DatabaseThread(QtCore.QThread):
         fw.write(file_content)
         fw.close()
         self.emit(QtCore.SIGNAL('import_progress'), 100)
-        self.emit(QtCore.SIGNAL('message_success'), 'Info','Database flights have been exported successfully')
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Fleets have been exported successfully')
+    
+    
+    def exportAircraft(self, dir_path):
+        aircraft=self.db.getAllAircraft()
+        progress_overall=0
+        progress_overall_step=100 / len(aircraft)
+        fw=open(os.path.join(dir_path,'aircraft.txt'),'wb')
+        buf=''
+        for ac in aircraft:
+            conf = str(ac[1])+"   "+str(ac[2])+"   "+str(ac[3])+"   "+str(ac[4])+"   "+str(ac[5])+"   "+str(ac[6])+"   "+str(ac[7])+"   "+str(ac[8])+"\n"
+            buf=buf+conf
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        #file_content="###Airline   Ac. Type   Nr. Aircraft     Hubs     Callsign    Designation\n"+\
+        #"######### ######### ####### ############### ############### #################\n\n"+buf
+        file_content=buf
+        fw.write(file_content)
+        fw.close()
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft have been exported successfully')
     
     
     def runQuery(self, params):
@@ -244,6 +273,11 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('ready_results_fleet'), res)
     
     
+    def runQueryAircraft(self, params):
+        res=self.db.queryAircraft(params)
+        self.emit(QtCore.SIGNAL('ready_results_aircraft'), res)
+    
+    
     def getNrFlights(self):
         res=self.db.getNrFlights()
         self.emit(QtCore.SIGNAL('show_total_nr'), str(res))
@@ -252,6 +286,11 @@ class  DatabaseThread(QtCore.QThread):
     def getNrFleets(self):
         res=self.db.getNrFleets()
         self.emit(QtCore.SIGNAL('show_total_nr_fleets'), str(res))
+    
+    
+    def getNrAircraft(self):
+        res=self.db.getNrAircraft()
+        self.emit(QtCore.SIGNAL('show_total_nr_aircraft'), str(res))
     
     
     def deleteFlights(self, flightlist):
@@ -278,6 +317,18 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('update_required_fleet'))
     
     
+    def deleteAircraft(self, aclist):
+        if aclist==None or len(aclist)==0:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','No aircraft selected')
+            return
+        for ac in aclist:
+            self.db.deleteAircraft(ac)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        self.db.commitTransaction()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft have been deleted')
+        self.emit(QtCore.SIGNAL('update_required_aircraft'))
+    
+    
     def emptyFlights(self):
         self.db.emptyFlights()
         self.emit(QtCore.SIGNAL('message_success'), 'Info',  'Flights have been deleted')
@@ -287,6 +338,12 @@ class  DatabaseThread(QtCore.QThread):
     def emptyFleet(self):
         self.db.emptyFleet()
         self.emit(QtCore.SIGNAL('message_success'), 'Info',  'Fleets have been deleted')
+        self.emit(QtCore.SIGNAL('show_total_nr'), '0')
+    
+    
+    def emptyAircraft(self):
+        self.db.emptyAircraft()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info',  'All Aircraft have been deleted')
         self.emit(QtCore.SIGNAL('show_total_nr'), '0')
 
     
@@ -298,4 +355,9 @@ class  DatabaseThread(QtCore.QThread):
     def editFleet(self, params):
         self.db.editFleet(params)
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Fleet saved')
+    
+    
+    def editAircraft(self, params):
+        self.db.editAircraft(params)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft saved')
 

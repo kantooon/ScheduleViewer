@@ -38,12 +38,18 @@ class FlightsDatabase():
         # table aircraft: id, ac_type, designation, offset, radius, fl_type, perf_class, heavy, model
         pass 
     
+    
+    def commitTransaction(self):
+        self.conn.commit()
+ 
+ 
+    ## flights ##
  
     def getAllFlights(self):
         self.cursor.execute('SELECT * FROM flights ORDER BY id ASC')
         rows=self.cursor.fetchall()
         return rows
-        
+    
     
     def getNrFlights(self):
         self.cursor.execute('SELECT COUNT(*) FROM flights ORDER BY id ASC')
@@ -110,6 +116,8 @@ class FlightsDatabase():
         self.conn.commit()
 
 
+    ## fleets ##
+
     def addFleet(self, fleet_item):
         self.cursor.execute('INSERT OR ROLLBACK INTO fleet (airline, ac_type, nr_ac, hubs, callsign, designation) VALUES (?,?,?,?,?,?)', fleet_item)
         #self.conn.commit() # call commit on the whole chunk to speed things up
@@ -157,9 +165,6 @@ class FlightsDatabase():
         rows=self.cursor.fetchall()
         return rows
     
-    def commitTransaction(self):
-        self.conn.commit()
-    
     
     def editFleet(self, params):
         query="UPDATE OR ROLLBACK fleet SET "+params[0][0]+"=? WHERE id=?"
@@ -174,5 +179,73 @@ class FlightsDatabase():
     
     def emptyFleet(self):
         self.cursor.execute('DELETE FROM fleet')
+        self.conn.commit()
+    
+    
+    ## aircraft ##
+    
+    def addAircraft(self, aircraft):
+        self.cursor.execute('INSERT OR ROLLBACK INTO aircraft (ac_type, designation, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,?,?,?,?,?,?,?)', aircraft)
+        #self.conn.commit() # call commit on the whole chunk to speed things up
+    
+    
+    def getAllAircraft(self):
+        self.cursor.execute('SELECT * FROM aircraft ORDER BY id ASC')
+        rows=self.cursor.fetchall()
+        return rows
+        
+    
+    def getNrAircraft(self):
+        self.cursor.execute('SELECT COUNT(*) FROM aircraft ORDER BY id ASC')
+        nr=self.cursor.fetchone()
+        return nr[0]
+
+
+    def getAircraftInfo(self, index):
+        self.cursor.execute('SELECT * FROM aircraft WHERE id=?', (index, ))
+        aircraft=self.cursor.fetchone()
+        return aircraft
+    
+
+    def queryAircraft(self, params):
+        ## forget about sql injection, must make LIKE % work as expected :)
+        query='SELECT * FROM aircraft WHERE'
+        query_params=[]
+        for cond,  value in params.iteritems():
+            if cond=='ac_type':
+                query=query+' '+cond+' LIKE \''+value+'%\' AND '
+            elif cond=='designation':
+                query=query+' '+'designation'+' LIKE \'%'+value+'\' AND '
+            elif cond=='fl_type':
+                query=query+' '+'fl_type'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='perf_class':
+                query=query+' '+'perf_class'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='heavy':
+                query=query+' '+'heavy'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='model':
+                query=query+' '+'model'+' LIKE \'%'+value+'%\' AND '
+            else:
+                query=query+' '+cond+'=? AND '
+                query_params.append(value)
+        query=query+' 1=1 ORDER BY id ASC'
+        #print query, query_params
+        self.cursor.execute(query, query_params)
+        rows=self.cursor.fetchall()
+        return rows
+    
+
+    def editAircraft(self, params):
+        query="UPDATE OR ROLLBACK aircraft SET "+params[0][0]+"=? WHERE id=?"
+        self.cursor.execute(query, (params[0][1], params[1][1]))
+        self.conn.commit()
+    
+    
+    def deleteAircraft(self, aircraft):
+        self.cursor.execute('DELETE FROM aircraft WHERE id=?', (aircraft, ))
+        #self.conn.commit() #manually commit to speed things up
+    
+    
+    def emptyAircraft(self):
+        self.cursor.execute('DELETE FROM aircraft')
         self.conn.commit()
 

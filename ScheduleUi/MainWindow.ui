@@ -690,6 +690,324 @@
      <attribute name="title">
       <string>Aircraft</string>
      </attribute>
+     <widget class="QGroupBox" name="groupBox_3">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>5</y>
+        <width>1041</width>
+        <height>176</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Filters</string>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>991</width>
+         <height>91</height>
+        </rect>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="acTypeEdit_aircraft"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_27">
+          <property name="text">
+           <string>Ac. Type</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_28">
+          <property name="text">
+           <string>Designation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLineEdit" name="designationEdit_aircraft"/>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLabel" name="label_29">
+          <property name="text">
+           <string>Offset</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QLineEdit" name="offsetEdit_aircraft"/>
+        </item>
+        <item row="0" column="6">
+         <widget class="QLabel" name="label_30">
+          <property name="text">
+           <string>Radius</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="7">
+         <widget class="QLineEdit" name="radiusEdit_aircraft"/>
+        </item>
+        <item row="0" column="8">
+         <widget class="QLabel" name="label_31">
+          <property name="text">
+           <string>Fl. Type</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="9">
+         <widget class="QLineEdit" name="flTypeEdit_aircraft"/>
+        </item>
+        <item row="1" column="5">
+         <widget class="QLineEdit" name="modelEdit_aircraft"/>
+        </item>
+        <item row="1" column="4">
+         <widget class="QLabel" name="label_32">
+          <property name="text">
+           <string>Model</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLineEdit" name="heavyEdit_aircraft"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_33">
+          <property name="text">
+           <string>Heavy</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_34">
+          <property name="text">
+           <string>Perf. class</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="perfClassEdit_aircraft"/>
+        </item>
+        <item row="1" column="7">
+         <widget class="QPushButton" name="showButton_aircraft">
+          <property name="text">
+           <string>Show</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="9">
+         <widget class="QPushButton" name="clearButton_aircraft">
+          <property name="text">
+           <string>Clear</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="verticalLayoutWidget_3">
+       <property name="geometry">
+        <rect>
+         <x>525</x>
+         <y>126</y>
+         <width>476</width>
+         <height>46</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="editAircraftButton">
+          <property name="text">
+           <string>Edit aircraft</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="deleteAircraftButton">
+          <property name="text">
+           <string>Delete aircraft</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="truncateAircraftButton">
+          <property name="text">
+           <string>Empty aircraft database</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QLabel" name="label_35">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>125</y>
+         <width>116</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Total nr. of aircraft:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_36">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>150</y>
+         <width>106</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Selected aircraft:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelTotalAircraft">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>125</y>
+         <width>56</width>
+         <height>15</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="labelSelectedAircraft">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>150</y>
+         <width>66</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QTableWidget" name="aircraftTableWidget">
+      <property name="geometry">
+       <rect>
+        <x>5</x>
+        <y>185</y>
+        <width>1041</width>
+        <height>431</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>840</width>
+        <height>291</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1200</width>
+        <height>436</height>
+       </size>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="sortingEnabled">
+       <bool>true</bool>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>112</number>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>112</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Ac. Type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Designation</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Offset</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Radius</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Flight type</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Performance</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Heavy</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Model</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>id</string>
+       </property>
+      </column>
+     </widget>
     </widget>
    </widget>
    <widget class="QProgressBar" name="progressBar">
@@ -1056,6 +1374,134 @@
     <hint type="destinationlabel">
      <x>857</x>
      <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>acTypeEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>168</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>designationEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>387</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>offsetEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>573</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radiusEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>760</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flTypeEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>953</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>perfClassEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>168</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>heavyEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>387</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>modelEdit_aircraft</sender>
+   <signal>returnPressed()</signal>
+   <receiver>showButton_aircraft</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>573</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>760</x>
+     <y>166</y>
     </hint>
    </hints>
   </connection>
