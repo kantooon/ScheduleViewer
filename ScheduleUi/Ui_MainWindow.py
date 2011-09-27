@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Sep 26 17:57:00 2011
+# Created: Tue Sep 27 13:55:34 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -130,7 +130,7 @@ class Ui_MainWindow(object):
         self.clearButton.setObjectName("clearButton")
         self.gridLayout.addWidget(self.clearButton, 1, 9, 1, 1)
         self.verticalLayoutWidget = QtGui.QWidget(self.groupBox)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(525, 126, 506, 46))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(510, 126, 506, 46))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.horizontalLayout = QtGui.QHBoxLayout(self.verticalLayoutWidget)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -228,10 +228,13 @@ class Ui_MainWindow(object):
         spacerItem1 = QtGui.QSpacerItem(30, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem1, 1, 8, 1, 1)
         self.verticalLayoutWidget_2 = QtGui.QWidget(self.groupBox_2)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(525, 126, 476, 46))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(425, 126, 598, 46))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.verticalLayoutWidget_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.generateAircraftButton = QtGui.QPushButton(self.verticalLayoutWidget_2)
+        self.generateAircraftButton.setObjectName("generateAircraftButton")
+        self.horizontalLayout_2.addWidget(self.generateAircraftButton)
         self.editFleetButton = QtGui.QPushButton(self.verticalLayoutWidget_2)
         self.editFleetButton.setIcon(icon3)
         self.editFleetButton.setObjectName("editFleetButton")
@@ -353,7 +356,7 @@ class Ui_MainWindow(object):
         self.clearButton_aircraft.setObjectName("clearButton_aircraft")
         self.gridLayout_4.addWidget(self.clearButton_aircraft, 1, 9, 1, 1)
         self.verticalLayoutWidget_3 = QtGui.QWidget(self.groupBox_3)
-        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(435, 126, 602, 46))
+        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(395, 126, 628, 46))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
         self.horizontalLayout_3 = QtGui.QHBoxLayout(self.verticalLayoutWidget_3)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
@@ -539,6 +542,7 @@ class Ui_MainWindow(object):
         self.label_12.setText(QtGui.QApplication.translate("MainWindow", "Designation", None, QtGui.QApplication.UnicodeUTF8))
         self.label_14.setText(QtGui.QApplication.translate("MainWindow", "Hubs", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("MainWindow", "Ac. type", None, QtGui.QApplication.UnicodeUTF8))
+        self.generateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Generate aircraft conf", None, QtGui.QApplication.UnicodeUTF8))
         self.editFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Edit fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Delete fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Empty fleet database", None, QtGui.QApplication.UnicodeUTF8))
@@ -564,7 +568,7 @@ class Ui_MainWindow(object):
         self.label_34.setText(QtGui.QApplication.translate("MainWindow", "Perf. class", None, QtGui.QApplication.UnicodeUTF8))
         self.showButton_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Show", None, QtGui.QApplication.UnicodeUTF8))
         self.clearButton_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Clear", None, QtGui.QApplication.UnicodeUTF8))
-        self.addMissingAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Add missing ac.", None, QtGui.QApplication.UnicodeUTF8))
+        self.addMissingAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Add missing aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.editAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Edit aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Delete aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Empty aircraft database", None, QtGui.QApplication.UnicodeUTF8))

@@ -127,7 +127,13 @@ class FlightsDatabase():
         self.cursor.execute('SELECT * FROM fleet ORDER BY id ASC')
         rows=self.cursor.fetchall()
         return rows
-        
+    
+    
+    def getAirlineFleets(self, airline):
+        self.cursor.execute('SELECT * FROM fleet WHERE airline=? ORDER BY id ASC', (airline, ))
+        rows=self.cursor.fetchall()
+        return rows
+    
     
     def getNrFleets(self):
         self.cursor.execute('SELECT COUNT(*) FROM fleet ORDER BY id ASC')
@@ -202,7 +208,7 @@ class FlightsDatabase():
 
 
     def getAircraftInfo(self, index):
-        self.cursor.execute('SELECT * FROM aircraft WHERE id=?', (index, ))
+        self.cursor.execute('SELECT * FROM aircraft WHERE ac_type=?', (index, ))
         aircraft=self.cursor.fetchone()
         return aircraft
     
@@ -273,5 +279,7 @@ class FlightsDatabase():
         for ac in diff:
             self.cursor.execute('INSERT OR ROLLBACK INTO aircraft (ac_type, designation, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,"","","","","","","")', (ac, ))
         self.conn.commit()
-
+    
+    
+    
 

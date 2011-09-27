@@ -277,7 +277,7 @@
       <widget class="QWidget" name="verticalLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>525</x>
+         <x>510</x>
          <y>126</y>
          <width>506</width>
          <height>46</height>
@@ -524,13 +524,20 @@
       <widget class="QWidget" name="verticalLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>525</x>
+         <x>425</x>
          <y>126</y>
-         <width>476</width>
+         <width>598</width>
          <height>46</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="generateAircraftButton">
+          <property name="text">
+           <string>Generate aircraft conf</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QPushButton" name="editFleetButton">
           <property name="text">
@@ -837,9 +844,9 @@
       <widget class="QWidget" name="verticalLayoutWidget_3">
        <property name="geometry">
         <rect>
-         <x>435</x>
+         <x>395</x>
          <y>126</y>
-         <width>602</width>
+         <width>628</width>
          <height>46</height>
         </rect>
        </property>
@@ -847,7 +854,7 @@
         <item>
          <widget class="QPushButton" name="addMissingAircraftButton">
           <property name="text">
-           <string>Add missing ac.</string>
+           <string>Add missing aircraft</string>
           </property>
          </widget>
         </item>

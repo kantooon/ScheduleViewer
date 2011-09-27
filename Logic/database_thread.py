@@ -17,7 +17,7 @@
 #
 
 
-import os, sys, glob, io
+import os, sys, glob, io, random
 from PyQt4 import QtCore
 from database import FlightsDatabase
 
@@ -338,13 +338,13 @@ class  DatabaseThread(QtCore.QThread):
     def emptyFleet(self):
         self.db.emptyFleet()
         self.emit(QtCore.SIGNAL('message_success'), 'Info',  'Fleets have been deleted')
-        self.emit(QtCore.SIGNAL('show_total_nr'), '0')
+        self.emit(QtCore.SIGNAL('show_total_nr_fleets'), '0')
     
     
     def emptyAircraft(self):
         self.db.emptyAircraft()
         self.emit(QtCore.SIGNAL('message_success'), 'Info',  'All Aircraft have been deleted')
-        self.emit(QtCore.SIGNAL('show_total_nr'), '0')
+        self.emit(QtCore.SIGNAL('show_total_nr_aircraft'), '0')
 
     
     def editFlight(self, params):
@@ -367,3 +367,70 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Missing Aircraft added')
 
     
+    def generateAircraftFleet(self, airline):
+        if len(airline)!=3:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
+            return
+        fleets=self.db.getAirlineFleets(airline)
+        callsigns=[]
+        skipped=0
+        buf=''
+        for fleet in fleets:
+            for i in range(0, int(fleet[3])):
+                acdata=self.db.getAircraftInfo(str(fleet[2]))
+                homeports=str(fleet[4]).split(',')
+                port_nr=random.randint(0, len(homeports)-1)
+                homeport=homeports[port_nr]
+                callsign=str(fleet[5])
+                while 1:
+                    callsign=str(fleet[5])
+                    while callsign.find('%d')!=-1:
+                        callsign=callsign.replace('%d', self.randCallsign('d'), 1)
+                    while callsign.find('%s')!=-1:
+                        callsign=callsign.replace('%s', self.randCallsign('s'), 1)
+                    if callsign not in callsigns:
+                        callsigns.append(callsign)
+                        break
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                ac_designation=str(acdata[2])
+                ac_type=str(fleet[2])
+                airline=str(fleet[1])
+                model=str(acdata[8])+str(fleet[6])+'.xml'
+                offset=str(acdata[3])
+                radius=str(acdata[4])
+                fl_type=str(acdata[5])
+                perf_class=str(acdata[6])
+                heavy=str(acdata[7])
+                if homeport=='' or callsign=='' or ac_type=='' or ac_designation=='' or airline=='' \
+                    or offset=='' or radius=='' or fl_type=='' or perf_class=='' or heavy=='' or model=='':
+                    skipped=skipped+1
+                    continue
+
+                buf=buf+'AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
+                    +'   '+airline+'   '+airline+'   '+offset+'   '+radius+'   '+fl_type\
+                    +'   '+perf_class+'   '+heavy+'   '+model+'\n'
+        
+        if buf=='':
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline airline has no valid aircraft; none written to disk')
+            return
+        conf_file="###HOMEP RegNo  TypeCode        Type    AirLine         Livery  Offset  Radius  FltType Perf.Class      Heavy   Model\n" +\
+        "############################################################################################################################################\n\n"+buf
+        fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'.conf'),'wb')
+        fw.write(conf_file)
+        fw.close()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+skipped+'</b> aircraft skipped')
+    
+    
+    def randCallsign(self, token):
+        letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        numbers="0123456789"
+        if token=='d':
+            number_nr=random.randint(0, len(numbers)-1)
+            number=numbers[number_nr]
+            return number
+        elif token=='s':
+            letter_nr=random.randint(0, len(letters)-1)
+            letter=letters[letter_nr]
+            return letter
+        else:
+            return 0

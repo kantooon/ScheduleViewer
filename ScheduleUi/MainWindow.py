@@ -63,21 +63,22 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.clearButton, QtCore.SIGNAL("clicked()"), self.clearFlights)
         self.connect(self.ui.deleteButton, QtCore.SIGNAL("clicked()"), self.deleteFlights)
         self.connect(self.del_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteButton, QtCore.SLOT('click()'))
-        self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFlights, QtCore.Qt.QueuedConnection)
+        self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFlights)
         
         ## fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
         self.connect(self.ui.clearButton_fleet, QtCore.SIGNAL("clicked()"), self.clearFleet)
         self.connect(self.ui.deleteFleetButton, QtCore.SIGNAL("clicked()"), self.deleteFleets)
         self.connect(self.del_fleet_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteFleetButton, QtCore.SLOT('click()'))
-        self.connect(self.ui.truncateFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFleet, QtCore.Qt.QueuedConnection)
+        self.connect(self.ui.truncateFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFleet)
+        self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
         
         ## aircraft tab
         self.connect(self.ui.showButton_aircraft, QtCore.SIGNAL("clicked()"), self.sendQueryAircraft)
         self.connect(self.ui.clearButton_aircraft, QtCore.SIGNAL("clicked()"), self.clearAircraft)
         self.connect(self.ui.deleteAircraftButton, QtCore.SIGNAL("clicked()"), self.deleteAircraft)
         self.connect(self.del_aircraft_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteAircraftButton, QtCore.SLOT('click()'))
-        self.connect(self.ui.truncateAircraftButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self.ui.truncateAircraftButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraft)
         self.connect(self.ui.addMissingAircraftButton, QtCore.SIGNAL("clicked()"), self.databaseThread.getMissingAircraft, QtCore.Qt.QueuedConnection)
 
         
@@ -116,6 +117,8 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL("edit_aircraft"), self.databaseThread.editAircraft, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('import_fleet'), self.databaseThread.importFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('import_aircraft'), self.databaseThread.importAircraft, QtCore.Qt.QueuedConnection)
+        
+        self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
         
         self.emit(QtCore.SIGNAL('nr_flights'))
         self.emit(QtCore.SIGNAL('nr_fleets'))
@@ -169,7 +172,7 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def importAircraft(self):
-        filename = QtGui.QFileDialog.getOpenFileName(self,"Import fleet info",  os.getcwd(), "Text files (*.txt)")
+        filename = QtGui.QFileDialog.getOpenFileName(self,"Import aircraft info",  os.getcwd(), "Text files (*.txt)")
         if filename==None or filename=='':
             return
         self.emit(QtCore.SIGNAL('import_aircraft'), str(filename))
@@ -372,7 +375,7 @@ class MainWindow(QtGui.QMainWindow):
             ac_type.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             nr_ac=QtGui.QTableWidgetItem(str(fleet[3]), 0)
-            nr_ac.setTextAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+            nr_ac.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             hubs=QtGui.QTableWidgetItem(str(fleet[4]), 0)
             hubs.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -421,7 +424,7 @@ class MainWindow(QtGui.QMainWindow):
             designation.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             offset=QtGui.QTableWidgetItem(str(ac[3]), 0)
-            offset.setTextAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+            offset.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             radius=QtGui.QTableWidgetItem(str(ac[4]), 0)
             radius.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
@@ -735,3 +738,11 @@ class MainWindow(QtGui.QMainWindow):
         #print id,  new_data
         param_list.append(('id', id))
         self.emit(QtCore.SIGNAL('edit_aircraft'), param_list)
+    
+    
+    def generateAircraftFleet(self):
+        if self.ui.airlineEdit_fleet.text()!='':
+            airline=str(self.ui.airlineEdit_fleet.text()).upper()
+            self.emit(QtCore.SIGNAL('generate_aircraft'), airline)
+        else:
+            self.popMessage('Error', 'Input airline first')
