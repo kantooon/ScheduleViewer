@@ -45,6 +45,11 @@ class  DatabaseThread(QtCore.QThread):
                 path=tmp[1].rstrip('\n')
                 path=path.lstrip()
                 self.fgdata_path=path.rstrip()
+                try:
+                    os.stat(self.fgdata_path)
+                except:
+                    print 'Fgdata path could not be found in settings'
+                    self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
             else:
                 print 'Fgdata path could not be found in settings'
                 self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
@@ -461,7 +466,7 @@ class  DatabaseThread(QtCore.QThread):
                     +'   '+perf_class+'   '+heavy+'   '+model+'\n'
         
         if buf=='':
-            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline airline has no valid aircraft; none written to disk')
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
             return
         conf_file="###HOMEP RegNo  TypeCode        Type    AirLine         Livery  Offset  Radius  FltType Perf.Class      Heavy   Model\n" +\
         "############################################################################################################################################\n\n"+buf

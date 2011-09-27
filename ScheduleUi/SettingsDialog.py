@@ -60,10 +60,14 @@ class SettingsDialog(QtGui.QDialog):
         settings=f_settings.readlines()
         f_settings.close()
         buf=''
+        add=0
         for line in settings:
             if line.find('fgdata_path=')!=-1:
                 line='fgdata_path='+dir+'\n'
+                add=1
             buf=buf+line
+        if add==0:
+            buf=buf+'fgdata_path='+dir+'\n'
         fw=open(os.path.join(os.getcwd(),'settings'),'wb')
         fw.write(buf)
         fw.close()
