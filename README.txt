@@ -6,9 +6,16 @@ ScheduleViewer is a program that can:
 3. Delete flightplans
 4. Edit flightplans
 5. Export flightplans
-6. Perform the above operations for airline fleets and aircraft
+6. Add flightplans
+7. Perform the above operations for airline fleets and aircraft
+8. Check schedules and insert missing aircraft into the aicraft table
+9. Check liveries and display their status in the fleets tab.
+10. Export aircraft conf files.
+11. Export complete XML flightplans
 
-Point 6 is not functional yet.
+Point 11 is not yet available.
+
+
 
 Requirements:
 =============
@@ -48,6 +55,8 @@ Windows:
 Basic usage:
 ============
 Only Linux usage is supported at the moment.
+You must first edit the file "settings" to point fgdata_path to your FGFS data 
+install path. This is required for livery checking and aircraft conf exporting.
 The program comes with the most current flight schedule database so there is 
 no need to re-import from conf files. However, if you wish to do so:
 Select File...Import... to import flights from a directory and its subdirectories.
