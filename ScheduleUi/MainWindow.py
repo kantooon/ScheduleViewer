@@ -17,7 +17,7 @@
 #
 
 from PyQt4 import QtCore, QtGui
-import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog
+import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog, SettingsDialog
 from Logic.database_thread import DatabaseThread
 import os, io, random, re
 
@@ -56,6 +56,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.actionExport_fleet, QtCore.SIGNAL("triggered()"), self.exportFleet)
         self.connect(self.ui.actionExport_aircraft, QtCore.SIGNAL("triggered()"), self.exportAircraft)
         self.connect(self.ui.actionDump_database, QtCore.SIGNAL("triggered()"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
+        self.connect(self.ui.actionSettings, QtCore.SIGNAL("triggered()"), self.showSettingsDialog)
         self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
         
@@ -143,7 +144,13 @@ class MainWindow(QtGui.QMainWindow):
         self.helpDialog=HelpDialog.HelpDialog()
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.helpDialog, QtCore.SLOT('close()'))
 
-
+    
+    def showSettingsDialog(self):
+        self.settingsDialog=SettingsDialog.SettingsDialog()
+        self.connect(self, QtCore.SIGNAL('destroyed()'), self.settingsDialog, QtCore.SLOT('close()'))
+        self.settingsDialog.show()
+    
+    
     def popMessage(self, type, message): 
         
         self.messageBox=Messages.MessageBox()

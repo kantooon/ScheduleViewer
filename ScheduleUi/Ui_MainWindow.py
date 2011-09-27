@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Tue Sep 27 17:15:10 2011
+# Created: Tue Sep 27 19:13:30 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -426,14 +426,14 @@ class Ui_MainWindow(object):
         self.progressBar.setObjectName("progressBar")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1070, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1070, 21))
         self.menubar.setObjectName("menubar")
-        self.menuEdit = QtGui.QMenu(self.menubar)
-        self.menuEdit.setObjectName("menuEdit")
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
+        self.menuEdit = QtGui.QMenu(self.menubar)
+        self.menuEdit.setObjectName("menuEdit")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -458,6 +458,8 @@ class Ui_MainWindow(object):
         self.actionExport_aircraft.setObjectName("actionExport_aircraft")
         self.actionDump_database = QtGui.QAction(MainWindow)
         self.actionDump_database.setObjectName("actionDump_database")
+        self.actionSettings = QtGui.QAction(MainWindow)
+        self.actionSettings.setObjectName("actionSettings")
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
@@ -476,6 +478,7 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionDump_database)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
+        self.menuEdit.addAction(self.actionSettings)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -589,9 +592,9 @@ class Ui_MainWindow(object):
         self.aircraftTableWidget.horizontalHeaderItem(7).setText(QtGui.QApplication.translate("MainWindow", "Model", None, QtGui.QApplication.UnicodeUTF8))
         self.aircraftTableWidget.horizontalHeaderItem(8).setText(QtGui.QApplication.translate("MainWindow", "id", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.aircraftTab), QtGui.QApplication.translate("MainWindow", "Aircraft", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuEdit.setTitle(QtGui.QApplication.translate("MainWindow", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "&Help", None, QtGui.QApplication.UnicodeUTF8))
         self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "&File", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuEdit.setTitle(QtGui.QApplication.translate("MainWindow", "Edit", None, QtGui.QApplication.UnicodeUTF8))
         self.actionImport.setText(QtGui.QApplication.translate("MainWindow", "&Import schedules...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionImport.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+I", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport.setText(QtGui.QApplication.translate("MainWindow", "&Export schedules...", None, QtGui.QApplication.UnicodeUTF8))
@@ -606,8 +609,10 @@ class Ui_MainWindow(object):
         self.actionImport_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Import &aircraft...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_fleet.setText(QtGui.QApplication.translate("MainWindow", "Export fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Export aircraft", None, QtGui.QApplication.UnicodeUTF8))
-        self.actionDump_database.setText(QtGui.QApplication.translate("MainWindow", "Dump database", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDump_database.setText(QtGui.QApplication.translate("MainWindow", "&Dump database", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDump_database.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+D", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSettings.setText(QtGui.QApplication.translate("MainWindow", "&Settings", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionSettings.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 

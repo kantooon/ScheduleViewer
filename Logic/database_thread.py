@@ -38,6 +38,7 @@ class  DatabaseThread(QtCore.QThread):
     def run(self):
         f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
         settings=f_settings.readlines()
+        f_settings.close()
         for line in settings:
             if line.find('fgdata_path=')!=-1:
                 tmp=line.split('=')
