@@ -745,7 +745,7 @@ class MainWindow(QtGui.QMainWindow):
         param_list.append(('id', id))
         self.emit(QtCore.SIGNAL('edit_aircraft'), param_list)
     
-    
+    #TODO: implement a more thorough check of fields via re
     def addFlight(self):
         param_list=[]
         if self.ui.callsignEdit.text()!='':
@@ -780,7 +780,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.emit(QtCore.SIGNAL('add_flight'), param_list)
     
-    
+    #TODO: implement a more thorough check of fields via re
     def addFleet(self):
         param_list=[]
         if self.ui.airlineEdit_fleet.text()!='' and len(str(self.ui.airlineEdit_fleet.text()).upper())==3:
@@ -802,7 +802,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.emit(QtCore.SIGNAL('add_fleet'), param_list)
     
-
+    #TODO: implement a more thorough check of fields via re
     def addAircraft(self):
         param_list=[]
         if self.ui.acTypeEdit_aircraft.text()!='' and len(str(self.ui.acTypeEdit_aircraft.text()))==3:

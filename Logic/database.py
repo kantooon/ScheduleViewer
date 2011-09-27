@@ -39,6 +39,13 @@ class FlightsDatabase():
         pass 
     
     
+    def dumpDatabase(self):
+        fw=open(os.path.join(os.getcwd(),'database', 'flights_dump.sql'),'wb')
+        for line in self.conn.iterdump():
+            fw.write(line +'\n')
+        fw.close()
+
+    
     def commitTransaction(self):
         self.conn.commit()
  
