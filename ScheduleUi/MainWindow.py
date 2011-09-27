@@ -90,7 +90,6 @@ class MainWindow(QtGui.QMainWindow):
 
     
     def startDBThread(self):
-        self.databaseThread.start()
         
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results"), self.updateFlights, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_fleet"), self.updateFleet, QtCore.Qt.QueuedConnection)
@@ -127,6 +126,8 @@ class MainWindow(QtGui.QMainWindow):
         
         self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
         #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
+        
+        self.databaseThread.start()
         
         self.emit(QtCore.SIGNAL('nr_flights'))
         self.emit(QtCore.SIGNAL('nr_fleets'))
@@ -397,6 +398,10 @@ class MainWindow(QtGui.QMainWindow):
             
             designation=QtGui.QTableWidgetItem(str(fleet[6]), 0)
             designation.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if fleet[7]==1:
+                designation.setBackgroundColor(QtGui.QColor(0, 255, 0, 127))
+            else:
+                designation.setBackgroundColor(QtGui.QColor(255, 0, 0, 127))
             
             table.setItem(r, 0, airline)
             table.setItem(r, 1, ac_type)

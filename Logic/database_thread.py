@@ -27,6 +27,7 @@ class  DatabaseThread(QtCore.QThread):
     def __init__(self,  parent=None):
         QtCore.QThread.__init__(self, parent)
         self.db=FlightsDatabase()
+        self.fgdata_path=''
 
     
     def __del__(self):
@@ -35,6 +36,15 @@ class  DatabaseThread(QtCore.QThread):
     
     
     def run(self):
+        f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
+        settings=f_settings.readlines()
+        for line in settings:
+            if line.find('fgdata_path=')!=-1:
+                tmp=line.split('=')
+                self.fgdata_path=tmp[1].rstrip('\n')
+            else:
+                print 'Fgdata path could not be found in settings'
+                self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
         self.exec_()
 
     
@@ -270,7 +280,19 @@ class  DatabaseThread(QtCore.QThread):
     
     def runQueryFleet(self, params):
         res=self.db.queryFleet(params)
-        self.emit(QtCore.SIGNAL('ready_results_fleet'), res)
+        res_f=[]
+        for r in res:
+            ac_info=self.db.getAircraftInfo(str(r[2]))
+            model = str(ac_info[8])
+            path=os.path.join(self.fgdata_path, 'AI', model+str(r[6])+'.xml')
+            try:
+                if os.stat(path)!=-1:
+                    t=(r[0], r[1], r[2], r[3], r[4], r[5], r[6], 1)
+            except:
+                t=(r[0], r[1], r[2], r[3], r[4], r[5], r[6], 0)
+            res_f.append(t)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        self.emit(QtCore.SIGNAL('ready_results_fleet'), res_f)
     
     
     def runQueryAircraft(self, params):
