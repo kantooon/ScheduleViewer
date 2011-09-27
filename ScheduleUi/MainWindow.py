@@ -19,7 +19,7 @@
 from PyQt4 import QtCore, QtGui
 import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog
 from Logic.database_thread import DatabaseThread
-import os, io, time
+import os, io, random, re
 
 class MainWindow(QtGui.QMainWindow):
     def __init__(self):
@@ -64,6 +64,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.deleteButton, QtCore.SIGNAL("clicked()"), self.deleteFlights)
         self.connect(self.del_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFlights)
+        self.connect(self.ui.addButton, QtCore.SIGNAL("clicked()"), self.addFlight)
         
         ## fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
@@ -71,6 +72,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.deleteFleetButton, QtCore.SIGNAL("clicked()"), self.deleteFleets)
         self.connect(self.del_fleet_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteFleetButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFleet)
+        self.connect(self.ui.addFleetButton, QtCore.SIGNAL("clicked()"), self.addFleet)
         self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
         
         ## aircraft tab
@@ -79,6 +81,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.deleteAircraftButton, QtCore.SIGNAL("clicked()"), self.deleteAircraft)
         self.connect(self.del_aircraft_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteAircraftButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateAircraftButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraft)
+        self.connect(self.ui.addAircraftButton, QtCore.SIGNAL("clicked()"), self.addAircraft)
         self.connect(self.ui.addMissingAircraftButton, QtCore.SIGNAL("clicked()"), self.databaseThread.getMissingAircraft, QtCore.Qt.QueuedConnection)
 
         
@@ -115,6 +118,9 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL("edit_flight"), self.databaseThread.editFlight, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("edit_fleet"), self.databaseThread.editFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("edit_aircraft"), self.databaseThread.editAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("add_flight"), self.databaseThread.addFlight, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("add_fleet"), self.databaseThread.addFleet, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("add_aircraft"), self.databaseThread.addAircraft, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('import_fleet'), self.databaseThread.importFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('import_aircraft'), self.databaseThread.importAircraft, QtCore.Qt.QueuedConnection)
         
@@ -709,7 +715,7 @@ class MainWindow(QtGui.QMainWindow):
     def itemModifiedAircraft(self, item):
         table=self.ui.aircraftTableWidget
         column=item.column()
-        if column==6:
+        if column==8:
             #we don't like them messing with our precious ids
             self.sendQueryAircraft()
             return
@@ -738,6 +744,88 @@ class MainWindow(QtGui.QMainWindow):
         #print id,  new_data
         param_list.append(('id', id))
         self.emit(QtCore.SIGNAL('edit_aircraft'), param_list)
+    
+    
+    def addFlight(self):
+        param_list=[]
+        if self.ui.callsignEdit.text()!='':
+            param_list.append( str(self.ui.callsignEdit.text()))
+        if self.ui.callsignEdit.text()!='':
+            param_list.append( 'IFR')
+        if self.ui.depDayEdit.text()!='':
+            param_list.append( str(self.ui.depDayEdit.text()))
+        if self.ui.depAirportEdit.text()!='' and len(str(self.ui.depAirportEdit.text()).upper())==4:
+            param_list.append(str(self.ui.depAirportEdit.text()).upper())
+        if self.ui.arrAirportEdit.text()!='' and len(str(self.ui.arrAirportEdit.text()).upper())==4:
+            param_list.append( str(self.ui.arrAirportEdit.text()).upper())
+        if self.ui.depTimeEdit.text()!='' and len(str(self.ui.depTimeEdit.text()))==5:
+            param_list.append( str(self.ui.depTimeEdit.text()))
+        if self.ui.arrTimeEdit.text()!='' and len(str(self.ui.arrTimeEdit.text()))==5:
+            param_list.append( str(self.ui.arrTimeEdit.text()))
+        if self.ui.acTypeEdit.text()!='' and self.ui.airlineEdit.text()!='' \
+            and  len(str(self.ui.acTypeEdit.text()).upper())==3 and len(str(self.ui.airlineEdit.text()).upper())==3:
+            param_list.append( str(self.ui.acTypeEdit.text()).upper() + str(self.ui.airlineEdit.text()).upper() )
+        altitudes_jet=(280,290,300,310,320,330,340,350)
+        altitudes_prop=(150,160,170,180,190,200,210,220)
+        req_aircraft=str(self.ui.acTypeEdit.text()).upper()
+        if req_aircraft=='AT7' or req_aircraft=='J31' or req_aircraft=='ATR' or req_aircraft=='AT4' or req_aircraft=='FRJ' or req_aircraft=='D38' \
+            or req_aircraft=='F50' or req_aircraft=='AT4' or req_aircraft=='AT5' or req_aircraft=='EM2':
+            cruise_alt=str(random.choice(altitudes_prop))
+        else:
+            cruise_alt=str(random.choice(altitudes_jet))
+        param_list.append(cruise_alt)
+        if len(param_list)!=9:
+            self.popMessage('Error', 'You must fill all fields correctly')
+            return
+
+        self.emit(QtCore.SIGNAL('add_flight'), param_list)
+    
+    
+    def addFleet(self):
+        param_list=[]
+        if self.ui.airlineEdit_fleet.text()!='' and len(str(self.ui.airlineEdit_fleet.text()).upper())==3:
+            param_list.append( str(self.ui.airlineEdit_fleet.text()).upper())
+        if self.ui.acTypeEdit_fleet.text()!='' and len(str(self.ui.acTypeEdit_fleet.text()).upper())==3:
+            param_list.append( str(self.ui.acTypeEdit_fleet.text()).upper())
+        if self.ui.nrAircraftEdit_fleet.text()!='' and str(self.ui.nrAircraftEdit_fleet.text()).isdigit()==True:
+            param_list.append( str(self.ui.nrAircraftEdit_fleet.text()))
+        if self.ui.hubsEdit_fleet.text()!='':
+            param_list.append( str(self.ui.hubsEdit_fleet.text()))
+        if self.ui.callsignEdit_fleet.text()!='':
+            param_list.append( str(self.ui.callsignEdit_fleet.text()))
+        if self.ui.designationEdit_fleet.text()!='':
+            param_list.append( str(self.ui.designationEdit_fleet.text()).upper())
+        
+        if len(param_list)!=6:
+            self.popMessage('Error', 'You must fill all fields correctly')
+            return
+
+        self.emit(QtCore.SIGNAL('add_fleet'), param_list)
+    
+
+    def addAircraft(self):
+        param_list=[]
+        if self.ui.acTypeEdit_aircraft.text()!='' and len(str(self.ui.acTypeEdit_aircraft.text()))==3:
+            param_list.append(str(self.ui.acTypeEdit_aircraft.text()))
+        if self.ui.designationEdit_aircraft.text()!='':
+            param_list.append( str(self.ui.designationEdit_aircraft.text()).upper())
+        if self.ui.offsetEdit_aircraft.text()!='' and str(self.ui.offsetEdit_aircraft.text()).isdigit()==True:
+            param_list.append( str(self.ui.offsetEdit_aircraft.text()))
+        if self.ui.radiusEdit_aircraft.text()!='' and str(self.ui.radiusEdit_aircraft.text()).isdigit()==True:
+            param_list.append( str(self.ui.radiusEdit_aircraft.text()))
+        if self.ui.flTypeEdit_aircraft.text()!='':
+            param_list.append( str(self.ui.flTypeEdit_aircraft.text()))
+        if self.ui.perfClassEdit_aircraft.text()!='':
+            param_list.append( str(self.ui.perfClassEdit_aircraft.text()))
+        if self.ui.heavyEdit_aircraft.text()!='' and (str(self.ui.heavyEdit_aircraft.text())=='true' or str(self.ui.heavyEdit_aircraft.text())=='false'):
+            param_list.append( str(self.ui.heavyEdit_aircraft.text()))
+        if self.ui.modelEdit_aircraft.text()!='':
+            param_list.append( str(self.ui.modelEdit_aircraft.text()))
+        if len(param_list)!=8:
+            self.popMessage('Error', 'You must fill all fields correctly')
+            return
+
+        self.emit(QtCore.SIGNAL('add_aircraft'), param_list)
     
     
     def generateAircraftFleet(self):

@@ -285,9 +285,9 @@
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="editButton">
+         <widget class="QPushButton" name="addButton">
           <property name="text">
-           <string>Edit flight</string>
+           <string>Add flight</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -539,9 +539,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="editFleetButton">
+         <widget class="QPushButton" name="addFleetButton">
           <property name="text">
-           <string>Edit fleet</string>
+           <string>Add fleet</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -846,7 +846,7 @@
         <rect>
          <x>395</x>
          <y>126</y>
-         <width>628</width>
+         <width>630</width>
          <height>46</height>
         </rect>
        </property>
@@ -859,9 +859,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="editAircraftButton">
+         <widget class="QPushButton" name="addAircraftButton">
           <property name="text">
-           <string>Edit aircraft</string>
+           <string>Add aircraft</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
