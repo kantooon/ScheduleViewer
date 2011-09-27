@@ -41,7 +41,9 @@ class  DatabaseThread(QtCore.QThread):
         for line in settings:
             if line.find('fgdata_path=')!=-1:
                 tmp=line.split('=')
-                self.fgdata_path=tmp[1].rstrip('\n')
+                path=tmp[1].rstrip('\n')
+                path=path.lstrip()
+                self.fgdata_path=path.rstrip()
             else:
                 print 'Fgdata path could not be found in settings'
                 self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
@@ -438,6 +440,11 @@ class  DatabaseThread(QtCore.QThread):
                 ac_type=str(fleet[2])
                 airline=str(fleet[1])
                 model=str(acdata[8])+str(fleet[6])+'.xml'
+                try:
+                    os.stat(os.path.join(self.fgdata_path, 'AI', model))
+                except:
+                    skipped=skipped+1
+                    continue
                 offset=str(acdata[3])
                 radius=str(acdata[4])
                 fl_type=str(acdata[5])
@@ -460,7 +467,7 @@ class  DatabaseThread(QtCore.QThread):
         fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'.conf'),'wb')
         fw.write(conf_file)
         fw.close()
-        self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+skipped+'</b> aircraft skipped')
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
     
     
     def randCallsign(self, token):
