@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Tue Sep 27 15:19:52 2011
+# Created: Tue Sep 27 17:15:10 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -426,7 +426,7 @@ class Ui_MainWindow(object):
         self.progressBar.setObjectName("progressBar")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1070, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1070, 25))
         self.menubar.setObjectName("menubar")
         self.menuEdit = QtGui.QMenu(self.menubar)
         self.menuEdit.setObjectName("menuEdit")
@@ -456,6 +456,8 @@ class Ui_MainWindow(object):
         self.actionExport_fleet.setObjectName("actionExport_fleet")
         self.actionExport_aircraft = QtGui.QAction(MainWindow)
         self.actionExport_aircraft.setObjectName("actionExport_aircraft")
+        self.actionDump_database = QtGui.QAction(MainWindow)
+        self.actionDump_database.setObjectName("actionDump_database")
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
@@ -470,6 +472,8 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionExport_fleet)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionExport_aircraft)
+        self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionDump_database)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -602,6 +606,8 @@ class Ui_MainWindow(object):
         self.actionImport_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Import &aircraft...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_fleet.setText(QtGui.QApplication.translate("MainWindow", "Export fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport_aircraft.setText(QtGui.QApplication.translate("MainWindow", "Export aircraft", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDump_database.setText(QtGui.QApplication.translate("MainWindow", "Dump database", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionDump_database.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+D", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 

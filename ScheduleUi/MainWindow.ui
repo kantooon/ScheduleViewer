@@ -1059,7 +1059,7 @@
      <x>0</x>
      <y>0</y>
      <width>1070</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuEdit">
@@ -1090,6 +1090,8 @@
     <addaction name="actionExport_fleet"/>
     <addaction name="separator"/>
     <addaction name="actionExport_aircraft"/>
+    <addaction name="separator"/>
+    <addaction name="actionDump_database"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
    </widget>
@@ -1156,6 +1158,14 @@
   <action name="actionExport_aircraft">
    <property name="text">
     <string>Export aircraft</string>
+   </property>
+  </action>
+  <action name="actionDump_database">
+   <property name="text">
+    <string>Dump database</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
  </widget>

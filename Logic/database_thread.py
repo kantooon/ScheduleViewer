@@ -377,6 +377,11 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft saved')
 
     
+    def dumpDatabase(self):
+        self.db.dumpDatabase()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Database dumped to text file')
+    
+    
     def getMissingAircraft(self):
         self.db.missingAircraftTypes()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Missing Aircraft added')

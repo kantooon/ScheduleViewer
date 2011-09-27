@@ -55,6 +55,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.actionExport, QtCore.SIGNAL("triggered()"), self.showExportDialog)
         self.connect(self.ui.actionExport_fleet, QtCore.SIGNAL("triggered()"), self.exportFleet)
         self.connect(self.ui.actionExport_aircraft, QtCore.SIGNAL("triggered()"), self.exportAircraft)
+        self.connect(self.ui.actionDump_database, QtCore.SIGNAL("triggered()"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
         self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
         
@@ -125,6 +126,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('import_aircraft'), self.databaseThread.importAircraft, QtCore.Qt.QueuedConnection)
         
         self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
+        #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
         
         self.emit(QtCore.SIGNAL('nr_flights'))
         self.emit(QtCore.SIGNAL('nr_fleets'))
@@ -153,6 +155,10 @@ class MainWindow(QtGui.QMainWindow):
         if nr==100:
             self.ui.progressBar.setVisible(False)
             self.ui.progressBar.setEnabled(False)
+    
+    
+    def dumpDatabase(self):
+        self.emit(QtCore.SIGNAL('dump_database'))
     
     
     def confirmDeleteFlights(self):
