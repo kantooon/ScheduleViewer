@@ -524,13 +524,24 @@
       <widget class="QWidget" name="verticalLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>425</x>
+         <x>245</x>
          <y>126</y>
-         <width>598</width>
+         <width>780</width>
          <height>46</height>
         </rect>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="generateFlightplansButton">
+          <property name="text">
+           <string>Generate flight plans</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../resources.qrc">
+            <normaloff>:/icons/icons/main.png</normaloff>:/icons/icons/main.png</iconset>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QPushButton" name="generateAircraftButton">
           <property name="text">

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Tue Sep 27 19:13:30 2011
+# Created: Wed Sep 28 15:32:01 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -228,10 +228,14 @@ class Ui_MainWindow(object):
         spacerItem1 = QtGui.QSpacerItem(30, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem1, 1, 8, 1, 1)
         self.verticalLayoutWidget_2 = QtGui.QWidget(self.groupBox_2)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(425, 126, 598, 46))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(245, 126, 780, 46))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.verticalLayoutWidget_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.generateFlightplansButton = QtGui.QPushButton(self.verticalLayoutWidget_2)
+        self.generateFlightplansButton.setIcon(icon)
+        self.generateFlightplansButton.setObjectName("generateFlightplansButton")
+        self.horizontalLayout_2.addWidget(self.generateFlightplansButton)
         self.generateAircraftButton = QtGui.QPushButton(self.verticalLayoutWidget_2)
         self.generateAircraftButton.setObjectName("generateAircraftButton")
         self.horizontalLayout_2.addWidget(self.generateAircraftButton)
@@ -549,6 +553,7 @@ class Ui_MainWindow(object):
         self.label_12.setText(QtGui.QApplication.translate("MainWindow", "Designation", None, QtGui.QApplication.UnicodeUTF8))
         self.label_14.setText(QtGui.QApplication.translate("MainWindow", "Hubs", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("MainWindow", "Ac. type", None, QtGui.QApplication.UnicodeUTF8))
+        self.generateFlightplansButton.setText(QtGui.QApplication.translate("MainWindow", "Generate flight plans", None, QtGui.QApplication.UnicodeUTF8))
         self.generateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Generate aircraft conf", None, QtGui.QApplication.UnicodeUTF8))
         self.addFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Add fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Delete fleet", None, QtGui.QApplication.UnicodeUTF8))

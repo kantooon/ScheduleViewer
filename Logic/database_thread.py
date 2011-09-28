@@ -151,13 +151,15 @@ class  DatabaseThread(QtCore.QThread):
                     airline = airline[0:3]
                     fw=open(os.path.join(path,airline+'.conf'),'wb')
                     buf=''
+                    bufs=[]
                     params=dict({'airline':airline})
                     flights=self.db.queryFlights(params)
                     for flight in flights:
                         conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
                         +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
-                        buf=buf+conf
+                        bufs.append(conf)
                         QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                    buf="".join(bufs)
                     file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
                     "################### ######### ####### ############### ############### #################\n\n"+buf
                     fw.write(file_content)
@@ -181,12 +183,14 @@ class  DatabaseThread(QtCore.QThread):
                     airline = airline[0:3]
                     fw=open(os.path.join(path,airline+'.conf'),'wb')
                     buf=''
+                    bufs=[]
                     for flight in flights:
                         if str(flight[8][4:])==airline:
                             conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
                             +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
-                            buf=buf+conf
+                            bufs.append(conf)
                         QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                    buf="".join(bufs)
                     file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
                     "################### ######### ####### ############### ############### #################\n\n"+buf
                     fw.write(file_content)
@@ -205,13 +209,15 @@ class  DatabaseThread(QtCore.QThread):
                 progress_overall_step=100 / len(flights)
                 fw=open(os.path.join(path,'view.conf'),'wb')
                 buf=''
+                bufs=[]
                 for flight in flights:
                     conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
                     +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
-                    buf=buf+conf
+                    bufs.append(conf)
                     progress_overall=progress_overall+progress_overall_step
                     self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                buf="".join(bufs)
                 file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
                 "################### ######### ####### ############### ############### #################\n\n"+buf
                 fw.write(file_content)
@@ -225,13 +231,15 @@ class  DatabaseThread(QtCore.QThread):
                 progress_overall_step=100 / len(flights)
                 fw=open(os.path.join(path,'view.conf'),'wb')
                 buf=''
+                bufs=[]
                 for flight in flights:
                     conf = "FLIGHT   "+str(flight[1])+"   "+str(flight[2])+"   "+str(flight[3])+"   "+str(flight[6])+"   "+str(flight[4]) \
                     +"   "+str(flight[7])+"   "+str(flight[5])+"   "+str(flight[9])+"   "+str(flight[8])+"\n"
-                    buf=buf+conf
+                    bufs.append(conf)
                     progress_overall=progress_overall+progress_overall_step
                     self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                buf="".join(bufs)
                 file_content="########Flt.No      Flt.Rules Days    Departure       Arrival         FltLev. A/C type\n"+\
                 "################### ######### ####### ############### ############### #################\n\n"+buf
                 fw.write(file_content)
@@ -246,12 +254,14 @@ class  DatabaseThread(QtCore.QThread):
         progress_overall_step=100 / len(fleets)
         fw=open(os.path.join(dir_path,'fleetinfo.txt'),'wb')
         buf=''
+        bufs=[]
         for fleet in fleets:
             conf = "ENTRY   "+str(fleet[1])+"   "+str(fleet[2])+"   "+str(fleet[3])+"   "+str(fleet[4])+"   "+str(fleet[5])+"   "+str(fleet[6])+"\n"
-            buf=buf+conf
+            bufs.append(conf)
             progress_overall=progress_overall+progress_overall_step
             self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        buf="".join(bufs)
         file_content="###Airline   Ac. Type   Nr. Aircraft     Hubs     Callsign    Designation\n"+\
         "######### ######### ####### ############### ############### #################\n\n"+buf
         fw.write(file_content)
@@ -266,14 +276,16 @@ class  DatabaseThread(QtCore.QThread):
         progress_overall_step=100 / len(aircraft)
         fw=open(os.path.join(dir_path,'aircraft.txt'),'wb')
         buf=''
+        bufs=[]
         for ac in aircraft:
             conf = str(ac[1])+"   "+str(ac[2])+"   "+str(ac[3])+"   "+str(ac[4])+"   "+str(ac[5])+"   "+str(ac[6])+"   "+str(ac[7])+"   "+str(ac[8])+"\n"
-            buf=buf+conf
+            bufs.append(conf)
             progress_overall=progress_overall+progress_overall_step
             self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         #file_content="###Airline   Ac. Type   Nr. Aircraft     Hubs     Callsign    Designation\n"+\
         #"######### ######### ####### ############### ############### #################\n\n"+buf
+        buf="".join(bufs)
         file_content=buf
         fw.write(file_content)
         fw.close()
@@ -507,3 +519,148 @@ class  DatabaseThread(QtCore.QThread):
             return letter
         else:
             return 0
+    
+    
+    def generateAircraftXML(self, airline):
+        if len(airline)!=3:
+            return ''
+        fleets=self.db.getAirlineFleets(airline)
+        callsigns=[]
+        skipped=0
+        bufs=[]
+        buf=''
+        for fleet in fleets:
+            for i in range(0, int(fleet[3])):
+                acdata=self.db.getAircraftInfo(str(fleet[2]))
+                homeports=str(fleet[4]).split(',')
+                port_nr=random.randint(0, len(homeports)-1)
+                homeport=homeports[port_nr]
+                callsign=str(fleet[5])
+                while 1:
+                    callsign=str(fleet[5])
+                    while callsign.find('%d')!=-1:
+                        callsign=callsign.replace('%d', self.randCallsign('d'), 1)
+                    while callsign.find('%s')!=-1:
+                        callsign=callsign.replace('%s', self.randCallsign('s'), 1)
+                    if callsign not in callsigns:
+                        callsigns.append(callsign)
+                        break
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                ac_designation=str(acdata[2])
+                ac_type=str(fleet[2])
+                airline=str(fleet[1])
+                model=str(acdata[8])+str(fleet[6])+'.xml'
+                try:
+                    os.stat(os.path.join(self.fgdata_path, 'AI', model))
+                except:
+                    skipped=skipped+1
+                    continue
+                offset=str(acdata[3])
+                radius=str(acdata[4])
+                fl_type=str(acdata[5])
+                perf_class=str(acdata[6])
+                heavy=str(acdata[7])
+                if homeport=='' or callsign=='' or ac_type=='' or ac_designation=='' or airline=='' \
+                    or offset=='' or radius=='' or fl_type=='' or perf_class=='' or heavy=='' or model=='':
+                    skipped=skipped+1
+                    continue
+                
+                buf="""
+                    <aircraft>
+                        <model>"""+model+"""</model>
+                        <livery>"""+airline+"""</livery>
+                        <airline>"""+airline+"""</airline>
+                        <home-port>"""+homeport+"""</home-port>
+                        <required-aircraft>"""+ac_type+'-'+airline+"""</required-aircraft>
+                        <actype>"""+ac_designation+"""</actype>
+                        <offset>"""+offset+"""</offset>
+                        <radius>"""+radius+"""</radius>
+                        <flighttype>"""+fl_type+"""</flighttype>
+                        <performance-class>"""+perf_class+"""</performance-class>
+                        <registration>"""+callsign+"""</registration>
+                        <heavy>"""+heavy+"""</heavy>
+                    </aircraft>
+                    """
+                bufs.append(buf)
+                
+        res="".join(bufs)
+        return res
+    
+    
+    def generateFlightsXML(self, airline):
+        if len(airline)!=3:
+            return ''
+        buf=''
+        bufs=[]
+        params=dict({'airline':airline})
+        flights=self.db.queryFlights(params)
+        for flight in flights:
+            callsign=str(flight[1])
+            flt_rules=str(flight[2])
+            dep_days=str(flight[3])
+            dep_airport=str(flight[4])
+            arr_airport=str(flight[5])
+            dep_time=str(flight[6])
+            dep_int=int(dep_time[0:2])
+            arr_time=str(flight[7])
+            arr_int=int(arr_time[0:2])
+            ac_type=str(flight[8])
+            flt_level=str(flight[9])
+            for i in dep_days:
+                if i.isdigit():
+                    k=i
+                    if arr_int<dep_int:
+                        i=int(i)
+                        k=i+1
+                        if k > 7:
+                            k=1
+                    i=str(int(i))
+                    k=str(int(k))
+                    if i =='7':
+                        i='0'
+                    if k =='7':
+                        k='0'
+                    buf="""
+                            <flight>
+                                <callsign>"""+callsign+"""</callsign>
+                                <required-aircraft>"""+ac_type+"""</required-aircraft>
+                                <fltrules>"""+flt_rules+"""</fltrules>
+                                <departure>
+                                    <port>"""+dep_airport+"""</port>
+                                    <time>"""+i+'/'+dep_time+""":00</time>
+                                </departure>
+                                <cruise-alt>"""+flt_level+"""</cruise-alt>
+                                <arrival>
+                                    <port>"""+arr_airport+"""</port>
+                                    <time>"""+k+'/'+arr_time+""":00</time>
+                                </arrival>
+                                <repeat>WEEK</repeat>
+                            </flight>
+                            """
+                    bufs.append(buf)
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        res="".join(bufs)
+        return res
+    
+    
+    def generateAllAirlinesXML(self):
+        airlines=self.db.getDistinctAirlinesFromFleets()
+        skipped=0
+        progress_overall=0
+        progress_overall_step=100 / len(airlines)
+        head='<?xml version="1.0"?>\n<trafficlist>\n'
+        foot='</trafficlist>\n'
+        for airline in airlines:
+            ac=self.generateAircraftXML(airline)
+            flights=self.generateFlightsXML(airline)
+            if ac=='' or flights=='':
+                skipped=skipped+1
+                continue
+            fw=open(os.path.join(os.getcwd(),'flightplans', str(airline)+'.xml'),'wb')
+            fw.write(head+ac+flights+foot)
+            fw.close()
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Flightplans written in the <b>flightplans</b> directory; <b>'+str(skipped)+'</b> airlines skipped')
+        self.emit(QtCore.SIGNAL('import_progress'), 100)

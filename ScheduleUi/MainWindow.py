@@ -76,6 +76,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.truncateFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFleet)
         self.connect(self.ui.addFleetButton, QtCore.SIGNAL("clicked()"), self.addFleet)
         self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
+        self.connect(self.ui.generateFlightplansButton, QtCore.SIGNAL("clicked()"), self.generateFlightplans)
         
         ## aircraft tab
         self.connect(self.ui.showButton_aircraft, QtCore.SIGNAL("clicked()"), self.sendQueryAircraft)
@@ -127,6 +128,7 @@ class MainWindow(QtGui.QMainWindow):
         
         self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_aircraft"), self.databaseThread.generateAllAircraftFleets, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("generate_all_flightplans"), self.databaseThread.generateAllAirlinesXML, QtCore.Qt.QueuedConnection)
         #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
         
         self.databaseThread.start()
@@ -221,6 +223,8 @@ class MainWindow(QtGui.QMainWindow):
         dir = QtGui.QFileDialog.getExistingDirectory(self,"Export to Directory",  os.path.join(os.getcwd(), 'fleet_info'), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
         if dir==None or dir=='':
             dir=os.path.join(os.getcwd(), 'fleet_info')
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
         self.emit(QtCore.SIGNAL('export_fleet'), str(dir))
     
     
@@ -228,6 +232,8 @@ class MainWindow(QtGui.QMainWindow):
         dir = QtGui.QFileDialog.getExistingDirectory(self,"Export to Directory",  os.path.join(os.getcwd(), 'fleet_info'), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
         if dir==None or dir=='':
             dir=os.path.join(os.getcwd(), 'fleet_info')
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
         self.emit(QtCore.SIGNAL('export_aircraft'), str(dir))
     
     
@@ -853,3 +859,15 @@ class MainWindow(QtGui.QMainWindow):
             self.emit(QtCore.SIGNAL('generate_aircraft'), airline)
         else:
             self.emit(QtCore.SIGNAL('generate_all_aircraft'))
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
+    
+    
+    def generateFlightplans(self):
+        if self.ui.airlineEdit_fleet.text()!='':
+            airline=str(self.ui.airlineEdit_fleet.text()).upper()
+            self.emit(QtCore.SIGNAL('generate_flightplans'), airline)
+        else:
+            self.emit(QtCore.SIGNAL('generate_all_flightplans'))
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
