@@ -552,7 +552,6 @@ class MainWindow(QtGui.QMainWindow):
                     row=sel_range.topRow()
                     item=table.item(row, 9)
                     if item==0:
-                        print 'item not found'
                         continue
                     id=int(item.text())
                     for flight in self.flightlist:
@@ -563,7 +562,6 @@ class MainWindow(QtGui.QMainWindow):
                     for row in range(sel_range.topRow(), sel_range.bottomRow()+1):
                         item=table.item(row, 9)
                         if item==0:
-                            print 'item not found'
                             continue
                         id=int(item.text())
                         for flight in self.flightlist:
@@ -593,7 +591,6 @@ class MainWindow(QtGui.QMainWindow):
                 row=sel_range.topRow()
                 item=table.item(row, 9)
                 if item==0:
-                    print 'item not found'
                     continue
                 id=int(item.text())
                 if id not in ids:
@@ -603,7 +600,6 @@ class MainWindow(QtGui.QMainWindow):
                 for row in range(sel_range.topRow(), sel_range.bottomRow()+1):
                     item=table.item(row, 9)
                     if item==0:
-                        print 'item not found'
                         continue
                     id=int(item.text())
                     if id not in ids:
@@ -622,7 +618,6 @@ class MainWindow(QtGui.QMainWindow):
                 row=sel_range.topRow()
                 item=table.item(row, 6)
                 if item==0:
-                    print 'item not found'
                     continue
                 id=int(item.text())
                 if id not in ids:
@@ -632,7 +627,6 @@ class MainWindow(QtGui.QMainWindow):
                 for row in range(sel_range.topRow(), sel_range.bottomRow()+1):
                     item=table.item(row, 6)
                     if item==0:
-                        print 'item not found'
                         continue
                     id=int(item.text())
                     if id not in ids:
@@ -651,7 +645,6 @@ class MainWindow(QtGui.QMainWindow):
                 row=sel_range.topRow()
                 item=table.item(row, 8)
                 if item==0:
-                    print 'item not found'
                     continue
                 id=int(item.text())
                 if id not in ids:
@@ -661,7 +654,6 @@ class MainWindow(QtGui.QMainWindow):
                 for row in range(sel_range.topRow(), sel_range.bottomRow()+1):
                     item=table.item(row, 8)
                     if item==0:
-                        print 'item not found'
                         continue
                     id=int(item.text())
                     if id not in ids:

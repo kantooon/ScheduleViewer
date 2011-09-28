@@ -1,6 +1,6 @@
 <h3>ScheduleViewer Help</h3>
 <b>Basic usage:</b><br/>
-<p><b>Important:</b> You must first edit the <b>settings</b> file and enter the path of your FGFS data directory. This is required for livery checking and aircraft conf exporting.</p>
+<p><b>Important:</b> You must first edit the <b>Settings</b> (Edit -> Settings menu) and enter the path of your FGFS data directory. This is required for livery checking and aircraft conf exporting.</p>
 <i>Import schedules in *.conf format:</i>
 <p>
 Go to <b>File -> Import</b> and choose the path (directory) where to look for conf files.
@@ -43,7 +43,9 @@ Double click a table field to edit it, when you are finished press <b>Enter</b>.
 </p>
 <p>Fleet designation column color coding: <b>GREEN</b>=model livery was found in FGDATA path; <b>RED</b>=model livery was not found. If all entries in the <i>Designation</i> column are red, check you FGDATA path in the <b>settings</b> file. It is most likely wrong.
 </p>
-<p>The <b>Generate aircraft conf</b> button on the fleet tab lets you export aircraft .conf for the selected airline. You must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will fail.
+<p>The <b>Generate aircraft conf</b> button on the fleet tab lets you export aircraft .conf for the selected airline or all airlines with fleets. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will fail.
+</p>
+<p>The <b>Generate flight plans</b> button on the fleet tab lets you export flightplans in XML format for the selected airline or all airlines. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will probably fail.
 </p>
 <h4>Known issues:</h4>
 If you order the table by a column other than id and then apply filters, the table will be corrupted. To solve this, simply order by id again, click <b>Show</b> then order by the column you want. The table will display normally.

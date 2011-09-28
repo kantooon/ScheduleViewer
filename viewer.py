@@ -25,13 +25,13 @@ from PyQt4 import QtCore
 
 
 ## log redirecting will happen
-#sys.stdout = LogStream('debug')
+sys.stdout = LogStream('debug')
 sys.stderr = LogStream('error')
 
 
 app = QtGui.QApplication(sys.argv)
 app.setApplicationName("ScheduleViewer")
-app.setApplicationVersion("0.1")
+app.setApplicationVersion("0.2")
 window = MainWindow.MainWindow()
 window.show()
 sys.exit(app.exec_())

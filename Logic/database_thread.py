@@ -652,8 +652,11 @@ class  DatabaseThread(QtCore.QThread):
         foot='</trafficlist>\n'
         for airline in airlines:
             ac=self.generateAircraftXML(airline)
+            if ac=='':
+                skipped=skipped+1
+                continue
             flights=self.generateFlightsXML(airline)
-            if ac=='' or flights=='':
+            if flights=='':
                 skipped=skipped+1
                 continue
             fw=open(os.path.join(os.getcwd(),'flightplans', str(airline)+'.xml'),'wb')
