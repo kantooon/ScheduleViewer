@@ -136,6 +136,15 @@ class FlightsDatabase():
         return rows
     
     
+    def getDistinctAirlinesFromFleets(self):
+        self.cursor.execute('SELECT DISTINCT airline FROM fleet ORDER BY id ASC')
+        rows=self.cursor.fetchall()
+        airlines=[]
+        for row in rows:
+            airlines.append(row[0])
+        return airlines
+    
+    
     def getAirlineFleets(self, airline):
         self.cursor.execute('SELECT * FROM fleet WHERE airline=? ORDER BY id ASC', (airline, ))
         rows=self.cursor.fetchall()

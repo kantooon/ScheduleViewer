@@ -417,7 +417,21 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Missing Aircraft added')
 
     
-    def generateAircraftFleet(self, airline):
+    def generateAllAircraftFleets(self):
+        airlines=self.db.getDistinctAirlinesFromFleets()
+        skipped=0
+        progress_overall=0
+        progress_overall_step=100 / len(airlines)
+        for airline in airlines:
+            skip=self.generateAircraftFleet(airline, 1)
+            skipped=skipped+skip
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','All aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
+    
+    
+    def generateAircraftFleet(self, airline, everything=None):
         if len(airline)!=3:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
             return
@@ -466,14 +480,18 @@ class  DatabaseThread(QtCore.QThread):
                     +'   '+perf_class+'   '+heavy+'   '+model+'\n'
         
         if buf=='':
-            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
+            if everything==None:
+                self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
             return
         conf_file="###HOMEP RegNo  TypeCode        Type    AirLine         Livery  Offset  Radius  FltType Perf.Class      Heavy   Model\n" +\
         "############################################################################################################################################\n\n"+buf
-        fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'.conf'),'wb')
+        fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'-ac.conf'),'wb')
         fw.write(conf_file)
         fw.close()
-        self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+        if everything==None:
+            self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+        else:
+            return skipped
     
     
     def randCallsign(self, token):

@@ -126,6 +126,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('import_aircraft'), self.databaseThread.importAircraft, QtCore.Qt.QueuedConnection)
         
         self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("generate_all_aircraft"), self.databaseThread.generateAllAircraftFleets, QtCore.Qt.QueuedConnection)
         #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
         
         self.databaseThread.start()
@@ -851,4 +852,4 @@ class MainWindow(QtGui.QMainWindow):
             airline=str(self.ui.airlineEdit_fleet.text()).upper()
             self.emit(QtCore.SIGNAL('generate_aircraft'), airline)
         else:
-            self.popMessage('Error', 'Input airline first')
+            self.emit(QtCore.SIGNAL('generate_all_aircraft'))
