@@ -589,8 +589,7 @@ class  DatabaseThread(QtCore.QThread):
             <performance-class>"""+perf_class+"""</performance-class>
             <registration>"""+callsign+"""</registration>
             <heavy>"""+heavy+"""</heavy>
-        </aircraft>
-"""
+        </aircraft>"""
                 bufs.append(buf)
                 
         res="".join(bufs)
@@ -645,8 +644,7 @@ class  DatabaseThread(QtCore.QThread):
                 <time>"""+k+'/'+arr_time+""":00</time>
             </arrival>
             <repeat>WEEK</repeat>
-        </flight>
-"""
+        </flight>"""
                     bufs.append(buf)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         res="".join(bufs)
@@ -658,8 +656,8 @@ class  DatabaseThread(QtCore.QThread):
         skipped=0
         progress_overall=0
         progress_overall_step=100 / len(airlines)
-        head='<?xml version="1.0"?>\n<trafficlist>\n'
-        foot='</trafficlist>\n'
+        head='<?xml version="1.0"?>\n<trafficlist>'
+        foot='\n</trafficlist>\n'
         for airline in airlines:
             ac=self.generateAircraftXML(airline)
             if ac=='':
@@ -691,8 +689,8 @@ class  DatabaseThread(QtCore.QThread):
         if len(airline)!=3:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline doesn\'t seem to be valid')
             return 
-        head='<?xml version="1.0"?>\n<trafficlist>\n'
-        foot='</trafficlist>\n'
+        head='<?xml version="1.0"?>\n<trafficlist>'
+        foot='\n</trafficlist>\n'
         self.emit(QtCore.SIGNAL('import_progress'), 5)
         ac=self.generateAircraftXML(airline)
         self.emit(QtCore.SIGNAL('import_progress'), 35)
