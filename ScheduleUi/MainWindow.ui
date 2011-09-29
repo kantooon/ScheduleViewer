@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1070</width>
-    <height>740</height>
+    <width>1083</width>
+    <height>749</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="focusPolicy">
    <enum>Qt::StrongFocus</enum>
@@ -21,1055 +27,962 @@
     <normaloff>:/icons/icons/main.png</normaloff>:/icons/icons/main.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>15</y>
-      <width>1061</width>
-      <height>651</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="flightsTab">
-     <attribute name="title">
-      <string>Flights</string>
-     </attribute>
-     <widget class="QTableWidget" name="tableWidget">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>180</y>
-        <width>1041</width>
-        <height>431</height>
-       </rect>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <layout class="QVBoxLayout" name="verticalLayout" stretch="10,10">
+      <property name="spacing">
+       <number>-1</number>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>840</width>
-        <height>291</height>
-       </size>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
       </property>
-      <property name="maximumSize">
-       <size>
-        <width>1200</width>
-        <height>436</height>
-       </size>
+      <property name="margin">
+       <number>2</number>
       </property>
-      <property name="dragEnabled">
-       <bool>false</bool>
-      </property>
-      <property name="dragDropOverwriteMode">
-       <bool>false</bool>
-      </property>
-      <property name="dragDropMode">
-       <enum>QAbstractItemView::NoDragDrop</enum>
-      </property>
-      <property name="defaultDropAction">
-       <enum>Qt::IgnoreAction</enum>
-      </property>
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>100</number>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>100</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Callsign</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Flight rules</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Dep. airport</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Arr. airport</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Dep. time</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Arr. time</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Dep. day</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Aircraft type</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Flt. level</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>id</string>
-       </property>
-      </column>
-     </widget>
-     <widget class="QGroupBox" name="groupBox">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>5</y>
-        <width>1041</width>
-        <height>176</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Filters</string>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>991</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="callsignEdit"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Callsign</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Dep. airport</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="depAirportEdit"/>
-        </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Dep. time</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QLineEdit" name="depTimeEdit"/>
-        </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Dep. day</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="7">
-         <widget class="QLineEdit" name="depDayEdit"/>
-        </item>
-        <item row="0" column="8">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Ac. type</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="9">
-         <widget class="QLineEdit" name="acTypeEdit"/>
-        </item>
-        <item row="1" column="5">
-         <widget class="QLineEdit" name="arrTimeEdit"/>
-        </item>
-        <item row="1" column="4">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Arr. time</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLineEdit" name="arrAirportEdit"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>Arr. airport</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_8">
-          <property name="text">
-           <string>Airline</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="airlineEdit"/>
-        </item>
-        <item row="1" column="7">
-         <widget class="QPushButton" name="showButton">
-          <property name="text">
-           <string>Show</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
-          </property>
-          <property name="autoDefault">
-           <bool>false</bool>
-          </property>
-          <property name="default">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="9">
-         <widget class="QPushButton" name="clearButton">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget">
-       <property name="geometry">
-        <rect>
-         <x>510</x>
-         <y>126</y>
-         <width>506</width>
-         <height>46</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="addButton">
-          <property name="text">
-           <string>Add flight</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="deleteButton">
-          <property name="text">
-           <string>Delete flights</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="truncateButton">
-          <property name="text">
-           <string>Empty flights table</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QLabel" name="label_9">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>125</y>
-         <width>116</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Total nr. of flights:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_10">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>150</y>
-         <width>106</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Selected flights:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelTotalFlights">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>125</y>
-         <width>56</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelSelectedFlights">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>150</y>
-         <width>66</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="fleetTab">
-     <attribute name="title">
-      <string>Fleet</string>
-     </attribute>
-     <widget class="QGroupBox" name="groupBox_2">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>5</y>
-        <width>1041</width>
-        <height>176</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Filters</string>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>991</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="callsignEdit_fleet"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>Callsign</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_18">
-          <property name="text">
-           <string>Airline</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="airlineEdit_fleet"/>
-        </item>
-        <item row="1" column="7">
-         <widget class="QPushButton" name="showButton_fleet">
-          <property name="text">
-           <string>Show</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
-          </property>
-          <property name="autoDefault">
-           <bool>false</bool>
-          </property>
-          <property name="default">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="9">
-         <widget class="QPushButton" name="clearButton_fleet">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="label_13">
-          <property name="text">
-           <string>Number of aircraft</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>Designation</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="designationEdit_fleet"/>
-        </item>
-        <item row="0" column="5">
-         <widget class="QLineEdit" name="nrAircraftEdit_fleet"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_14">
-          <property name="text">
-           <string>Hubs</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLineEdit" name="hubsEdit_fleet"/>
-        </item>
-        <item row="1" column="4">
-         <widget class="QLabel" name="label_15">
-          <property name="text">
-           <string>Ac. type</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="5">
-         <widget class="QLineEdit" name="acTypeEdit_fleet"/>
-        </item>
-        <item row="1" column="6">
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>30</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="1" column="8">
-         <spacer name="horizontalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Fixed</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>30</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget_2">
-       <property name="geometry">
-        <rect>
-         <x>235</x>
-         <y>126</y>
-         <width>780</width>
-         <height>46</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QPushButton" name="generateFlightplansButton">
-          <property name="text">
-           <string>Generate flight plans</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/main.png</normaloff>:/icons/icons/main.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="generateAircraftButton">
-          <property name="text">
-           <string>Generate aircraft conf</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addFleetButton">
-          <property name="text">
-           <string>Add fleet</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="deleteFleetButton">
-          <property name="text">
-           <string>Delete fleet</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="truncateFleetButton">
-          <property name="text">
-           <string>Empty fleet table</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QLabel" name="label_19">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>125</y>
-         <width>116</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Total nr. of fleets:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_20">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>150</y>
-         <width>106</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Selected fleets:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelTotalFleet">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>125</y>
-         <width>56</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelSelectedFleet">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>150</y>
-         <width>66</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QTableWidget" name="fleetTableWidget">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>185</y>
-        <width>1041</width>
-        <height>431</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>840</width>
-        <height>291</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>1200</width>
-        <height>436</height>
-       </size>
-      </property>
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>145</number>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>145</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Airline</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Aircraft type</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Nr. aircraft</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Hubs</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Callsign</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Designation</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>id</string>
-       </property>
-      </column>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="aircraftTab">
-     <attribute name="title">
-      <string>Aircraft Types</string>
-     </attribute>
-     <widget class="QGroupBox" name="groupBox_3">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>5</y>
-        <width>1041</width>
-        <height>176</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Filters</string>
-      </property>
-      <widget class="QWidget" name="gridLayoutWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>30</y>
-         <width>991</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_4">
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="acTypeEdit_aircraft"/>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_27">
-          <property name="text">
-           <string>Ac. Type</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_28">
-          <property name="text">
-           <string>Designation</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="QLineEdit" name="designationEdit_aircraft"/>
-        </item>
-        <item row="0" column="4">
-         <widget class="QLabel" name="label_29">
-          <property name="text">
-           <string>Offset</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="5">
-         <widget class="QLineEdit" name="offsetEdit_aircraft"/>
-        </item>
-        <item row="0" column="6">
-         <widget class="QLabel" name="label_30">
-          <property name="text">
-           <string>Radius</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="7">
-         <widget class="QLineEdit" name="radiusEdit_aircraft"/>
-        </item>
-        <item row="0" column="8">
-         <widget class="QLabel" name="label_31">
-          <property name="text">
-           <string>Fl. Type</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="9">
-         <widget class="QLineEdit" name="flTypeEdit_aircraft"/>
-        </item>
-        <item row="1" column="5">
-         <widget class="QLineEdit" name="modelEdit_aircraft"/>
-        </item>
-        <item row="1" column="4">
-         <widget class="QLabel" name="label_32">
-          <property name="text">
-           <string>Model</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
-         <widget class="QLineEdit" name="heavyEdit_aircraft"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_33">
-          <property name="text">
-           <string>Heavy</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_34">
-          <property name="text">
-           <string>Perf. class</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="perfClassEdit_aircraft"/>
-        </item>
-        <item row="1" column="7">
-         <widget class="QPushButton" name="showButton_aircraft">
-          <property name="text">
-           <string>Show</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
-          </property>
-          <property name="autoDefault">
-           <bool>false</bool>
-          </property>
-          <property name="default">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="9">
-         <widget class="QPushButton" name="clearButton_aircraft">
-          <property name="text">
-           <string>Clear</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QWidget" name="verticalLayoutWidget_3">
-       <property name="geometry">
-        <rect>
-         <x>395</x>
-         <y>126</y>
-         <width>630</width>
-         <height>46</height>
-        </rect>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QPushButton" name="addMissingAircraftButton">
-          <property name="text">
-           <string>Add missing aircraft</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="addAircraftButton">
-          <property name="text">
-           <string>Add aircraft</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="deleteAircraftButton">
-          <property name="text">
-           <string>Delete aircraft</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="truncateAircraftButton">
-          <property name="text">
-           <string>Empty aircraft table</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resources.qrc">
-            <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-      <widget class="QLabel" name="label_35">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>125</y>
-         <width>116</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Total nr. of aircraft:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_36">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>150</y>
-         <width>106</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Selected aircraft:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelTotalAircraft">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>125</y>
-         <width>56</width>
-         <height>15</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QLabel" name="labelSelectedAircraft">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>150</y>
-         <width>66</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QTableWidget" name="aircraftTableWidget">
-      <property name="geometry">
-       <rect>
-        <x>5</x>
-        <y>185</y>
-        <width>1041</width>
-        <height>431</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>840</width>
-        <height>291</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>1200</width>
-        <height>436</height>
-       </size>
-      </property>
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="selectionBehavior">
-       <enum>QAbstractItemView::SelectRows</enum>
-      </property>
-      <property name="sortingEnabled">
-       <bool>true</bool>
-      </property>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>112</number>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="verticalHeaderVisible">
-       <bool>false</bool>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>112</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Ac. Type</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Designation</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Offset</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Radius</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Flight type</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Performance</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Heavy</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Model</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>id</string>
-       </property>
-      </column>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QProgressBar" name="progressBar">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>670</y>
-      <width>1051</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="value">
-     <number>0</number>
-    </property>
-   </widget>
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="flightsTab">
+         <attribute name="title">
+          <string>Flights</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="2" column="0">
+           <widget class="QTableWidget" name="tableWidget">
+            <property name="minimumSize">
+             <size>
+              <width>1055</width>
+              <height>436</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>3000</width>
+              <height>3000</height>
+             </size>
+            </property>
+            <property name="dragEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="dragDropOverwriteMode">
+             <bool>false</bool>
+            </property>
+            <property name="dragDropMode">
+             <enum>QAbstractItemView::NoDragDrop</enum>
+            </property>
+            <property name="defaultDropAction">
+             <enum>Qt::IgnoreAction</enum>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>100</number>
+            </attribute>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>100</number>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>100</number>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>100</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Callsign</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Flight rules</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Dep. airport</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Arr. airport</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Dep. time</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Arr. time</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Dep. day</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Aircraft type</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Flt. level</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>id</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title">
+             <string>Filters</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="0" colspan="2">
+              <layout class="QGridLayout" name="gridLayout">
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="callsignEdit"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>Callsign</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>Dep. airport</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLineEdit" name="depAirportEdit"/>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>Dep. time</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <widget class="QLineEdit" name="depTimeEdit"/>
+               </item>
+               <item row="0" column="6">
+                <widget class="QLabel" name="label_4">
+                 <property name="text">
+                  <string>Dep. day</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="7">
+                <widget class="QLineEdit" name="depDayEdit"/>
+               </item>
+               <item row="0" column="8">
+                <widget class="QLabel" name="label_5">
+                 <property name="text">
+                  <string>Ac. type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="9">
+                <widget class="QLineEdit" name="acTypeEdit"/>
+               </item>
+               <item row="1" column="5">
+                <widget class="QLineEdit" name="arrTimeEdit"/>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLabel" name="label_7">
+                 <property name="text">
+                  <string>Arr. time</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLineEdit" name="arrAirportEdit"/>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_6">
+                 <property name="text">
+                  <string>Arr. airport</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_8">
+                 <property name="text">
+                  <string>Airline</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="airlineEdit"/>
+               </item>
+               <item row="1" column="7">
+                <widget class="QPushButton" name="showButton">
+                 <property name="text">
+                  <string>Show</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
+                 </property>
+                 <property name="autoDefault">
+                  <bool>false</bool>
+                 </property>
+                 <property name="default">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="9">
+                <widget class="QPushButton" name="clearButton">
+                 <property name="text">
+                  <string>Clear</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QGridLayout" name="gridLayout_5">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_9">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Total nr. of flights:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLabel" name="labelTotalFlights">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Selected flights:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="labelSelectedFlights">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="1">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="addButton">
+                 <property name="text">
+                  <string>Add flight</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="deleteButton">
+                 <property name="text">
+                  <string>Delete flights</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="truncateButton">
+                 <property name="text">
+                  <string>Empty flights table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="fleetTab">
+         <attribute name="title">
+          <string>Fleet</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>Filters</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="callsignEdit_fleet"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_11">
+                 <property name="text">
+                  <string>Callsign</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_18">
+                 <property name="text">
+                  <string>Airline</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="airlineEdit_fleet"/>
+               </item>
+               <item row="1" column="7">
+                <widget class="QPushButton" name="showButton_fleet">
+                 <property name="text">
+                  <string>Show</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
+                 </property>
+                 <property name="autoDefault">
+                  <bool>false</bool>
+                 </property>
+                 <property name="default">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="9">
+                <widget class="QPushButton" name="clearButton_fleet">
+                 <property name="text">
+                  <string>Clear</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="label_13">
+                 <property name="text">
+                  <string>Number of aircraft</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="label_12">
+                 <property name="text">
+                  <string>Designation</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <widget class="QLineEdit" name="nrAircraftEdit_fleet"/>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_14">
+                 <property name="text">
+                  <string>Hubs</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLineEdit" name="hubsEdit_fleet"/>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLabel" name="label_15">
+                 <property name="text">
+                  <string>Ac. type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="5">
+                <widget class="QLineEdit" name="acTypeEdit_fleet"/>
+               </item>
+               <item row="1" column="6">
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Fixed</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>30</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="8">
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Fixed</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>30</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLineEdit" name="designationEdit_fleet"/>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <layout class="QGridLayout" name="gridLayout_6">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_19">
+                   <property name="text">
+                    <string>Total nr. of fleets:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="labelTotalFleet">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_20">
+                   <property name="text">
+                    <string>Selected fleets:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="labelSelectedFleet">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="generateFlightplansButton">
+                 <property name="text">
+                  <string>Generate flight plans</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/main.png</normaloff>:/icons/icons/main.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="generateAircraftButton">
+                 <property name="text">
+                  <string>Generate aircraft conf</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="addFleetButton">
+                 <property name="text">
+                  <string>Add fleet</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="deleteFleetButton">
+                 <property name="text">
+                  <string>Delete fleet</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="truncateFleetButton">
+                 <property name="text">
+                  <string>Empty fleet table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTableWidget" name="fleetTableWidget">
+            <property name="minimumSize">
+             <size>
+              <width>1055</width>
+              <height>436</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>3000</width>
+              <height>3000</height>
+             </size>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>145</number>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>145</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Airline</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Aircraft type</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Nr. aircraft</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Hubs</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Callsign</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Designation</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>id</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="aircraftTab">
+         <attribute name="title">
+          <string>Aircraft Types</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_11">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string>Filters</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_12">
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="gridLayout_4">
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="acTypeEdit_aircraft"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_27">
+                 <property name="text">
+                  <string>Ac. Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="label_28">
+                 <property name="text">
+                  <string>Designation</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QLineEdit" name="designationEdit_aircraft"/>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="label_29">
+                 <property name="text">
+                  <string>Offset</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <widget class="QLineEdit" name="offsetEdit_aircraft"/>
+               </item>
+               <item row="0" column="6">
+                <widget class="QLabel" name="label_30">
+                 <property name="text">
+                  <string>Radius</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="7">
+                <widget class="QLineEdit" name="radiusEdit_aircraft"/>
+               </item>
+               <item row="0" column="8">
+                <widget class="QLabel" name="label_31">
+                 <property name="text">
+                  <string>Fl. Type</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="9">
+                <widget class="QLineEdit" name="flTypeEdit_aircraft"/>
+               </item>
+               <item row="1" column="5">
+                <widget class="QLineEdit" name="modelEdit_aircraft"/>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLabel" name="label_32">
+                 <property name="text">
+                  <string>Model</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QLineEdit" name="heavyEdit_aircraft"/>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_33">
+                 <property name="text">
+                  <string>Heavy</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_34">
+                 <property name="text">
+                  <string>Perf. class</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="perfClassEdit_aircraft"/>
+               </item>
+               <item row="1" column="7">
+                <widget class="QPushButton" name="showButton_aircraft">
+                 <property name="text">
+                  <string>Show</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/dialog-ok-apply.png</normaloff>:/icons/icons/dialog-ok-apply.png</iconset>
+                 </property>
+                 <property name="autoDefault">
+                  <bool>false</bool>
+                 </property>
+                 <property name="default">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="9">
+                <widget class="QPushButton" name="clearButton_aircraft">
+                 <property name="text">
+                  <string>Clear</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <layout class="QGridLayout" name="gridLayout_7">
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_35">
+                   <property name="text">
+                    <string>Total nr. of aircraft:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QLabel" name="labelTotalAircraft">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_36">
+                   <property name="text">
+                    <string>Selected aircraft:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="labelSelectedAircraft">
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QPushButton" name="addMissingAircraftButton">
+                 <property name="text">
+                  <string>Add missing aircraft</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="addAircraftButton">
+                 <property name="text">
+                  <string>Add aircraft</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="deleteAircraftButton">
+                 <property name="text">
+                  <string>Delete aircraft</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="truncateAircraftButton">
+                 <property name="text">
+                  <string>Empty aircraft table</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources.qrc">
+                   <normaloff>:/icons/icons/system-reboot.png</normaloff>:/icons/icons/system-reboot.png</iconset>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QTableWidget" name="aircraftTableWidget">
+            <property name="minimumSize">
+             <size>
+              <width>1055</width>
+              <height>436</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>3000</width>
+              <height>3000</height>
+             </size>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>112</number>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>112</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Ac. Type</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Designation</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Offset</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Radius</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Flight type</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Performance</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Heavy</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Model</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>id</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="progressBar">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1070</width>
+     <width>1083</width>
      <height>21</height>
     </rect>
    </property>
