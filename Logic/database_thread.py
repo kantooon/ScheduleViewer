@@ -17,7 +17,7 @@
 #
 
 
-import os, sys, glob, io, random
+import os, sys, glob, io, random, shutil
 from PyQt4 import QtCore
 from database import FlightsDatabase
 
@@ -28,6 +28,7 @@ class  DatabaseThread(QtCore.QThread):
         QtCore.QThread.__init__(self, parent)
         self.db=FlightsDatabase()
         self.fgdata_path=''
+        self.move_flightplans=''
 
     
     def __del__(self):
@@ -48,11 +49,19 @@ class  DatabaseThread(QtCore.QThread):
                 try:
                     os.stat(self.fgdata_path)
                 except:
+                    self.fgdata_path=''
                     print 'Fgdata path could not be found in settings'
                     self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
+                break
             else:
                 print 'Fgdata path could not be found in settings'
                 self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
+        for line in settings:
+            if line.find('move_flightplans=')!=-1:
+                tmp=line.split('=')
+                move=tmp[1].rstrip('\n')
+                move=move.lstrip()
+                self.move_flightplans=move.rstrip()
         self.exec_()
 
     
@@ -94,7 +103,6 @@ class  DatabaseThread(QtCore.QThread):
             expr=expr+"'*',"
         expr=expr+"'*.conf')"
         conf_files=glob.glob(eval(expr))
-        #print conf_files
         if conf_files==None or len(conf_files)==0:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Import failed: no files found')
             return
@@ -107,7 +115,7 @@ class  DatabaseThread(QtCore.QThread):
                 for line in content:
                     if line.find('#')==0 or len(line)<2:
                         continue
-                    stubs1=line.split("   ")
+                    stubs1=line.split()
                     ## do not add individual daily flights, add weekly ones
                     ac_type=stubs1[9].rstrip('\n')
                     flight=[stubs1[1],stubs1[2],stubs1[3],stubs1[5],stubs1[7],stubs1[4],stubs1[6],ac_type,stubs1[8]]
@@ -451,6 +459,7 @@ class  DatabaseThread(QtCore.QThread):
         callsigns=[]
         skipped=0
         buf=''
+        bufs=[]
         for fleet in fleets:
             for i in range(0, int(fleet[3])):
                 acdata=self.db.getAircraftInfo(str(fleet[2]))
@@ -487,10 +496,11 @@ class  DatabaseThread(QtCore.QThread):
                     skipped=skipped+1
                     continue
 
-                buf=buf+'AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
+                conf='AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
                     +'   '+airline+'   '+airline+'   '+offset+'   '+radius+'   '+fl_type\
                     +'   '+perf_class+'   '+heavy+'   '+model+'\n'
-        
+                bufs.append(conf)
+        buf="".join(bufs)
         if buf=='':
             if everything==None:
                 self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
@@ -566,21 +576,21 @@ class  DatabaseThread(QtCore.QThread):
                     continue
                 
                 buf="""
-                    <aircraft>
-                        <model>"""+model+"""</model>
-                        <livery>"""+airline+"""</livery>
-                        <airline>"""+airline+"""</airline>
-                        <home-port>"""+homeport+"""</home-port>
-                        <required-aircraft>"""+ac_type+'-'+airline+"""</required-aircraft>
-                        <actype>"""+ac_designation+"""</actype>
-                        <offset>"""+offset+"""</offset>
-                        <radius>"""+radius+"""</radius>
-                        <flighttype>"""+fl_type+"""</flighttype>
-                        <performance-class>"""+perf_class+"""</performance-class>
-                        <registration>"""+callsign+"""</registration>
-                        <heavy>"""+heavy+"""</heavy>
-                    </aircraft>
-                    """
+        <aircraft>
+            <model>"""+model+"""</model>
+            <livery>"""+airline+"""</livery>
+            <airline>"""+airline+"""</airline>
+            <home-port>"""+homeport+"""</home-port>
+            <required-aircraft>"""+ac_type+'-'+airline+"""</required-aircraft>
+            <actype>"""+ac_designation+"""</actype>
+            <offset>"""+offset+"""</offset>
+            <radius>"""+radius+"""</radius>
+            <flighttype>"""+fl_type+"""</flighttype>
+            <performance-class>"""+perf_class+"""</performance-class>
+            <registration>"""+callsign+"""</registration>
+            <heavy>"""+heavy+"""</heavy>
+        </aircraft>
+"""
                 bufs.append(buf)
                 
         res="".join(bufs)
@@ -621,22 +631,22 @@ class  DatabaseThread(QtCore.QThread):
                     if k =='7':
                         k='0'
                     buf="""
-                            <flight>
-                                <callsign>"""+callsign+"""</callsign>
-                                <required-aircraft>"""+ac_type+"""</required-aircraft>
-                                <fltrules>"""+flt_rules+"""</fltrules>
-                                <departure>
-                                    <port>"""+dep_airport+"""</port>
-                                    <time>"""+i+'/'+dep_time+""":00</time>
-                                </departure>
-                                <cruise-alt>"""+flt_level+"""</cruise-alt>
-                                <arrival>
-                                    <port>"""+arr_airport+"""</port>
-                                    <time>"""+k+'/'+arr_time+""":00</time>
-                                </arrival>
-                                <repeat>WEEK</repeat>
-                            </flight>
-                            """
+        <flight>
+            <callsign>"""+callsign+"""</callsign>
+            <required-aircraft>"""+ac_type+"""</required-aircraft>
+            <fltrules>"""+flt_rules+"""</fltrules>
+            <departure>
+                <port>"""+dep_airport+"""</port>
+                <time>"""+i+'/'+dep_time+""":00</time>
+            </departure>
+            <cruise-alt>"""+flt_level+"""</cruise-alt>
+            <arrival>
+                <port>"""+arr_airport+"""</port>
+                <time>"""+k+'/'+arr_time+""":00</time>
+            </arrival>
+            <repeat>WEEK</repeat>
+        </flight>
+"""
                     bufs.append(buf)
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         res="".join(bufs)
@@ -664,6 +674,47 @@ class  DatabaseThread(QtCore.QThread):
             fw.close()
             progress_overall=progress_overall+progress_overall_step
             self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+            letter=airline[0:1].upper()
+            if self.fgdata_path!='' and self.move_flightplans=='true':
+                try:
+                    os.stat(os.path.join(self.fgdata_path, 'AI', 'Traffic', letter))
+                    shutil.copy(os.path.join(os.getcwd(),'flightplans', str(airline)+'.xml'), os.path.join(self.fgdata_path, 'AI', 'Traffic', letter))
+                    self.emit(QtCore.SIGNAL('message_success'), 'Info','Flightplan <b>'+airline+'</b> moved to FGDATA directory')
+                except:
+                    self.emit(QtCore.SIGNAL('message_success'), 'Error','Flightplan <b>'+airline+'</b> could not be moved to FGDATA directory')
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Flightplans written in the <b>flightplans</b> directory; <b>'+str(skipped)+'</b> airlines skipped')
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
+
+    
+    def generateAirlineXML(self, airline):
+        if len(airline)!=3:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline doesn\'t seem to be valid')
+            return 
+        head='<?xml version="1.0"?>\n<trafficlist>\n'
+        foot='</trafficlist>\n'
+        self.emit(QtCore.SIGNAL('import_progress'), 5)
+        ac=self.generateAircraftXML(airline)
+        self.emit(QtCore.SIGNAL('import_progress'), 35)
+        if ac=='':
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline has no available aircraft')
+            return
+        flights=self.generateFlightsXML(airline)
+        self.emit(QtCore.SIGNAL('import_progress'), 85)
+        if flights=='':
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline has no flight schedules')
+            return
+        fw=open(os.path.join(os.getcwd(),'flightplans', str(airline)+'.xml'),'wb')
+        fw.write(head+ac+flights+foot)
+        fw.close()
+        letter=airline[0:1].upper()
+        if self.fgdata_path!='' and self.move_flightplans=='true':
+            try:
+                os.stat(os.path.join(self.fgdata_path, 'AI', 'Traffic', letter))
+                shutil.copy(os.path.join(os.getcwd(),'flightplans', str(airline)+'.xml'), os.path.join(self.fgdata_path, 'AI', 'Traffic', letter))
+                self.emit(QtCore.SIGNAL('message_success'), 'Info','Flightplan <b>'+airline+'</b> moved to FGDATA directory')
+            except:
+                self.emit(QtCore.SIGNAL('message_success'), 'Error','Flightplan <b>'+airline+'</b> could not be moved to FGDATA directory')
+        else:
+            self.emit(QtCore.SIGNAL('message_success'), 'Info','Flightplan <b>'+airline+'</b> written in the <b>flightplans</b> directory')
         self.emit(QtCore.SIGNAL('import_progress'), 100)

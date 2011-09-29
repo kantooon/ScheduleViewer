@@ -88,6 +88,19 @@
     <string>&lt;b&gt;You need to restart the application for some settings to take effect.&lt;/b&gt;</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="moveCheckBox">
+   <property name="geometry">
+    <rect>
+     <x>15</x>
+     <y>140</y>
+     <width>331</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Move generated flightplans to FGDATA directory</string>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="../resources.qrc"/>

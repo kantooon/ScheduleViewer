@@ -128,6 +128,7 @@ class MainWindow(QtGui.QMainWindow):
         
         self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_aircraft"), self.databaseThread.generateAllAircraftFleets, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("generate_flightplans"), self.databaseThread.generateAirlineXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_flightplans"), self.databaseThread.generateAllAirlinesXML, QtCore.Qt.QueuedConnection)
         #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
         

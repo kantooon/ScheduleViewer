@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/SettingsDialog.ui'
 #
-# Created: Tue Sep 27 19:16:14 2011
+# Created: Thu Sep 29 13:43:20 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,6 +41,9 @@ class Ui_Dialog(object):
         self.label_3 = QtGui.QLabel(Dialog)
         self.label_3.setGeometry(QtCore.QRect(10, 200, 506, 31))
         self.label_3.setObjectName("label_3")
+        self.moveCheckBox = QtGui.QCheckBox(Dialog)
+        self.moveCheckBox.setGeometry(QtCore.QRect(15, 140, 331, 23))
+        self.moveCheckBox.setObjectName("moveCheckBox")
 
         self.retranslateUi(Dialog)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), Dialog.reject)
@@ -52,6 +55,7 @@ class Ui_Dialog(object):
         self.label_2.setText(QtGui.QApplication.translate("Dialog", "FGDATA path", None, QtGui.QApplication.UnicodeUTF8))
         self.browseButton.setText(QtGui.QApplication.translate("Dialog", "Browse...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Dialog", "<b>You need to restart the application for some settings to take effect.</b>", None, QtGui.QApplication.UnicodeUTF8))
+        self.moveCheckBox.setText(QtGui.QApplication.translate("Dialog", "Move generated flightplans to FGDATA directory", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 
