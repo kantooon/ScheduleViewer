@@ -19,6 +19,7 @@
 from PyQt4 import QtCore, QtGui
 import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog, SettingsDialog
 from Logic.database_thread import DatabaseThread
+from QTableWidgetNumericItem import QTableWidgetNumericItem
 import os, io, random, re
 
 class MainWindow(QtGui.QMainWindow):
@@ -332,7 +333,8 @@ class MainWindow(QtGui.QMainWindow):
         table.setRowCount(nr_flights)
         r=0
         for flight in flightlist:
-            id=QtGui.QTableWidgetItem(str(flight[0]), 0)
+            #id=QtGui.QTableWidgetItem(str(flight[0]), 0)
+            id=QTableWidgetNumericItem(str(flight[0]), 0)
             id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             id.setFlags(QtCore.Qt.NoItemFlags)
             
@@ -377,6 +379,7 @@ class MainWindow(QtGui.QMainWindow):
             r=r+1
         self.connect(self.ui.tableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModified)
         self.ui.tableWidget.setSortingEnabled(True)
+        self.ui.tableWidget.sortItems(9, QtCore.Qt.AscendingOrder)
     
     
     def updateFleet(self, fleetlist):
@@ -395,7 +398,8 @@ class MainWindow(QtGui.QMainWindow):
         table.setRowCount(nr_fleet)
         r=0
         for fleet in fleetlist:
-            id=QtGui.QTableWidgetItem(str(fleet[0]), 0)
+            #id=QtGui.QTableWidgetItem(str(fleet[0]), 0)
+            id=QTableWidgetNumericItem(str(fleet[0]), 0)
             id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             id.setFlags(QtCore.Qt.NoItemFlags)
             
@@ -432,6 +436,7 @@ class MainWindow(QtGui.QMainWindow):
             r=r+1
         self.connect(self.ui.fleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedFleet)
         self.ui.fleetTableWidget.setSortingEnabled(True)
+        self.ui.fleetTableWidget.sortItems(6, QtCore.Qt.AscendingOrder)
     
     
     def updateAircraft(self, aclist):
@@ -450,7 +455,8 @@ class MainWindow(QtGui.QMainWindow):
         table.setRowCount(nr_ac)
         r=0
         for ac in aclist:
-            id=QtGui.QTableWidgetItem(str(ac[0]), 0)
+            #id=QtGui.QTableWidgetItem(str(ac[0]), 0)
+            id=QTableWidgetNumericItem(str(ac[0]), 0)
             id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             id.setFlags(QtCore.Qt.NoItemFlags)
             
@@ -491,6 +497,7 @@ class MainWindow(QtGui.QMainWindow):
             r=r+1
         self.connect(self.ui.aircraftTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraft)
         self.ui.aircraftTableWidget.setSortingEnabled(True)
+        self.ui.aircraftTableWidget.sortItems(8, QtCore.Qt.AscendingOrder)
     
     
     def clearFlights(self):
