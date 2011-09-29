@@ -317,6 +317,7 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def updateFlights(self, flightlist):
+        self.ui.tableWidget.setSortingEnabled(False)
         self.disconnect(self.ui.tableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModified)
         if flightlist==None:
             self.popMessage('Error', 'No results found')
@@ -375,9 +376,11 @@ class MainWindow(QtGui.QMainWindow):
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
         self.connect(self.ui.tableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModified)
+        self.ui.tableWidget.setSortingEnabled(True)
     
     
     def updateFleet(self, fleetlist):
+        self.ui.fleetTableWidget.setSortingEnabled(False)
         self.disconnect(self.ui.fleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedFleet)
         if fleetlist==None:
             self.popMessage('Error', 'No results found')
@@ -428,9 +431,11 @@ class MainWindow(QtGui.QMainWindow):
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
         self.connect(self.ui.fleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedFleet)
+        self.ui.fleetTableWidget.setSortingEnabled(True)
     
     
     def updateAircraft(self, aclist):
+        self.ui.aircraftTableWidget.setSortingEnabled(False)
         self.disconnect(self.ui.aircraftTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraft)
         if aclist==None:
             self.popMessage('Error', 'No results found')
@@ -485,6 +490,7 @@ class MainWindow(QtGui.QMainWindow):
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
         self.connect(self.ui.aircraftTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraft)
+        self.ui.aircraftTableWidget.setSortingEnabled(True)
     
     
     def clearFlights(self):

@@ -71,7 +71,7 @@ See Help -> Help for additional instructions.
 Known issues:
 =============
 If you order the table by a column other than id and then apply filters,
-the table will be corrupted. To solve this, simply order by id again, then order by
+the table may become corrupted. To solve this, simply order by id again, then order by
 the column you want.
 
 
