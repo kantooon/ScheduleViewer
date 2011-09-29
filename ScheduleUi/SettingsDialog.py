@@ -32,7 +32,15 @@ class SettingsDialog(QtGui.QDialog):
         self.connect(self.ui.browseButton, QtCore.SIGNAL("clicked()"), self.browseDir)
         self.fgdata_path=''
         self.move_flpl=''
-        f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
+        home=os.getenv('HOME')
+        if home!=None:
+            try:
+                os.stat(os.path.join(home,'.aisched'))
+            except:
+                shutil.copy(os.path.join(os.getcwd(),'settings'), os.path.join(home,'.aisched'))
+            f_settings=open(os.path.join(home,'.aisched'),'rb')
+        else:
+            f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
         settings=f_settings.readlines()
         f_settings.close()
         for line in settings:
@@ -71,7 +79,15 @@ class SettingsDialog(QtGui.QDialog):
         if dir==None or dir=='':
             print 'No FGDATA directory specified'
             return
-        f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
+        home=os.getenv('HOME')
+        if home!=None:
+            try:
+                os.stat(os.path.join(home,'.aisched'))
+            except:
+                shutil.copy(os.path.join(os.getcwd(),'settings'), os.path.join(home,'.aisched'))
+            f_settings=open(os.path.join(home,'.aisched'),'rb')
+        else:
+            f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
         settings=f_settings.readlines()
         f_settings.close()
         buf=''
@@ -89,7 +105,15 @@ class SettingsDialog(QtGui.QDialog):
             buf=buf+'fgdata_path='+dir+'\n'
         if mv==0:
             buf=buf+'move_flightplans='+move+'\n'
-        fw=open(os.path.join(os.getcwd(),'settings'),'wb')
+        home=os.getenv('HOME')
+        if home!=None:
+            try:
+                os.stat(os.path.join(home,'.aisched'))
+            except:
+                shutil.copy(os.path.join(os.getcwd(),'settings'), os.path.join(home,'.aisched'))
+            fw=open(os.path.join(home,'.aisched'),'wb')
+        else:
+            fw=open(os.path.join(os.getcwd(),'settings'),'wb')
         fw.write(buf)
         fw.close()
         self.close()

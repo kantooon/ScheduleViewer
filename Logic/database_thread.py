@@ -37,7 +37,15 @@ class  DatabaseThread(QtCore.QThread):
     
     
     def run(self):
-        f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
+        home=os.getenv('HOME')
+        if home!=None:
+            try:
+                os.stat(os.path.join(home,'.aisched'))
+            except:
+                shutil.copy(os.path.join(os.getcwd(),'settings'), os.path.join(home,'.aisched'))
+            f_settings=open(os.path.join(home,'.aisched'),'rb')
+        else:
+            f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
         settings=f_settings.readlines()
         f_settings.close()
         for line in settings:
