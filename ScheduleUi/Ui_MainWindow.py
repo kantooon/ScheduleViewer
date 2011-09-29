@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Wed Sep 28 15:32:01 2011
+# Created: Thu Sep 29 21:24:04 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -228,7 +228,7 @@ class Ui_MainWindow(object):
         spacerItem1 = QtGui.QSpacerItem(30, 20, QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem1, 1, 8, 1, 1)
         self.verticalLayoutWidget_2 = QtGui.QWidget(self.groupBox_2)
-        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(245, 126, 780, 46))
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(235, 126, 780, 46))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
         self.horizontalLayout_2 = QtGui.QHBoxLayout(self.verticalLayoutWidget_2)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -434,10 +434,10 @@ class Ui_MainWindow(object):
         self.menubar.setObjectName("menubar")
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
-        self.menuFile = QtGui.QMenu(self.menubar)
-        self.menuFile.setObjectName("menuFile")
         self.menuEdit = QtGui.QMenu(self.menubar)
         self.menuEdit.setObjectName("menuEdit")
+        self.menuFile = QtGui.QMenu(self.menubar)
+        self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -467,6 +467,7 @@ class Ui_MainWindow(object):
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
+        self.menuEdit.addAction(self.actionSettings)
         self.menuFile.addAction(self.actionImport)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionImport_fleet)
@@ -482,7 +483,6 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionDump_database)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
-        self.menuEdit.addAction(self.actionSettings)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -540,7 +540,7 @@ class Ui_MainWindow(object):
         self.clearButton.setText(QtGui.QApplication.translate("MainWindow", "Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.addButton.setText(QtGui.QApplication.translate("MainWindow", "Add flight", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("MainWindow", "Delete flights", None, QtGui.QApplication.UnicodeUTF8))
-        self.truncateButton.setText(QtGui.QApplication.translate("MainWindow", "Empty database", None, QtGui.QApplication.UnicodeUTF8))
+        self.truncateButton.setText(QtGui.QApplication.translate("MainWindow", "Empty flights table", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.flightsTab), QtGui.QApplication.translate("MainWindow", "Flights", None, QtGui.QApplication.UnicodeUTF8))
@@ -557,7 +557,7 @@ class Ui_MainWindow(object):
         self.generateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Generate aircraft conf", None, QtGui.QApplication.UnicodeUTF8))
         self.addFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Add fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Delete fleet", None, QtGui.QApplication.UnicodeUTF8))
-        self.truncateFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Empty fleet database", None, QtGui.QApplication.UnicodeUTF8))
+        self.truncateFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Empty fleet table", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of fleets:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_20.setText(QtGui.QApplication.translate("MainWindow", "Selected fleets:", None, QtGui.QApplication.UnicodeUTF8))
         self.fleetTableWidget.setSortingEnabled(True)
@@ -583,7 +583,7 @@ class Ui_MainWindow(object):
         self.addMissingAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Add missing aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.addAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Add aircraft", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Delete aircraft", None, QtGui.QApplication.UnicodeUTF8))
-        self.truncateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Empty aircraft database", None, QtGui.QApplication.UnicodeUTF8))
+        self.truncateAircraftButton.setText(QtGui.QApplication.translate("MainWindow", "Empty aircraft table", None, QtGui.QApplication.UnicodeUTF8))
         self.label_35.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of aircraft:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_36.setText(QtGui.QApplication.translate("MainWindow", "Selected aircraft:", None, QtGui.QApplication.UnicodeUTF8))
         self.aircraftTableWidget.setSortingEnabled(True)
@@ -596,10 +596,10 @@ class Ui_MainWindow(object):
         self.aircraftTableWidget.horizontalHeaderItem(6).setText(QtGui.QApplication.translate("MainWindow", "Heavy", None, QtGui.QApplication.UnicodeUTF8))
         self.aircraftTableWidget.horizontalHeaderItem(7).setText(QtGui.QApplication.translate("MainWindow", "Model", None, QtGui.QApplication.UnicodeUTF8))
         self.aircraftTableWidget.horizontalHeaderItem(8).setText(QtGui.QApplication.translate("MainWindow", "id", None, QtGui.QApplication.UnicodeUTF8))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.aircraftTab), QtGui.QApplication.translate("MainWindow", "Aircraft", None, QtGui.QApplication.UnicodeUTF8))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.aircraftTab), QtGui.QApplication.translate("MainWindow", "Aircraft Types", None, QtGui.QApplication.UnicodeUTF8))
         self.menuHelp.setTitle(QtGui.QApplication.translate("MainWindow", "&Help", None, QtGui.QApplication.UnicodeUTF8))
-        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "&File", None, QtGui.QApplication.UnicodeUTF8))
         self.menuEdit.setTitle(QtGui.QApplication.translate("MainWindow", "Edit", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "&File", None, QtGui.QApplication.UnicodeUTF8))
         self.actionImport.setText(QtGui.QApplication.translate("MainWindow", "&Import schedules...", None, QtGui.QApplication.UnicodeUTF8))
         self.actionImport.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+I", None, QtGui.QApplication.UnicodeUTF8))
         self.actionExport.setText(QtGui.QApplication.translate("MainWindow", "&Export schedules...", None, QtGui.QApplication.UnicodeUTF8))

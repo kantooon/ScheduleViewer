@@ -309,7 +309,7 @@
         <item>
          <widget class="QPushButton" name="truncateButton">
           <property name="text">
-           <string>Empty database</string>
+           <string>Empty flights table</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -524,7 +524,7 @@
       <widget class="QWidget" name="verticalLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>245</x>
+         <x>235</x>
          <y>126</y>
          <width>780</width>
          <height>46</height>
@@ -574,7 +574,7 @@
         <item>
          <widget class="QPushButton" name="truncateFleetButton">
           <property name="text">
-           <string>Empty fleet database</string>
+           <string>Empty fleet table</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -718,7 +718,7 @@
     </widget>
     <widget class="QWidget" name="aircraftTab">
      <attribute name="title">
-      <string>Aircraft</string>
+      <string>Aircraft Types</string>
      </attribute>
      <widget class="QGroupBox" name="groupBox_3">
       <property name="geometry">
@@ -894,7 +894,7 @@
         <item>
          <widget class="QPushButton" name="truncateAircraftButton">
           <property name="text">
-           <string>Empty aircraft database</string>
+           <string>Empty aircraft table</string>
           </property>
           <property name="icon">
            <iconset resource="../resources.qrc">
@@ -1081,6 +1081,12 @@
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionSettings"/>
+   </widget>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>&amp;File</string>
@@ -1100,12 +1106,6 @@
     <addaction name="actionDump_database"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuEdit">
-    <property name="title">
-     <string>Edit</string>
-    </property>
-    <addaction name="actionSettings"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
