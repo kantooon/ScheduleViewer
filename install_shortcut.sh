@@ -6,7 +6,7 @@
 # get Exec target path (APP_DIR has to be the full path of the ScheduleViewer base directory)
 
 APP_DIR=$(dirname $(readlink -f "${0}"))
-APP_EXEC=ScheduleViewer.sh
+APP_EXEC=run.sh
 SHORTCUTPATH=~/.local/share/applications
 SHORTCUTFILE=ScheduleViewer.desktop
 
