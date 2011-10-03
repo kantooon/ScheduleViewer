@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Oct  3 17:45:24 2011
+# Created: Mon Oct  3 21:06:11 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1083, 749)
+        MainWindow.resize(1086, 794)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -170,11 +170,18 @@ class Ui_MainWindow(object):
         self.gridLayout_5.addWidget(self.labelTotalFlights, 0, 1, 1, 1)
         self.label_10 = QtGui.QLabel(self.groupBox)
         self.label_10.setObjectName("label_10")
-        self.gridLayout_5.addWidget(self.label_10, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.label_10, 2, 0, 1, 1)
         self.labelSelectedFlights = QtGui.QLabel(self.groupBox)
         self.labelSelectedFlights.setText("")
         self.labelSelectedFlights.setObjectName("labelSelectedFlights")
-        self.gridLayout_5.addWidget(self.labelSelectedFlights, 1, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.labelSelectedFlights, 2, 1, 1, 1)
+        self.label_16 = QtGui.QLabel(self.groupBox)
+        self.label_16.setObjectName("label_16")
+        self.gridLayout_5.addWidget(self.label_16, 1, 0, 1, 1)
+        self.labelDuplicates = QtGui.QLabel(self.groupBox)
+        self.labelDuplicates.setText("")
+        self.labelDuplicates.setObjectName("labelDuplicates")
+        self.gridLayout_5.addWidget(self.labelDuplicates, 1, 1, 1, 1)
         self.gridLayout_9.addLayout(self.gridLayout_5, 1, 0, 1, 1)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -475,7 +482,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addLayout(self.verticalLayout, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1083, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1086, 21))
         self.menubar.setObjectName("menubar")
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -585,6 +592,7 @@ class Ui_MainWindow(object):
         self.clearButton.setText(QtGui.QApplication.translate("MainWindow", "Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_16.setText(QtGui.QApplication.translate("MainWindow", "Duplicates:", None, QtGui.QApplication.UnicodeUTF8))
         self.findDupesButton.setText(QtGui.QApplication.translate("MainWindow", "Create duplicate index", None, QtGui.QApplication.UnicodeUTF8))
         self.addButton.setText(QtGui.QApplication.translate("MainWindow", "Add flight", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("MainWindow", "Delete flights", None, QtGui.QApplication.UnicodeUTF8))

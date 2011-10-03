@@ -338,7 +338,8 @@ class  DatabaseThread(QtCore.QThread):
     
     def getNrFlights(self):
         res=self.db.getNrFlights()
-        self.emit(QtCore.SIGNAL('show_total_nr'), str(res))
+        dupes=self.db.getNrDuplicates()
+        self.emit(QtCore.SIGNAL('show_total_nr'), str(res), str(dupes))
     
     
     def getNrFleets(self):

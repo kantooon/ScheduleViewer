@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1083</width>
-    <height>749</height>
+    <width>1086</width>
+    <height>794</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -318,15 +318,29 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
+               <item row="2" column="0">
                 <widget class="QLabel" name="label_10">
                  <property name="text">
                   <string>Selected flights:</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
+               <item row="2" column="1">
                 <widget class="QLabel" name="labelSelectedFlights">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_16">
+                 <property name="text">
+                  <string>Duplicates:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="labelDuplicates">
                  <property name="text">
                   <string/>
                  </property>
@@ -989,7 +1003,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1083</width>
+     <width>1086</width>
      <height>21</height>
     </rect>
    </property>

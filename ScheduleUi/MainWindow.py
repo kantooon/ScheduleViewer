@@ -242,8 +242,9 @@ class MainWindow(QtGui.QMainWindow):
     
     
     
-    def showNrFlights(self, nr):
+    def showNrFlights(self, nr, dupes):
         self.ui.labelTotalFlights.setText('<b>'+nr+'</b>')
+        self.ui.labelDuplicates.setText('<b>'+dupes+'</b>')
     
     
     def showNrFleets(self, nr):

@@ -75,6 +75,12 @@ class FlightsDatabase():
         nr=self.cursor.fetchone()
         if nr[0]==0:
             self.cursor.execute('INSERT OR ROLLBACK INTO flight_duplicates (flight_id, duplicate_score) VALUES (?,?)', flight_dupe)
+    
+    
+    def getNrDuplicates(self):
+        self.cursor.execute('SELECT COUNT(id) FROM flight_duplicates')
+        nr=self.cursor.fetchone()
+        return nr[0]
  
     ## flights ##
  
