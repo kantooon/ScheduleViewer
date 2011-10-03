@@ -121,7 +121,7 @@ class  DatabaseThread(QtCore.QThread):
                 fr=open(conf,'rb')
                 content= fr.readlines()
                 for line in content:
-                    if line.find('#')==0 or len(line)<2:
+                    if line.find('#')==0 or len(line)<2 or line.find('FLIGHT')==-1:
                         continue
                     stubs1=line.split()
                     ## do not add individual daily flights, add weekly ones
