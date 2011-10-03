@@ -68,7 +68,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.del_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFlights)
         self.connect(self.ui.addButton, QtCore.SIGNAL("clicked()"), self.addFlight)
-        self.connect(self.ui.findDupesButton, QtCore.SIGNAL("clicked()"), self.findDupes)
+        self.connect(self.ui.findDupesButton, QtCore.SIGNAL("clicked()"), self.confirmFindDupes)
         
         ## fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
@@ -342,30 +342,57 @@ class MainWindow(QtGui.QMainWindow):
             
             callsign=QtGui.QTableWidgetItem(str(flight[1]), 0)
             callsign.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                callsign.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             flt_rules=QtGui.QTableWidgetItem(str(flight[2]), 0)
             flt_rules.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                flt_rules.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             dep_day=QtGui.QTableWidgetItem(str(flight[3]).replace('.', '#'), 0)
             dep_day.setTextAlignment(QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                dep_day.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             dep_airport=QtGui.QTableWidgetItem(str(flight[4]), 0)
             dep_airport.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                dep_airport.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             arr_airport=QtGui.QTableWidgetItem(str(flight[5]), 0)
             arr_airport.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                arr_airport.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             dep_time=QtGui.QTableWidgetItem(str(flight[6]), 0)
             dep_time.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                dep_time.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             arr_time=QtGui.QTableWidgetItem(str(flight[7]), 0)
             arr_time.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                arr_time.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             ac_type=QtGui.QTableWidgetItem(str(flight[8]), 0)
             ac_type.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                ac_type.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             flt_level=QtGui.QTableWidgetItem(str(flight[9]), 0)
             flt_level.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            if flight[10]!=None and flight[10]!='':
+                color=255 - 36 * int(flight[10])
+                flt_level.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
             table.setItem(r, 0, callsign)
             table.setItem(r, 1, flt_rules)
@@ -887,5 +914,11 @@ class MainWindow(QtGui.QMainWindow):
         if self.ui.airlineEdit.text()!='':
             airline=str(self.ui.airlineEdit.text()).upper()
             self.emit(QtCore.SIGNAL('find_duplicate_candidates'), airline)
-        #self.emit(QtCore.SIGNAL('find_duplicate_candidates'))
+        else:
+            self.emit(QtCore.SIGNAL('find_duplicate_candidates'), None)
+            
+    
+    def confirmFindDupes(self):
+        self.confirmDialog = ConfirmDialog.ConfirmDialog()
+        self.connect(self.confirmDialog, QtCore.SIGNAL("accepted()"), self.findDupes, QtCore.Qt.QueuedConnection)
     

@@ -54,6 +54,7 @@ class FlightsDatabase():
         # table flights: id, callsign, flt_rules, dep_day, dep_airport, arr_airport, dep_time, arr_time, ac_type, flt_level
         # table fleet: id, airline, ac_type, nr_ac, hubs, callsign, designation
         # table aircraft: id, ac_type, designation, offset, radius, fl_type, perf_class, heavy, model
+        # table flight_duplicates: id, flight_id, duplicate_score
         pass 
     
     
@@ -67,6 +68,13 @@ class FlightsDatabase():
     def commitTransaction(self):
         self.conn.commit()
  
+    ## flight duplicates ##
+    
+    def addDuplicateFlight(self, flight_dupe):
+        self.cursor.execute('SELECT COUNT(*) FROM flight_duplicates WHERE flight_id=?', (flight_dupe[0], ))
+        nr=self.cursor.fetchone()
+        if nr[0]==0:
+            self.cursor.execute('INSERT OR ROLLBACK INTO flight_duplicates (flight_id, duplicate_score) VALUES (?,?)', flight_dupe)
  
     ## flights ##
  
@@ -90,7 +98,7 @@ class FlightsDatabase():
 
     def queryFlights(self, params):
         ## forget about sql injection, must make LIKE % work as expected :)
-        query='SELECT * FROM flights WHERE'
+        query='SELECT flights.*,flight_duplicates.duplicate_score FROM flights LEFT JOIN flight_duplicates ON flights.id=flight_duplicates.flight_id WHERE'
         query_params=[]
         for cond,  value in params.iteritems():
             if cond=='ac_type':
@@ -106,52 +114,20 @@ class FlightsDatabase():
             elif cond=='arr_time':
                 query=query+' '+'arr_time'+' LIKE \'%'+value+'%\' AND '
             elif cond=='not_id':
-                query=query+' id !=? AND '
+                query=query+' flights.id !=? AND '
                 query_params.append(value)
             elif cond=='id_larger_than':
-                query=query+' id > ? AND '
+                query=query+' flights.id > ? AND '
                 query_params.append(value)
             else:
                 query=query+' '+cond+'=? AND '
                 query_params.append(value)
-        query=query+' 1=1 ORDER BY id ASC'
+        query=query+' 1=1 ORDER BY flights.id ASC'
         #print query, query_params
         self.cursor.execute(query, query_params)
         rows=self.cursor.fetchall()
         return rows
-        
     
-    def queryDupes(self, params):
-        ## forget about sql injection, must make LIKE % work as expected :)
-        query='SELECT * FROM temp_flights WHERE '
-        query_params=[]
-        for cond,  value in params.iteritems():
-            if cond=='ac_type':
-                query=query+' '+'ac_type'+' LIKE \''+value+'-%\' AND '
-            elif cond=='airline':
-                query=query+' '+'ac_type'+' LIKE \'%-'+value+'\' AND '
-            #elif cond=='dep_day':
-            #    query=query+' '+'dep_day'+' LIKE \'%'+value+'%\' AND '
-            #elif cond=='callsign':
-            #    query=query+' '+'callsign'+' LIKE \'%'+value+'%\' AND '
-            elif cond=='dep_time':
-                query=query+' '+'dep_time'+' LIKE \'%'+value+'%\' AND '
-            elif cond=='arr_time':
-                query=query+' '+'arr_time'+' LIKE \'%'+value+'%\' AND '
-            elif cond=='not_id':
-                query=query+' id !=? AND '
-                query_params.append(value)
-            elif cond=='id_larger_than':
-                query=query+' id > ? AND '
-                query_params.append(value)
-            else:
-                query=query+' '+cond+'=? AND '
-                query_params.append(value)
-        query=query+' 1=1 ORDER BY id ASC'
-        #print query, query_params
-        self.mem_cursor.execute(query, query_params)
-        rows=self.mem_cursor.fetchall()
-        return rows
     
     
     def addFlight(self, flight):
@@ -177,6 +153,7 @@ class FlightsDatabase():
     
     def emptyFlights(self):
         self.cursor.execute('DELETE FROM flights')
+        self.cursor.execute('DELETE FROM flight_duplicates')
         self.conn.commit()
 
 

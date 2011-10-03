@@ -339,7 +339,7 @@
                <item>
                 <widget class="QPushButton" name="findDupesButton">
                  <property name="text">
-                  <string>Find duplicates</string>
+                  <string>Create duplicate index</string>
                  </property>
                 </widget>
                </item>

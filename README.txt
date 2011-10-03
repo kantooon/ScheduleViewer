@@ -3,18 +3,17 @@ About:
 ScheduleViewer is a program that can:
 1. Import Flightgear AI schedules in .conf format into a common database
 2. Filter and show flightplans according to user criteria
-3. Delete flightplans
-4. Edit flightplans
-5. Export flightplans
-6. Add flightplans
-7. Perform the above operations for airline fleets and aircraft
-8. Check schedules and insert missing aircraft into the aicraft table
-9. Check liveries and display their status in the fleets tab.
-10. Export aircraft conf files.
-11. Export complete XML flightplans
-
-Point 11 is not yet available.
-
+3. Create duplicate flights index
+4. Delete obvious duplicate flights
+5. Delete flightplans
+6. Edit flightplans
+7. Export flightplans
+8. Add flightplans
+9. Perform the above operations for airline fleets and aircraft
+10. Check schedules and insert missing aircraft into the aicraft table
+11. Check liveries and display their status in the fleets tab.
+12. Export aircraft conf files.
+13. Export complete XML flightplans
 
 
 Requirements:

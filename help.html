@@ -34,7 +34,12 @@ The search is case insensitive.
 To clear the table view and the filter form, click <b>Clear</b>.
 </p>
 <p>
-The <b>Empty database</b> button truncates the Flights database table, leaving an empty slate. Use with care.
+The <b>Empty flights table</b> button truncates the Flights database table, leaving an empty slate. It will also destroy the duplicate flight index table. Use with care.
+</p>
+<i>Duplicate filtering</i>
+<p>
+The <b>Create duplicate index</b> button can be used to create a database table containing an index of obvious duplicate flights found in the flights database. If you have entered an airline code in the <b>Airline</b> field, the operation will only be performed on flights of this airline, else it will be performed on all flights in the database. Depending on the total number of flights stored in the database, this operation can take a long time to complete (typically more than one hour). After it has been completed, the flights marked as duplicates will appear in shades of red anytime a search is performed. Depending on how many days are duplicated for this flight, the shade of red varies from darker to lighter. This operation is only necessary after you have imported new conf files.<br/>
+Limitations: the duplicate indexing is only performed on flights with the same airline code. If there are airlines with multiple codes in the database, duplicate indexing will not take those into account.
 </p>
 <p>
 You can select multiple flights at the same time with CTRL and SHIFT to delete. The Del key is a shortcut for the delete button. You will not be asked again so be carefull.<br/>
@@ -42,7 +47,7 @@ Double click a table field to edit it, when you are finished press <b>Enter</b>.
 </p>
 <p>To add a new flight, enter the flight information in the filter fields, then press <b>Add flight</b>. Thorough input checking is not yet implemented so be careful.
 </p>
-<p>In the <i>Aircraft</i> tab, the button <b>Add missing aircraft</b> will trigger a database check for all aircraft types present in the flight schedules table, and add those missing into the table <i>aircraft</i>.
+<p>In the <i>Aircraft types</i> tab, the button <b>Add missing aircraft</b> will trigger a database check for all aircraft types present in the flight schedules table, and add those missing into the table <i>aircraft</i>.
 </p>
 <p>Fleet designation column color coding: <b>GREEN</b>=model livery was found in FGDATA path; <b>RED</b>=model livery was not found. If all entries in the <i>Designation</i> column are red, check you FGDATA path in the <b>settings</b> file. It is most likely wrong.
 </p>
@@ -51,7 +56,7 @@ Double click a table field to edit it, when you are finished press <b>Enter</b>.
 <p>The <b>Generate flight plans</b> button on the fleet tab lets you export flightplans in XML format for the selected airline or all airlines. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will probably fail. If you have checked the <b>"move flightplans"</b> checkbox, the generated files will be copied directly to FGDATA. Exercise extreme caution, as this operation is likely to overwrite any existing flightplans.
 </p>
 <h4>Known issues:</h4>
-If you order the table by a column other than id and then apply filters, the table may become corrupted. To solve this, simply order by id again, click <b>Show</b> then order by the column you want. The table will display normally.
+The program can't import aircraft confs or lines starting with AC from mixed confs.
 <br/>
 <h3>Getting more help and reporting bugs</h3>
 

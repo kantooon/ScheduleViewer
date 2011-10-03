@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Fri Sep 30 14:16:25 2011
+# Created: Mon Oct  3 17:45:24 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -585,7 +585,7 @@ class Ui_MainWindow(object):
         self.clearButton.setText(QtGui.QApplication.translate("MainWindow", "Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights:", None, QtGui.QApplication.UnicodeUTF8))
-        self.findDupesButton.setText(QtGui.QApplication.translate("MainWindow", "Find duplicates", None, QtGui.QApplication.UnicodeUTF8))
+        self.findDupesButton.setText(QtGui.QApplication.translate("MainWindow", "Create duplicate index", None, QtGui.QApplication.UnicodeUTF8))
         self.addButton.setText(QtGui.QApplication.translate("MainWindow", "Add flight", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("MainWindow", "Delete flights", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateButton.setText(QtGui.QApplication.translate("MainWindow", "Empty flights table", None, QtGui.QApplication.UnicodeUTF8))

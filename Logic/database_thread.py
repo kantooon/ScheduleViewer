@@ -727,47 +727,84 @@ class  DatabaseThread(QtCore.QThread):
     
     
     def dupeCandidates(self, airline):
-        params=dict({'airline':airline})
-        #self.db.queryDupes(params)
-        #return
-        flights1=self.db.queryFlights(params)
+        flights1=[]
+        if airline!=None:
+            params=dict({'airline':airline})
+            flights1=self.db.queryFlights(params)
+        else:
+            flights1=self.db.getAllFlights()
         if len(flights1) < 1:
             return
-        #flights1=self.db.getAllFlights()
         flights2=[]
         searched=[]
         progress_overall=0
         progress_overall_step=float(100) / float(len(flights1))
         for flight in flights1:
-            #don't try to find dupes for the dupes
+            ##don't try to find dupes for the dupes
             if int(str(flight[0])) in searched:
+                progress_overall=progress_overall+progress_overall_step
+                self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
                 continue
             ac_type1=str(flight[8])
             ac_type=ac_type1[0:3]
+            airline=ac_type1[4:]
             days=str(flight[3])
-            
+            numeric_days=[]
+            for day in days:
+                if day.isdigit():
+                    numeric_days.append(day)
+            line=( str(flight[0]),  str(flight[1]), str(flight[2]), str(flight[3]), str(flight[4]), str(flight[5]), str(flight[6]), str(flight[7]), str(flight[8]), str(flight[9]), str(flight[10]) )
             conditions=[]
-            #conditions.append(('dep_airport', str(flight[4])))
-            #conditions.append(('dep_time', str(flight[6])))
+            conditions.append(('dep_airport', str(flight[4])))
+            conditions.append(('arr_airport', str(flight[5])))
+            conditions.append(('dep_time', str(flight[6])))
             #conditions.append(('ac_type', ac_type))
-            #conditions.append(('not_id', int(str(flight[0]))))
-            conditions.append(('id_larger_than', int(str(flight[0]))))
-            #conditions.append(('airline', airline))
-            #conditions.append(('dep_day', d))
-            conditions.append(('callsign', str(flight[1])))
+            conditions.append(('not_id', int(str(flight[0]))))
+            conditions.append(('airline', airline))
             params=dict(conditions)
             res=self.db.queryFlights(params)
-
+            
             for row in res:
-                line=( str(row[0]),  str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]), str(row[6]), str(row[7]), str(row[8]), str(row[9]) )
-                flights2.append(line)
-                searched.append( int( str(row[0]) ) )
-                #QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
-
-            #flights2.extend(res)
-            #print len(flights2),  len(searched)
+                if int(str(row[0])) in searched:
+                    continue
+                dupe_days=[]
+                numeric_days2=[]
+                dupe_score=0
+                rev_dupe_score=0
+                line2=( str(row[0]),  str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]), str(row[6]), str(row[7]), str(row[8]), str(row[9]), str(row[10]) )
+                days2=str(row[3])
+                for day2 in days2:
+                    if day2.isdigit():
+                        numeric_days2.append(day2)
+                        if day2 in days:
+                            dupe_days.append(day2)
+                
+                dupe_days=set(dupe_days)
+                if len(dupe_days)==0:
+                    continue
+                numeric_days2=set(numeric_days2)
+                numeric_days=set(numeric_days)
+                if len(numeric_days2) <= len(numeric_days):
+                    dupe_score= 7 - len(numeric_days2-dupe_days)
+                    if line2 not in flights2:
+                        flights2.append(line2)
+                        flight_dupe=( int( line2[0]  ),  dupe_score)
+                        self.db.addDuplicateFlight(flight_dupe)
+                    if int( str(row[0]) ) not in searched:
+                        searched.append( int( str(row[0]) ) )
+                elif len(numeric_days2) > len(numeric_days):
+                    rev_dupe_score= 7 - len(numeric_days-dupe_days)
+                    if line not in flights2:
+                        flights2.append(line)
+                        flight_dupe=( int( line[0] ),  rev_dupe_score)
+                        self.db.addDuplicateFlight(flight_dupe)
+                    if int( str(flight[0]) ) not in searched:
+                        searched.append( int( str(flight[0]) ) )
+                
             progress_overall=progress_overall+progress_overall_step
             self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        if len(flights2) >0:
+            self.db.commitTransaction()
         self.emit(QtCore.SIGNAL('ready_results'), flights2)
         self.emit(QtCore.SIGNAL('import_progress'), 100)
