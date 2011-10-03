@@ -43,7 +43,7 @@ Linux:
  Make sure you have installed all dependencies as described 
  above. Extract the archive to a convenient location.
  Open a terminal and type:
-    sh ScheduleViewer.sh
+    sh run.sh
  Or install the shortcut in your desktop environment by running the script.
     
 Windows:

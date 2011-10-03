@@ -5,6 +5,7 @@ You may also select the checkbox to move flightplans to FGDATA directory as soon
 </p>
 <i>Import schedules in *.conf format:</i>
 <p>
+<i>The program is not capable yet of importing aircraft confs (or lines beginning with AC). For now, use only the fleets and aircraft types for that purpose</i>
 Go to <b>File -> Import</b> and choose the path (directory) where to look for conf files.
 Leave empty the <b>Depth level</b> field to look only in this directory. Enter a number in this field to make
 the import tool search all directories <b>below</b> the selected one, at the level you give via this number.
@@ -28,7 +29,7 @@ The search is case insensitive.
 <br/>
 <b>"Smart"</b> filters are available for the <i>callsign, departure time, departure day, arrival time, arrival day</i> fields. To use them, input only part of the string you want to search for, like for instance <b>10:</b>, which will fetch all flights with departing hour 10, or <b>:30</b> which will fetch all flights departing at hour:30 minutes. This is the case for the day too, if you want to search for flights that take place on Sunday but not on Monday, you would enter <b>0.</b> - notice the dot after 0. The callsign can also be entered partially, for instance <b>SpeedBird</b> which will fetch BAW flights.
 <br/>
-<b>Note:</b> For readability and display reasons, the dots from <b>Departure day</b> have been replaced with <b>#</b> or <b>-</b>. When editing, you should enter the same character as is being displayed, it will be converted to dots automatically inside the database. The filter field accepts only dots as substitute for days.
+<b>Note:</b> For readability and display reasons, the dots from <b>Departure day</b> have been replaced with <b>#</b> or <b>_</b>. When editing, you should enter the same character as is being displayed, it will be converted to dots automatically inside the database. The filter field accepts only dots as substitute for days.
 <br/>
 To clear the table view and the filter form, click <b>Clear</b>.
 </p>
