@@ -57,6 +57,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.actionExport_fleet, QtCore.SIGNAL("triggered()"), self.exportFleet)
         self.connect(self.ui.actionExport_aircraft, QtCore.SIGNAL("triggered()"), self.exportAircraft)
         self.connect(self.ui.actionDump_database, QtCore.SIGNAL("triggered()"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
+        self.connect(self.ui.actionLoad_database, QtCore.SIGNAL("triggered()"), self.loadDBFromSQL)
         self.connect(self.ui.actionSettings, QtCore.SIGNAL("triggered()"), self.showSettingsDialog)
         self.connect(self.ui.actionAbout, QtCore.SIGNAL("triggered()"), self.showAboutDialog)
         self.connect(self.ui.actionHelp, QtCore.SIGNAL("triggered()"), self.showHelpDialog)
@@ -133,7 +134,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL("generate_flightplans"), self.databaseThread.generateAirlineXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_flightplans"), self.databaseThread.generateAllAirlinesXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("find_duplicate_candidates"), self.databaseThread.dupeCandidates, QtCore.Qt.QueuedConnection)
-        #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("load_sql_db"), self.databaseThread.loadDBFromSQL, QtCore.Qt.QueuedConnection)
         
         self.databaseThread.start()
         
@@ -174,6 +175,13 @@ class MainWindow(QtGui.QMainWindow):
     
     def dumpDatabase(self):
         self.emit(QtCore.SIGNAL('dump_database'))
+    
+    
+    def loadDBFromSQL(self):
+        filename = QtGui.QFileDialog.getOpenFileName(self,"SQL file",  os.getcwd(), "SQL files (*.sql)")
+        if filename==None or filename=='':
+            return
+        self.emit(QtCore.SIGNAL('load_sql_db'), str(filename))
     
     
     def confirmDeleteFlights(self):

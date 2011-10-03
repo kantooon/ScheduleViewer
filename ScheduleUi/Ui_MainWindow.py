@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Oct  3 21:06:11 2011
+# Created: Mon Oct  3 23:06:38 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1086, 794)
+        MainWindow.resize(1099, 794)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.MinimumExpanding, QtGui.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -482,7 +482,7 @@ class Ui_MainWindow(object):
         self.gridLayout_3.addLayout(self.verticalLayout, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1086, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1099, 21))
         self.menubar.setObjectName("menubar")
         self.menuHelp = QtGui.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
@@ -516,6 +516,8 @@ class Ui_MainWindow(object):
         self.actionDump_database.setObjectName("actionDump_database")
         self.actionSettings = QtGui.QAction(MainWindow)
         self.actionSettings.setObjectName("actionSettings")
+        self.actionLoad_database = QtGui.QAction(MainWindow)
+        self.actionLoad_database.setObjectName("actionLoad_database")
         self.menuHelp.addAction(self.actionHelp)
         self.menuHelp.addSeparator()
         self.menuHelp.addAction(self.actionAbout)
@@ -534,7 +536,10 @@ class Ui_MainWindow(object):
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionDump_database)
         self.menuFile.addSeparator()
+        self.menuFile.addAction(self.actionLoad_database)
+        self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionQuit)
+        self.menuFile.addSeparator()
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -672,6 +677,7 @@ class Ui_MainWindow(object):
         self.actionDump_database.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+D", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSettings.setText(QtGui.QApplication.translate("MainWindow", "&Settings", None, QtGui.QApplication.UnicodeUTF8))
         self.actionSettings.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionLoad_database.setText(QtGui.QApplication.translate("MainWindow", "&Load database...", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc
 

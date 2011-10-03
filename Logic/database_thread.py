@@ -73,6 +73,26 @@ class  DatabaseThread(QtCore.QThread):
         self.exec_()
 
     
+    def loadDBFromSQL(self, filename):
+        fr=open(filename, 'rb')
+        content=fr.readlines()
+        progress_overall=0
+        progress_overall_step=100 / len(content)
+        self.db.dropTables()
+        for line in content:
+            self.db.execSQL(line)
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+        self.db.commitTransaction()
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Database loaded succesfully')
+    
+    
+    def dumpDatabase(self):
+        self.db.dumpDatabase()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Database dumped to text file')
+    
+    
     def importFleet(self, filename):
         fr=open(filename, 'rb')
         content= fr.readlines()
@@ -434,11 +454,6 @@ class  DatabaseThread(QtCore.QThread):
     def addAircraft(self, params):
         self.db.addAircraft(params)
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft saved')
-
-    
-    def dumpDatabase(self):
-        self.db.dumpDatabase()
-        self.emit(QtCore.SIGNAL('message_success'), 'Info','Database dumped to text file')
     
     
     def getMissingAircraft(self):
@@ -738,11 +753,13 @@ class  DatabaseThread(QtCore.QThread):
             return
         flights2=[]
         searched=[]
+        rows=self.db.getAllDuplicates()
+        duplicate_ids=[row[1] for row in rows ]
         progress_overall=0
         progress_overall_step=float(100) / float(len(flights1))
         for flight in flights1:
             ##don't try to find dupes for the dupes
-            if int(str(flight[0])) in searched:
+            if int(str(flight[0])) in searched or int(str(flight[0])) in duplicate_ids:
                 progress_overall=progress_overall+progress_overall_step
                 self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
                 continue

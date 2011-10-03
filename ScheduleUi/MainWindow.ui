@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1086</width>
+    <width>1099</width>
     <height>794</height>
    </rect>
   </property>
@@ -1003,7 +1003,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1086</width>
+     <width>1099</width>
      <height>21</height>
     </rect>
    </property>
@@ -1039,7 +1039,10 @@
     <addaction name="separator"/>
     <addaction name="actionDump_database"/>
     <addaction name="separator"/>
+    <addaction name="actionLoad_database"/>
+    <addaction name="separator"/>
     <addaction name="actionQuit"/>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1120,6 +1123,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionLoad_database">
+   <property name="text">
+    <string>&amp;Load database...</string>
    </property>
   </action>
  </widget>

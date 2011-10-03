@@ -63,6 +63,14 @@ class FlightsDatabase():
         for line in self.conn.iterdump():
             fw.write(line +'\n')
         fw.close()
+    
+    
+    def dropTables(self):
+        self.cursor.executescript('DROP TABLE flights;DROP TABLE flight_duplicates;DROP TABLE fleet;DROP TABLE aircraft;')
+    
+    
+    def execSQL(self, sql):
+        self.cursor.executescript(sql)
 
     
     def commitTransaction(self):
@@ -81,6 +89,21 @@ class FlightsDatabase():
         self.cursor.execute('SELECT COUNT(id) FROM flight_duplicates')
         nr=self.cursor.fetchone()
         return nr[0]
+    
+    
+    def getAllDuplicates(self):
+        self.cursor.execute('SELECT * FROM flight_duplicates ORDER BY id ASC')
+        rows=self.cursor.fetchall()
+        return rows
+    
+    
+    def deleteAllDuplicates(self, treshhold=7):
+        self.cursor.execute('SELECT * FROM flight_duplicates WHERE duplicate_score >= ? ORDER BY id ASC', (treshhold, ))
+        rows=self.cursor.fetchall()
+        for row in rows:
+            self.cursor.execute('DELETE FROM flights WHERE id=?', (row[1], ))
+            self.cursor.execute('DELETE FROM flight_duplicates WHERE id=?', (row[0], ))
+        self.conn.commit()
  
     ## flights ##
  
@@ -154,7 +177,6 @@ class FlightsDatabase():
     
     def deleteFlight(self, flight):
         self.cursor.execute('DELETE FROM flights WHERE id=?', (flight, ))
-        #self.conn.commit() #manually commit to speed things up
     
     
     def emptyFlights(self):
@@ -167,7 +189,6 @@ class FlightsDatabase():
 
     def addFleet(self, fleet_item):
         self.cursor.execute('INSERT OR ROLLBACK INTO fleet (airline, ac_type, nr_ac, hubs, callsign, designation) VALUES (?,?,?,?,?,?)', fleet_item)
-        #self.conn.commit() # call commit on the whole chunk to speed things up
     
     
     def getAllFleets(self):
@@ -236,7 +257,6 @@ class FlightsDatabase():
     
     def deleteFleet(self, fleet):
         self.cursor.execute('DELETE FROM fleet WHERE id=?', (fleet, ))
-        #self.conn.commit() #manually commit to speed things up
     
     
     def emptyFleet(self):
@@ -248,7 +268,6 @@ class FlightsDatabase():
     
     def addAircraft(self, aircraft):
         self.cursor.execute('INSERT OR ROLLBACK INTO aircraft (ac_type, designation, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,?,?,?,?,?,?,?)', aircraft)
-        #self.conn.commit() # call commit on the whole chunk to speed things up
     
     
     def getAllAircraft(self):
@@ -304,7 +323,6 @@ class FlightsDatabase():
     
     def deleteAircraft(self, aircraft):
         self.cursor.execute('DELETE FROM aircraft WHERE id=?', (aircraft, ))
-        #self.conn.commit() #manually commit to speed things up
 
     
     def emptyAircraft(self):
