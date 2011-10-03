@@ -25,8 +25,8 @@ from PyQt4 import QtCore
 
 
 ## log redirecting will happen
-sys.stdout = LogStream('debug')
-sys.stderr = LogStream('error')
+#sys.stdout = LogStream('debug')
+#sys.stderr = LogStream('error')
 
 
 app = QtGui.QApplication(sys.argv)

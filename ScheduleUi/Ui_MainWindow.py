@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Thu Sep 29 22:26:14 2011
+# Created: Fri Sep 30 14:16:25 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -178,6 +178,9 @@ class Ui_MainWindow(object):
         self.gridLayout_9.addLayout(self.gridLayout_5, 1, 0, 1, 1)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.findDupesButton = QtGui.QPushButton(self.groupBox)
+        self.findDupesButton.setObjectName("findDupesButton")
+        self.horizontalLayout.addWidget(self.findDupesButton)
         self.addButton = QtGui.QPushButton(self.groupBox)
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/icons/icons/document-edit.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -582,6 +585,7 @@ class Ui_MainWindow(object):
         self.clearButton.setText(QtGui.QApplication.translate("MainWindow", "Clear", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of flights:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_10.setText(QtGui.QApplication.translate("MainWindow", "Selected flights:", None, QtGui.QApplication.UnicodeUTF8))
+        self.findDupesButton.setText(QtGui.QApplication.translate("MainWindow", "Find duplicates", None, QtGui.QApplication.UnicodeUTF8))
         self.addButton.setText(QtGui.QApplication.translate("MainWindow", "Add flight", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("MainWindow", "Delete flights", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateButton.setText(QtGui.QApplication.translate("MainWindow", "Empty flights table", None, QtGui.QApplication.UnicodeUTF8))

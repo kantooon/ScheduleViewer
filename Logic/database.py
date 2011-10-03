@@ -23,13 +23,31 @@ class FlightsDatabase():
         try:
             self.conn=sqlite3.connect(os.path.join(os.getcwd(), 'database', 'flights.db'))
             self.cursor=self.conn.cursor()
+            self.mem_conn=sqlite3.connect(':memory:')
+            self.mem_cursor=self.mem_conn.cursor()
         except Exception as eroare:
             print "DB: could not connect to database:",  eroare
+            return
+    
+    
+    def loadFlightsInMemory(self):
+        self.mem_cursor.execute('CREATE TABLE temp_flights (id INTEGER PRIMARY KEY, callsign TEXT, flt_rules TEXT, dep_day TEXT,\
+        dep_airport TEXT, arr_airport TEXT, dep_time TEXT, arr_time TEXT, ac_type TEXT, flt_level INT);')
+        self.mem_conn.commit()
+        flights=self.getAllFlights()
+        for flight in flights:
+            for day in str(flight[3]):
+                if day.isdigit():
+                    insert=(flight[1], flight[2], day, flight[4], flight[5], flight[6], flight[7], flight[8], flight[9])
+                    self.mem_cursor.execute('INSERT OR ROLLBACK INTO temp_flights (callsign, flt_rules, dep_day, dep_airport, arr_airport, dep_time, arr_time, ac_type, flt_level) VALUES (?,?,?,?,?,?,?,?,?)', insert)
+        self.mem_conn.commit()
     
     
     def __del__(self):
         self.cursor.close()
         self.conn.close()
+        self.mem_cursor.close()
+        self.mem_conn.close()
     
     
     def checkTables(self):
@@ -87,6 +105,12 @@ class FlightsDatabase():
                 query=query+' '+'dep_time'+' LIKE \'%'+value+'%\' AND '
             elif cond=='arr_time':
                 query=query+' '+'arr_time'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='not_id':
+                query=query+' id !=? AND '
+                query_params.append(value)
+            elif cond=='id_larger_than':
+                query=query+' id > ? AND '
+                query_params.append(value)
             else:
                 query=query+' '+cond+'=? AND '
                 query_params.append(value)
@@ -94,6 +118,39 @@ class FlightsDatabase():
         #print query, query_params
         self.cursor.execute(query, query_params)
         rows=self.cursor.fetchall()
+        return rows
+        
+    
+    def queryDupes(self, params):
+        ## forget about sql injection, must make LIKE % work as expected :)
+        query='SELECT * FROM temp_flights WHERE '
+        query_params=[]
+        for cond,  value in params.iteritems():
+            if cond=='ac_type':
+                query=query+' '+'ac_type'+' LIKE \''+value+'-%\' AND '
+            elif cond=='airline':
+                query=query+' '+'ac_type'+' LIKE \'%-'+value+'\' AND '
+            #elif cond=='dep_day':
+            #    query=query+' '+'dep_day'+' LIKE \'%'+value+'%\' AND '
+            #elif cond=='callsign':
+            #    query=query+' '+'callsign'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='dep_time':
+                query=query+' '+'dep_time'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='arr_time':
+                query=query+' '+'arr_time'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='not_id':
+                query=query+' id !=? AND '
+                query_params.append(value)
+            elif cond=='id_larger_than':
+                query=query+' id > ? AND '
+                query_params.append(value)
+            else:
+                query=query+' '+cond+'=? AND '
+                query_params.append(value)
+        query=query+' 1=1 ORDER BY id ASC'
+        #print query, query_params
+        self.mem_cursor.execute(query, query_params)
+        rows=self.mem_cursor.fetchall()
         return rows
     
     

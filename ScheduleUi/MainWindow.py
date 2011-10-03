@@ -68,6 +68,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.del_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFlights)
         self.connect(self.ui.addButton, QtCore.SIGNAL("clicked()"), self.addFlight)
+        self.connect(self.ui.findDupesButton, QtCore.SIGNAL("clicked()"), self.findDupes)
         
         ## fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
@@ -131,6 +132,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL("generate_all_aircraft"), self.databaseThread.generateAllAircraftFleets, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_flightplans"), self.databaseThread.generateAirlineXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_flightplans"), self.databaseThread.generateAllAirlinesXML, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("find_duplicate_candidates"), self.databaseThread.dupeCandidates, QtCore.Qt.QueuedConnection)
         #self.connect(self, QtCore.SIGNAL("dump_database"), self.databaseThread.dumpDatabase, QtCore.Qt.QueuedConnection)
         
         self.databaseThread.start()
@@ -877,3 +879,13 @@ class MainWindow(QtGui.QMainWindow):
             self.emit(QtCore.SIGNAL('generate_all_flightplans'))
         self.ui.progressBar.setVisible(True)
         self.ui.progressBar.setEnabled(True)
+    
+    
+    def findDupes(self):
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
+        if self.ui.airlineEdit.text()!='':
+            airline=str(self.ui.airlineEdit.text()).upper()
+            self.emit(QtCore.SIGNAL('find_duplicate_candidates'), airline)
+        #self.emit(QtCore.SIGNAL('find_duplicate_candidates'))
+    

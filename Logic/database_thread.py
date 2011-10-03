@@ -724,3 +724,50 @@ class  DatabaseThread(QtCore.QThread):
         else:
             self.emit(QtCore.SIGNAL('message_success'), 'Info','Flightplan <b>'+airline+'</b> written in the <b>flightplans</b> directory')
         self.emit(QtCore.SIGNAL('import_progress'), 100)
+    
+    
+    def dupeCandidates(self, airline):
+        params=dict({'airline':airline})
+        #self.db.queryDupes(params)
+        #return
+        flights1=self.db.queryFlights(params)
+        if len(flights1) < 1:
+            return
+        #flights1=self.db.getAllFlights()
+        flights2=[]
+        searched=[]
+        progress_overall=0
+        progress_overall_step=float(100) / float(len(flights1))
+        for flight in flights1:
+            #don't try to find dupes for the dupes
+            if int(str(flight[0])) in searched:
+                continue
+            ac_type1=str(flight[8])
+            ac_type=ac_type1[0:3]
+            days=str(flight[3])
+            
+            conditions=[]
+            #conditions.append(('dep_airport', str(flight[4])))
+            #conditions.append(('dep_time', str(flight[6])))
+            #conditions.append(('ac_type', ac_type))
+            #conditions.append(('not_id', int(str(flight[0]))))
+            conditions.append(('id_larger_than', int(str(flight[0]))))
+            #conditions.append(('airline', airline))
+            #conditions.append(('dep_day', d))
+            conditions.append(('callsign', str(flight[1])))
+            params=dict(conditions)
+            res=self.db.queryFlights(params)
+
+            for row in res:
+                line=( str(row[0]),  str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]), str(row[6]), str(row[7]), str(row[8]), str(row[9]) )
+                flights2.append(line)
+                searched.append( int( str(row[0]) ) )
+                #QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+
+            #flights2.extend(res)
+            #print len(flights2),  len(searched)
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+        self.emit(QtCore.SIGNAL('ready_results'), flights2)
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
