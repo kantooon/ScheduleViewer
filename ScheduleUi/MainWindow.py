@@ -351,7 +351,7 @@ class MainWindow(QtGui.QMainWindow):
             
             callsign=QtGui.QTableWidgetItem(str(flight[1]), 0)
             callsign.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
-            if flight[10]!=None and flight[10]!='':
+            if flight[10]!=None and flight[10]!='' and flight[10]!='None':
                 color=255 - 36 * int(flight[10])
                 callsign.setBackgroundColor(QtGui.QColor(255, 0, color, 127))
             
