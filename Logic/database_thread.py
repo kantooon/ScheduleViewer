@@ -337,6 +337,7 @@ class  DatabaseThread(QtCore.QThread):
     def runQueryFleet(self, params):
         res=self.db.queryFleet(params)
         res_f=[]
+        needed_ac=[]
         for r in res:
             ac_info=self.db.getAircraftInfo(str(r[2]))
             model = str(ac_info[8])
@@ -345,10 +346,20 @@ class  DatabaseThread(QtCore.QThread):
                 if os.stat(path)!=-1:
                     t=(r[0], r[1], r[2], r[3], r[4], r[5], r[6], 1)
             except:
+                ac=model+str(r[6])+'.xml'
+                if ac not in needed_ac:
+                    needed_ac.append(ac)
                 t=(r[0], r[1], r[2], r[3], r[4], r[5], r[6], 0)
             res_f.append(t)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.emit(QtCore.SIGNAL('ready_results_fleet'), res_f)
+        if len(params)==0:
+            fw=open(os.path.join(os.getcwd(), 'fleet_info','needed_aircraft.txt'),'wb')
+            buf=''
+            for ac in needed_ac:
+                buf+= ac+'\n'
+            fw.write(buf)
+            fw.close()
     
     
     def runQueryAircraft(self, params):
