@@ -80,7 +80,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.addFleetButton, QtCore.SIGNAL("clicked()"), self.addFleet)
         self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
         self.connect(self.ui.generateFlightplansButton, QtCore.SIGNAL("clicked()"), self.generateFlightplans)
-        self.connect(self.ui.airlineComboBox, QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.sendQueryFleetAirline)
+        
         
         ## aircraft tab
         self.connect(self.ui.showButton_aircraft, QtCore.SIGNAL("clicked()"), self.sendQueryAircraft)
@@ -171,7 +171,9 @@ class MainWindow(QtGui.QMainWindow):
     
     def fillAirlines(self, airlines):
         self.ui.airlineComboBox.clear()
+        self.ui.airlineComboBox.addItem('- all')
         self.ui.airlineComboBox.addItems(airlines)
+        self.connect(self.ui.airlineComboBox, QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.sendQueryFleetAirline)
     
     
     def trackProgress(self, nr):
@@ -315,7 +317,7 @@ class MainWindow(QtGui.QMainWindow):
     
     def sendQueryFleetAirline(self, airline):
         param_list=[]
-        if airline!='' and airline!=None:
+        if airline!='' and airline!=None and airline!='- all':
             param_list.append(('airline', str(airline).upper()))
         
         parameters=dict(param_list)
