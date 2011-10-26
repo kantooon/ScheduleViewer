@@ -470,6 +470,11 @@ class  DatabaseThread(QtCore.QThread):
     def getMissingAircraft(self):
         self.db.missingAircraftTypes()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Missing Aircraft added')
+    
+    
+    def getAirlines(self):
+        airlines=self.db.getDistinctAirlinesFromFleets()
+        self.emit(QtCore.SIGNAL('fleet_airlines'), airlines)
 
     
     def generateAllAircraftFleets(self):

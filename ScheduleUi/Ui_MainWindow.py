@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Mon Oct  3 23:06:38 2011
+# Created: Wed Oct 26 14:06:45 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -269,6 +269,12 @@ class Ui_MainWindow(object):
         self.designationEdit_fleet = QtGui.QLineEdit(self.groupBox_2)
         self.designationEdit_fleet.setObjectName("designationEdit_fleet")
         self.gridLayout_2.addWidget(self.designationEdit_fleet, 0, 3, 1, 1)
+        self.label_17 = QtGui.QLabel(self.groupBox_2)
+        self.label_17.setObjectName("label_17")
+        self.gridLayout_2.addWidget(self.label_17, 0, 6, 1, 1)
+        self.airlineComboBox = QtGui.QComboBox(self.groupBox_2)
+        self.airlineComboBox.setObjectName("airlineComboBox")
+        self.gridLayout_2.addWidget(self.airlineComboBox, 0, 7, 1, 1)
         self.verticalLayout_2.addLayout(self.gridLayout_2)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
@@ -612,6 +618,7 @@ class Ui_MainWindow(object):
         self.label_12.setText(QtGui.QApplication.translate("MainWindow", "Designation", None, QtGui.QApplication.UnicodeUTF8))
         self.label_14.setText(QtGui.QApplication.translate("MainWindow", "Hubs", None, QtGui.QApplication.UnicodeUTF8))
         self.label_15.setText(QtGui.QApplication.translate("MainWindow", "Ac. type", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_17.setText(QtGui.QApplication.translate("MainWindow", "Airline:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of fleets:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_20.setText(QtGui.QApplication.translate("MainWindow", "Selected fleets:", None, QtGui.QApplication.UnicodeUTF8))
         self.generateFlightplansButton.setText(QtGui.QApplication.translate("MainWindow", "Generate flight plans", None, QtGui.QApplication.UnicodeUTF8))

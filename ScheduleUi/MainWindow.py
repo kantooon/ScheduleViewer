@@ -80,6 +80,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.addFleetButton, QtCore.SIGNAL("clicked()"), self.addFleet)
         self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
         self.connect(self.ui.generateFlightplansButton, QtCore.SIGNAL("clicked()"), self.generateFlightplans)
+        self.connect(self.ui.airlineComboBox, QtCore.SIGNAL("currentIndexChanged(const QString&)"), self.sendQueryFleetAirline)
         
         ## aircraft tab
         self.connect(self.ui.showButton_aircraft, QtCore.SIGNAL("clicked()"), self.sendQueryAircraft)
@@ -107,6 +108,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.databaseThread, QtCore.SIGNAL('update_required'), self.sendQuery, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('update_required_fleet'), self.sendQueryFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('update_required_aircraft'), self.sendQueryAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self.databaseThread, QtCore.SIGNAL('fleet_airlines'), self.fillAirlines, QtCore.Qt.QueuedConnection)
 
         self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('nr_fleets'), self.databaseThread.getNrFleets, QtCore.Qt.QueuedConnection)
@@ -135,12 +137,14 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL("generate_all_flightplans"), self.databaseThread.generateAllAirlinesXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("find_duplicate_candidates"), self.databaseThread.dupeCandidates, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("load_sql_db"), self.databaseThread.loadDBFromSQL, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("get_fleet_airlines"), self.databaseThread.getAirlines, QtCore.Qt.QueuedConnection)
         
         self.databaseThread.start()
         
         self.emit(QtCore.SIGNAL('nr_flights'))
         self.emit(QtCore.SIGNAL('nr_fleets'))
         self.emit(QtCore.SIGNAL('nr_aircraft'))
+        self.emit(QtCore.SIGNAL('get_fleet_airlines'))
     
     
     def showAboutDialog(self):
@@ -160,10 +164,14 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def popMessage(self, type, message): 
-        
         self.messageBox=Messages.MessageBox()
         self.messageBox.setMessage(type, message)
         self.messageBox.show()
+    
+    
+    def fillAirlines(self, airlines):
+        self.ui.airlineComboBox.clear()
+        self.ui.airlineComboBox.addItems(airlines)
     
     
     def trackProgress(self, nr):
@@ -300,6 +308,15 @@ class MainWindow(QtGui.QMainWindow):
             param_list.append(('ac_type', str(self.ui.acTypeEdit_fleet.text()).upper()))
         if self.ui.airlineEdit_fleet.text()!='':
             param_list.append(('airline', str(self.ui.airlineEdit_fleet.text()).upper()))
+        
+        parameters=dict(param_list)
+        self.emit(QtCore.SIGNAL('run_query_fleet'), parameters)
+    
+    
+    def sendQueryFleetAirline(self, airline):
+        param_list=[]
+        if airline!='' and airline!=None:
+            param_list.append(('airline', str(airline).upper()))
         
         parameters=dict(param_list)
         self.emit(QtCore.SIGNAL('run_query_fleet'), parameters)
