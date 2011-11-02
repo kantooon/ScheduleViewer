@@ -703,8 +703,8 @@ class  DatabaseThread(QtCore.QThread):
         else:
             return 0
     
-    
-    def generateAircraftXML(self, airline):
+    #TODO: this code will no longer be used and will be ported to SQL below
+    def generateAircraftXML_old(self, airline):
         if len(airline)!=3:
             return ''
         fleets=self.db.getAirlineFleets(airline)
@@ -765,6 +765,48 @@ class  DatabaseThread(QtCore.QThread):
         </aircraft>"""
                 bufs.append(buf)
                 
+        res="".join(bufs)
+        return res
+    
+    
+    def generateAircraftXML(self, airline):
+        if len(airline)!=3:
+            return ''
+        parameters=dict([('airline', airline)])
+        aircraft_fleet=self.db.queryAircraftFleet(parameters)
+        buf=''
+        bufs=[]
+        for ac in aircraft_fleet:
+            homeport=str(ac[1])
+            callsign=str(ac[2])
+            ac_type=str(ac[3])
+            ac_designation=str(ac[4])
+            airline=str(ac[5])
+            livery=str(ac[6])
+            offset=str(ac[7])
+            radius=str(ac[8])
+            fl_type=str(ac[9])
+            perf_class=str(ac[10])
+            heavy=str(ac[11])
+            model=str(ac[12])
+            
+            buf="""
+        <aircraft>
+            <model>"""+model+"""</model>
+            <livery>"""+livery+"""</livery>
+            <airline>"""+airline+"""</airline>
+            <home-port>"""+homeport+"""</home-port>
+            <required-aircraft>"""+ac_type+'-'+airline+"""</required-aircraft>
+            <actype>"""+ac_designation+"""</actype>
+            <offset>"""+offset+"""</offset>
+            <radius>"""+radius+"""</radius>
+            <flighttype>"""+fl_type+"""</flighttype>
+            <performance-class>"""+perf_class+"""</performance-class>
+            <registration>"""+callsign+"""</registration>
+            <heavy>"""+heavy+"""</heavy>
+        </aircraft>"""
+            bufs.append(buf)
+            
         res="".join(bufs)
         return res
     
