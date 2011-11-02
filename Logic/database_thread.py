@@ -635,6 +635,7 @@ class  DatabaseThread(QtCore.QThread):
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
             return
         fleets=self.db.getAirlineFleets(airline)
+        self.db.deleteAircraftFleetByAirline(airline)
         callsigns=[]
         skipped=0
         buf=''

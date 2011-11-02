@@ -368,6 +368,11 @@ class FlightsDatabase():
         self.cursor.execute('INSERT OR ROLLBACK INTO aircraft_fleet (homeport, reg_nr, ac_type, designation, airline, livery, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', aircraft)
     
     
+    def deleteAircraftFleetByAirline(self, airline):
+        self.cursor.execute('DELETE FROM aircraft_fleet WHERE airline=?', (airline, ))
+        self.conn.commit()
+    
+    
     def getAllAircraftFleet(self):
         self.cursor.execute('SELECT * FROM aircraft_fleet ORDER BY id ASC')
         rows=self.cursor.fetchall()
