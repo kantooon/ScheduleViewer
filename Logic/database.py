@@ -55,6 +55,7 @@ class FlightsDatabase():
         # table fleet: id, airline, ac_type, nr_ac, hubs, callsign, designation
         # table aircraft: id, ac_type, designation, offset, radius, fl_type, perf_class, heavy, model
         # table flight_duplicates: id, flight_id, duplicate_score
+        # table aircraft_fleet: id, homeport, reg_nr, airline, livery ,offset,radius, fl_type,perf_class,heavy,model
         pass 
     
     #hubs: SELECT COUNT(id) AS nr, dep_airport FROM flights WHERE ac_type LIKE '%-CCA' GROUP BY dep_airport ORDER BY nr DESC LIMIT 20;
@@ -67,7 +68,7 @@ class FlightsDatabase():
     
     
     def dropTables(self):
-        self.cursor.executescript('DROP TABLE flights;DROP TABLE flight_duplicates;DROP TABLE fleet;DROP TABLE aircraft;')
+        self.cursor.executescript('DROP TABLE flights;DROP TABLE flight_duplicates;DROP TABLE fleet;DROP TABLE aircraft;DROP TABLE aircraft_fleet;')
     
     
     def execSQL(self, sql):
