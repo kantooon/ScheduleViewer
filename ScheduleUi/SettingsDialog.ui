@@ -73,6 +73,23 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>FGViewer path</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="binaryPathEdit"/>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="browseBinaryButton">
+      <property name="text">
+       <string>Browse...</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -92,7 +109,7 @@
    <property name="geometry">
     <rect>
      <x>15</x>
-     <y>140</y>
+     <y>175</y>
      <width>331</width>
      <height>23</height>
     </rect>

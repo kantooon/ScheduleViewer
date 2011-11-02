@@ -30,7 +30,9 @@ class SettingsDialog(QtGui.QDialog):
         self.ui.setupUi(self)
         self.connect(self.ui.buttonBox, QtCore.SIGNAL("accepted()"), self.doSave)
         self.connect(self.ui.browseButton, QtCore.SIGNAL("clicked()"), self.browseDir)
+        self.connect(self.ui.browseBinaryButton, QtCore.SIGNAL("clicked()"), self.browseBinaryDir)
         self.fgdata_path=''
+        self.fgviewer_path=''
         self.move_flpl=''
         home=os.getenv('HOME')
         if home!=None:
@@ -49,12 +51,18 @@ class SettingsDialog(QtGui.QDialog):
                 path=tmp[1].rstrip('\n')
                 path=path.lstrip()
                 self.fgdata_path=path.rstrip()
+            if line.find('fgviewer_path=')!=-1:
+                tmp=line.split('=')
+                viewer_path=tmp[1].rstrip('\n')
+                viewer_path=viewer_path.lstrip()
+                self.fgviewer_path=viewer_path.rstrip()
             if line.find('move_flightplans=')!=-1:
                 tmp=line.split('=')
                 move=tmp[1].rstrip('\n')
                 move=move.lstrip()
                 self.move_flpl=move.rstrip()
         self.ui.pathEdit.setText(self.fgdata_path)
+        self.ui.binaryPathEdit.setText(self.fgviewer_path)
         if self.move_flpl=='true':
             self.ui.moveCheckBox.setChecked(True)
         else:
@@ -69,8 +77,17 @@ class SettingsDialog(QtGui.QDialog):
             self.ui.pathEdit.setText(dir)
     
     
+    def browseBinaryDir(self):
+        dir = QtGui.QFileDialog.getExistingDirectory(self,"FGViewer directory",  os.getcwd(), QtGui.QFileDialog.ShowDirsOnly | QtGui.QFileDialog.DontResolveSymlinks)
+        if dir==None or len(dir)==0 or dir=='':
+            return 
+        else:
+            self.ui.binaryPathEdit.setText(dir)
+    
+    
     def doSave(self):
         dir=str(self.ui.pathEdit.text())
+        binary_dir=str(self.ui.binaryPathEdit.text())
         move=self.ui.moveCheckBox.isChecked()
         if move==True:
             move='true'
@@ -92,17 +109,23 @@ class SettingsDialog(QtGui.QDialog):
         f_settings.close()
         buf=''
         add=0
+        binary_add=0
         mv=0
         for line in settings:
             if line.find('fgdata_path=')!=-1:
                 line='fgdata_path='+dir+'\n'
                 add=1
+            if line.find('fgviewer_path=')!=-1:
+                line='fgviewer_path='+binary_dir+'\n'
+                binary_add=1
             if line.find('move_flightplans=')!=-1:
                 line='move_flightplans='+move+'\n'
                 mv=1
             buf=buf+line
         if add==0:
             buf=buf+'fgdata_path='+dir+'\n'
+        if binary_add==0:
+            buf=buf+'fgviewer_path='+binary_dir+'\n'
         if mv==0:
             buf=buf+'move_flightplans='+move+'\n'
         home=os.getenv('HOME')

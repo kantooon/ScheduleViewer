@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/fgviewer.png</file>
     <file>icons/svn-commit.png</file>
     <file>icons/bookmarks-organize.png</file>
     <file>icons/main.png</file>

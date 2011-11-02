@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Wed Nov  2 21:37:45 2011
+# Created: Thu Nov  3 01:11:47 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -486,6 +486,12 @@ class Ui_MainWindow(object):
         self.generateAircraftFleetButton.setIcon(icon7)
         self.generateAircraftFleetButton.setObjectName("generateAircraftFleetButton")
         self.horizontalLayout_2.addWidget(self.generateAircraftFleetButton)
+        self.previewModelButton = QtGui.QPushButton(self.groupBox_2)
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap(":/icons/icons/fgviewer.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.previewModelButton.setIcon(icon8)
+        self.previewModelButton.setObjectName("previewModelButton")
+        self.horizontalLayout_2.addWidget(self.previewModelButton)
         self.addFleetButton = QtGui.QPushButton(self.groupBox_2)
         self.addFleetButton.setIcon(icon5)
         self.addFleetButton.setObjectName("addFleetButton")
@@ -615,9 +621,9 @@ class Ui_MainWindow(object):
         self.gridLayout_7.addWidget(self.labelSelectedAircraft, 1, 1, 1, 1)
         self.horizontalLayout_3.addLayout(self.gridLayout_7)
         self.addMissingAircraftButton = QtGui.QPushButton(self.groupBox_3)
-        icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap(":/icons/icons/dialog-warning.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.addMissingAircraftButton.setIcon(icon8)
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(":/icons/icons/dialog-warning.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.addMissingAircraftButton.setIcon(icon9)
         self.addMissingAircraftButton.setObjectName("addMissingAircraftButton")
         self.horizontalLayout_3.addWidget(self.addMissingAircraftButton)
         self.addAircraftButton = QtGui.QPushButton(self.groupBox_3)
@@ -861,6 +867,7 @@ class Ui_MainWindow(object):
         self.label_19.setText(QtGui.QApplication.translate("MainWindow", "Total nr. of fleets:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_20.setText(QtGui.QApplication.translate("MainWindow", "Selected fleets:", None, QtGui.QApplication.UnicodeUTF8))
         self.generateAircraftFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Generate aircraft table", None, QtGui.QApplication.UnicodeUTF8))
+        self.previewModelButton.setText(QtGui.QApplication.translate("MainWindow", "Preview model", None, QtGui.QApplication.UnicodeUTF8))
         self.addFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Add fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Delete fleet", None, QtGui.QApplication.UnicodeUTF8))
         self.truncateFleetButton.setText(QtGui.QApplication.translate("MainWindow", "Empty fleet table", None, QtGui.QApplication.UnicodeUTF8))

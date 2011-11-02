@@ -17,7 +17,7 @@
 #
 
 
-import os, sys, glob, io, random, shutil
+import os, sys, glob, io, random, shutil, subprocess
 from PyQt4 import QtCore
 from database import FlightsDatabase
 
@@ -28,6 +28,8 @@ class  DatabaseThread(QtCore.QThread):
         QtCore.QThread.__init__(self, parent)
         self.db=FlightsDatabase()
         self.fgdata_path=''
+        self.viewer_path=''
+        self.brisa_structure=True #TODO: make this false
         self.move_flightplans=''
 
     
@@ -48,7 +50,9 @@ class  DatabaseThread(QtCore.QThread):
             f_settings=open(os.path.join(os.getcwd(),'settings'),'rb')
         settings=f_settings.readlines()
         f_settings.close()
+        #TODO: define brisa structure
         for line in settings:
+            ## FGDATA
             if line.find('fgdata_path=')!=-1:
                 tmp=line.split('=')
                 path=tmp[1].rstrip('\n')
@@ -61,9 +65,26 @@ class  DatabaseThread(QtCore.QThread):
                     print 'Fgdata path could not be found in settings'
                     self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
                 break
-            else:
-                print 'Fgdata path could not be found in settings'
-                self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
+        if self.fgdata_path=='':
+            print 'Fgdata path could not be found in settings'
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgdata path could not be found in settings. Livery checking will not work correctly.')
+        for line in settings:
+            ## FGViewer
+            if line.find('fgviewer_path=')!=-1:
+                tmp=line.split('=')
+                viewer_path=tmp[1].rstrip('\n')
+                viewer_path=viewer_path.lstrip()
+                self.viewer_path=viewer_path.rstrip()
+                try:
+                    os.stat(self.viewer_path)
+                except:
+                    self.viewer_path=''
+                    print 'Fgviewer path could not be found in settings'
+                    self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgviewer path could not be found in settings. You won\'t be able to preview models.')
+                break
+        if self.viewer_path=='':
+            print 'Fgviewer path could not be found in settings'
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Fgviewer path could not be found in settings. You won\'t be able to preview models.')
         for line in settings:
             if line.find('move_flightplans=')!=-1:
                 tmp=line.split('=')
@@ -1019,3 +1040,28 @@ class  DatabaseThread(QtCore.QThread):
             self.db.commitTransaction()
         self.emit(QtCore.SIGNAL('ready_results'), flights2)
         self.emit(QtCore.SIGNAL('import_progress'), 100)
+    
+    
+    def previewModel(self, id):
+        if self.viewer_path=='' or self.fgdata_path=='':
+            return
+        params=dict([('id', id)])
+        res=self.db.queryFleet(params)
+        ac_info=self.db.getAircraftInfo(str(res[0][2]))
+        model = str(ac_info[8])
+        path=os.path.join(self.fgdata_path, 'AI', model+str(res[0][6])+'.xml')
+        try:
+            if os.stat(path)!=-1:
+                if self.brisa_structure:
+                    library='export LD_LIBRARY_PATH='+self.viewer_path+'/../../plib/lib:'+self.viewer_path+'/../../OpenSceneGraph3/lib:'+self.viewer_path+'/../../simgear/lib;'
+                else:
+                    library=''
+                command=library+' '+self.viewer_path+'/fgviewer --fg-root '+self.fgdata_path+' --window 100 100 800 600 '+path
+                #print command
+                ## choose one method:
+                #QtCore.QProcess.startDetached(command)
+                #subprocess.Popen(command)
+                #os.spawnlp(os.P_NOWAIT, command)
+                os.system(command)
+        except  Exception as eroare:
+            print 'Could not open Fgviewer with model ', path, eroare

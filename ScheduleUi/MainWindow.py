@@ -81,6 +81,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.addFleetButton, QtCore.SIGNAL("clicked()"), self.addFleet)
         self.connect(self.ui.generateAircraftFleetButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleetTable)
         self.connect(self.ui.generateFlightplansButton, QtCore.SIGNAL("clicked()"), self.generateFlightplans)
+        self.connect(self.ui.previewModelButton, QtCore.SIGNAL("clicked()"), self.previewModel)
         
         
         ## aircraft types tab
@@ -152,6 +153,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL("find_duplicate_candidates"), self.databaseThread.dupeCandidates, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("load_sql_db"), self.databaseThread.loadDBFromSQL, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("get_fleet_airlines"), self.databaseThread.getAirlines, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("preview_model"), self.databaseThread.previewModel, QtCore.Qt.QueuedConnection)
         
         self.databaseThread.start()
         
@@ -1113,4 +1115,20 @@ class MainWindow(QtGui.QMainWindow):
     def confirmFindDupes(self):
         self.confirmDialog = ConfirmDialog.ConfirmDialog()
         self.connect(self.confirmDialog, QtCore.SIGNAL("accepted()"), self.findDupes, QtCore.Qt.QueuedConnection)
+    
+    
+    def previewModel(self):
+        ids=[]
+        rows=[]
+        table=self.ui.fleetTableWidget
+        sel_ranges=table.selectedRanges()
+        if len(sel_ranges) !=1:
+            return
+        if sel_ranges[0].topRow()== sel_ranges[0].bottomRow():
+            row=sel_ranges[0].topRow()
+            item=table.item(row, 6)
+            if item==0:
+                return
+            id=int(item.text())
+        self.emit(QtCore.SIGNAL('preview_model'), id)
     

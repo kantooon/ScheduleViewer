@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/SettingsDialog.ui'
 #
-# Created: Wed Nov  2 21:37:50 2011
+# Created: Wed Nov  2 23:05:56 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -38,11 +38,20 @@ class Ui_Dialog(object):
         self.browseButton = QtGui.QPushButton(self.gridLayoutWidget)
         self.browseButton.setObjectName("browseButton")
         self.gridLayout.addWidget(self.browseButton, 0, 2, 1, 1)
+        self.label_4 = QtGui.QLabel(self.gridLayoutWidget)
+        self.label_4.setObjectName("label_4")
+        self.gridLayout.addWidget(self.label_4, 1, 0, 1, 1)
+        self.binaryPathEdit = QtGui.QLineEdit(self.gridLayoutWidget)
+        self.binaryPathEdit.setObjectName("binaryPathEdit")
+        self.gridLayout.addWidget(self.binaryPathEdit, 1, 1, 1, 1)
+        self.browseBinaryButton = QtGui.QPushButton(self.gridLayoutWidget)
+        self.browseBinaryButton.setObjectName("browseBinaryButton")
+        self.gridLayout.addWidget(self.browseBinaryButton, 1, 2, 1, 1)
         self.label_3 = QtGui.QLabel(Dialog)
         self.label_3.setGeometry(QtCore.QRect(10, 200, 506, 31))
         self.label_3.setObjectName("label_3")
         self.moveCheckBox = QtGui.QCheckBox(Dialog)
-        self.moveCheckBox.setGeometry(QtCore.QRect(15, 140, 331, 23))
+        self.moveCheckBox.setGeometry(QtCore.QRect(15, 175, 331, 23))
         self.moveCheckBox.setObjectName("moveCheckBox")
 
         self.retranslateUi(Dialog)
@@ -54,6 +63,8 @@ class Ui_Dialog(object):
         self.label.setText(QtGui.QApplication.translate("Dialog", "FGDATA path is the local path to you Flightgear data directory", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Dialog", "FGDATA path", None, QtGui.QApplication.UnicodeUTF8))
         self.browseButton.setText(QtGui.QApplication.translate("Dialog", "Browse...", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_4.setText(QtGui.QApplication.translate("Dialog", "FGViewer path", None, QtGui.QApplication.UnicodeUTF8))
+        self.browseBinaryButton.setText(QtGui.QApplication.translate("Dialog", "Browse...", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Dialog", "<b>You need to restart the application for some settings to take effect.</b>", None, QtGui.QApplication.UnicodeUTF8))
         self.moveCheckBox.setText(QtGui.QApplication.translate("Dialog", "Move generated flightplans to FGDATA directory", None, QtGui.QApplication.UnicodeUTF8))
 
