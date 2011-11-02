@@ -71,18 +71,18 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.addButton, QtCore.SIGNAL("clicked()"), self.addFlight)
         self.connect(self.ui.findDupesButton, QtCore.SIGNAL("clicked()"), self.confirmFindDupes)
         
-        ## fleets tab
+        ## airline fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
         self.connect(self.ui.clearButton_fleet, QtCore.SIGNAL("clicked()"), self.clearFleet)
         self.connect(self.ui.deleteFleetButton, QtCore.SIGNAL("clicked()"), self.deleteFleets)
         self.connect(self.del_fleet_shortcut, QtCore.SIGNAL("activated()"), self.ui.deleteFleetButton, QtCore.SLOT('click()'))
         self.connect(self.ui.truncateFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFleet)
         self.connect(self.ui.addFleetButton, QtCore.SIGNAL("clicked()"), self.addFleet)
-        self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
+        self.connect(self.ui.generateAircraftFleetButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleetTable)
         self.connect(self.ui.generateFlightplansButton, QtCore.SIGNAL("clicked()"), self.generateFlightplans)
         
         
-        ## aircraft tab
+        ## aircraft types tab
         self.connect(self.ui.showButton_aircraft, QtCore.SIGNAL("clicked()"), self.sendQueryAircraft)
         self.connect(self.ui.clearButton_aircraft, QtCore.SIGNAL("clicked()"), self.clearAircraft)
         self.connect(self.ui.deleteAircraftButton, QtCore.SIGNAL("clicked()"), self.deleteAircraft)
@@ -90,6 +90,12 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.truncateAircraftButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraft)
         self.connect(self.ui.addAircraftButton, QtCore.SIGNAL("clicked()"), self.addAircraft)
         self.connect(self.ui.addMissingAircraftButton, QtCore.SIGNAL("clicked()"), self.databaseThread.getMissingAircraft, QtCore.Qt.QueuedConnection)
+        
+        ## aircraft fleet tab
+        self.connect(self.ui.showButton_aircraft_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryAircraftFleet)
+        self.connect(self.ui.clearButton_aircraft_fleet, QtCore.SIGNAL("clicked()"), self.clearAircraftFleet)
+        self.connect(self.ui.truncateAircraftFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraftFleet)
+        self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
 
         
         #self.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int,int)"), self.itemModified)
@@ -100,25 +106,30 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results"), self.updateFlights, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_fleet"), self.updateFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_aircraft"), self.updateAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_aircraft_fleet"), self.updateAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr"), self.showNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr_fleets"), self.showNrFleets, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr_aircraft"), self.showNrAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr_aircraft_fleet"), self.showNrAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('message_success'), self.popMessage, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('import_progress'), self.trackProgress, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('update_required'), self.sendQuery, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('update_required_fleet'), self.sendQueryFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('update_required_aircraft'), self.sendQueryAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self.databaseThread, QtCore.SIGNAL('update_required_aircraft_fleet'), self.sendQueryAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL('fleet_airlines'), self.fillAirlines, QtCore.Qt.QueuedConnection)
 
         self.connect(self, QtCore.SIGNAL('nr_flights'), self.databaseThread.getNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('nr_fleets'), self.databaseThread.getNrFleets, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('nr_aircraft'), self.databaseThread.getNrAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('nr_aircraft_fleet'), self.databaseThread.getNrAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export'), self.databaseThread.exportConfs, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export_fleet'), self.databaseThread.exportFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('export_aircraft'), self.databaseThread.exportAircraft, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query'), self.databaseThread.runQuery, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query_fleet'), self.databaseThread.runQueryFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query_aircraft'), self.databaseThread.runQueryAircraft, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('run_query_aircraft_fleet'), self.databaseThread.runQueryAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_flights"), self.databaseThread.deleteFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_fleets"), self.databaseThread.deleteFleets, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_aircraft"), self.databaseThread.deleteAircraft, QtCore.Qt.QueuedConnection)
@@ -132,7 +143,9 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('import_aircraft'), self.databaseThread.importAircraft, QtCore.Qt.QueuedConnection)
         
         self.connect(self, QtCore.SIGNAL("generate_aircraft"), self.databaseThread.generateAircraftFleet, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("generate_aircraft_fleet"), self.databaseThread.generateAircraftFleetTable, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_aircraft"), self.databaseThread.generateAllAircraftFleets, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL("generate_all_aircraft_fleet"), self.databaseThread.generateAllAircraftFleetsTable, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_flightplans"), self.databaseThread.generateAirlineXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("generate_all_flightplans"), self.databaseThread.generateAllAirlinesXML, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("find_duplicate_candidates"), self.databaseThread.dupeCandidates, QtCore.Qt.QueuedConnection)
@@ -144,6 +157,7 @@ class MainWindow(QtGui.QMainWindow):
         self.emit(QtCore.SIGNAL('nr_flights'))
         self.emit(QtCore.SIGNAL('nr_fleets'))
         self.emit(QtCore.SIGNAL('nr_aircraft'))
+        self.emit(QtCore.SIGNAL('nr_aircraft_fleet'))
         self.emit(QtCore.SIGNAL('get_fleet_airlines'))
     
     
@@ -209,6 +223,11 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.confirmDialog, QtCore.SIGNAL("accepted()"), self.databaseThread.emptyAircraft, QtCore.Qt.QueuedConnection)
     
     
+    def confirmDeleteAircraftFleet(self):
+        self.confirmDialog = ConfirmDialog.ConfirmDialog()
+        self.connect(self.confirmDialog, QtCore.SIGNAL("accepted()"), self.databaseThread.emptyAircraftFleet, QtCore.Qt.QueuedConnection)
+    
+    
     def importFleet(self):
         filename = QtGui.QFileDialog.getOpenFileName(self,"Import fleet info",  os.getcwd(), "Text files (*.txt)")
         if filename==None or filename=='':
@@ -271,6 +290,10 @@ class MainWindow(QtGui.QMainWindow):
     
     def showNrAircraft(self, nr):
         self.ui.labelTotalAircraft.setText('<b>'+nr+'</b>')
+    
+    
+    def showNrAircraftFleet(self, nr):
+        self.ui.labelTotalAircraftFleet.setText('<b>'+nr+'</b>')
     
     
     def sendQuery(self):
@@ -345,6 +368,37 @@ class MainWindow(QtGui.QMainWindow):
         
         parameters=dict(param_list)
         self.emit(QtCore.SIGNAL('run_query_aircraft'), parameters)
+    
+    
+    def sendQueryAircraftFleet(self):
+        param_list=[]
+        if self.ui.homeportEdit_aircraft_fleet.text()!='':
+            param_list.append(('homeport', str(self.ui.homeportEdit_aircraft_fleet.text()).upper()))
+        if self.ui.regEdit_aircraft_fleet.text()!='':
+            param_list.append(('reg_nr', str(self.ui.regEdit_aircraft_fleet.text()).upper()))
+        if self.ui.acTypeEdit_aircraft_fleet.text()!='':
+            param_list.append(('ac_type', str(self.ui.acTypeEdit_aircraft_fleet.text())))
+        if self.ui.designationEdit_aircraft_fleet.text()!='':
+            param_list.append(('designation', str(self.ui.designationEdit_aircraft_fleet.text()).upper()))
+        if self.ui.airlineEdit_aircraft_fleet.text()!='':
+            param_list.append(('airline', str(self.ui.airlineEdit_aircraft_fleet.text()).upper()))
+        if self.ui.liveryEdit_aircraft_fleet.text()!='':
+            param_list.append(('livery', str(self.ui.liveryEdit_aircraft_fleet.text()).upper()))
+        if self.ui.offsetEdit_aircraft_fleet.text()!='':
+            param_list.append(('offset', str(self.ui.offsetEdit_aircraft_fleet.text())))
+        if self.ui.radiusEdit_aircraft_fleet.text()!='':
+            param_list.append(('radius', str(self.ui.radiusEdit_aircraft_fleet.text())))
+        if self.ui.flTypeEdit_aircraft_fleet.text()!='':
+            param_list.append(('fl_type', str(self.ui.flTypeEdit_aircraft_fleet.text())))
+        if self.ui.perfClassEdit_aircraft_fleet.text()!='':
+            param_list.append(('perf_class', str(self.ui.perfClassEdit_aircraft_fleet.text())))
+        if self.ui.heavyEdit_aircraft_fleet.text()!='':
+            param_list.append(('heavy', str(self.ui.heavyEdit_aircraft_fleet.text())))
+        if self.ui.modelEdit_aircraft_fleet.text()!='':
+            param_list.append(('model', str(self.ui.modelEdit_aircraft_fleet.text())))
+        
+        parameters=dict(param_list)
+        self.emit(QtCore.SIGNAL('run_query_aircraft_fleet'), parameters)
     
     
     def updateFlights(self, flightlist):
@@ -557,6 +611,82 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.aircraftTableWidget.sortItems(8, QtCore.Qt.AscendingOrder)
     
     
+    def updateAircraftFleet(self, aclist):
+        self.ui.aircraftFleetTableWidget.setSortingEnabled(False)
+        #self.disconnect(self.ui.aircraftFleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraftFleet)
+        if aclist==None:
+            self.popMessage('Error', 'No results found')
+            return
+        nr_ac=len(aclist)
+        if nr_ac==0:
+            self.popMessage('Error', 'No results found')
+        self.ui.labelSelectedAircraftFleet.setText('<b>'+str(nr_ac)+'</b>')
+        table=self.ui.aircraftFleetTableWidget
+        table.setRowCount(0)
+        table.setRowCount(nr_ac)
+        r=0
+        for ac in aclist:
+            #id=QtGui.QTableWidgetItem(str(ac[0]), 0)
+            id=QTableWidgetNumericItem(str(ac[0]), 0)
+            id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            id.setFlags(QtCore.Qt.NoItemFlags)
+            
+            homeport=QtGui.QTableWidgetItem(str(ac[1]), 0)
+            homeport.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            reg_nr=QtGui.QTableWidgetItem(str(ac[2]), 0)
+            reg_nr.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            ac_type=QtGui.QTableWidgetItem(str(ac[3]), 0)
+            ac_type.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            designation=QtGui.QTableWidgetItem(str(ac[4]), 0)
+            designation.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            airline=QtGui.QTableWidgetItem(str(ac[5]), 0)
+            airline.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            livery=QtGui.QTableWidgetItem(str(ac[6]), 0)
+            livery.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            offset=QtGui.QTableWidgetItem(str(ac[7]), 0)
+            offset.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            radius=QtGui.QTableWidgetItem(str(ac[8]), 0)
+            radius.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            fl_type=QtGui.QTableWidgetItem(str(ac[9]), 0)
+            fl_type.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            perf_class=QtGui.QTableWidgetItem(str(ac[10]), 0)
+            perf_class.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            heavy=QtGui.QTableWidgetItem(str(ac[11]), 0)
+            heavy.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            model=QtGui.QTableWidgetItem(str(ac[12]), 0)
+            model.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+            
+            table.setItem(r, 0, homeport)
+            table.setItem(r, 1, reg_nr)
+            table.setItem(r, 2, ac_type)
+            table.setItem(r, 3, designation)
+            table.setItem(r, 4, airline)
+            table.setItem(r, 5, livery)
+            table.setItem(r, 6, offset)
+            table.setItem(r, 7, radius)
+            table.setItem(r, 8, fl_type)
+            table.setItem(r, 9, perf_class)
+            table.setItem(r, 10, heavy)
+            table.setItem(r, 11, model)
+            table.setItem(r, 12, id)
+            QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+            r=r+1
+        #self.connect(self.ui.aircraftFleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraftFleet)
+        self.ui.aircraftFleetTableWidget.setSortingEnabled(True)
+        self.ui.aircraftFleetTableWidget.sortItems(8, QtCore.Qt.AscendingOrder)
+    
+    
     def clearFlights(self):
         self.page=0
         table=self.ui.tableWidget
@@ -599,6 +729,25 @@ class MainWindow(QtGui.QMainWindow):
         self.ui.heavyEdit_aircraft.setText('')
         self.ui.modelEdit_aircraft.setText('')
         self.ui.labelSelectedAircraft.setText('<b>0</b>')
+    
+    
+    def clearAircraftFleet(self):
+        self.page=0
+        table=self.ui.aircraftFleetTableWidget
+        table.setRowCount(0)
+        self.ui.homeportEdit_aircraft_fleet.setText('')
+        self.ui.regEdit_aircraft_fleet.setText('')
+        self.ui.acTypeEdit_aircraft_fleet.setText('')
+        self.ui.designationEdit_aircraft_fleet.setText('')
+        self.ui.airlineEdit_aircraft_fleet.setText('')
+        self.ui.liveryEdit_aircraft_fleet.setText('')
+        self.ui.offsetEdit_aircraft_fleet.setText('')
+        self.ui.radiusEdit_aircraft_fleet.setText('')
+        self.ui.flTypeEdit_aircraft_fleet.setText('')
+        self.ui.perfClassEdit_aircraft_fleet.setText('')
+        self.ui.heavyEdit_aircraft_fleet.setText('')
+        self.ui.modelEdit_aircraft_fleet.setText('')
+        self.ui.labelSelectedAircraftFleet.setText('<b>0</b>')
     
     
     def exportConfs(self, dir,  separate_airlines, what):
@@ -922,6 +1071,16 @@ class MainWindow(QtGui.QMainWindow):
             self.emit(QtCore.SIGNAL('generate_aircraft'), airline)
         else:
             self.emit(QtCore.SIGNAL('generate_all_aircraft'))
+        self.ui.progressBar.setVisible(True)
+        self.ui.progressBar.setEnabled(True)
+    
+    
+    def generateAircraftFleetTable(self):
+        if self.ui.airlineEdit_fleet.text()!='':
+            airline=str(self.ui.airlineEdit_fleet.text()).upper()
+            self.emit(QtCore.SIGNAL('generate_aircraft_fleet'), airline)
+        else:
+            self.emit(QtCore.SIGNAL('generate_all_aircraft_fleet'))
         self.ui.progressBar.setVisible(True)
         self.ui.progressBar.setEnabled(True)
     

@@ -367,6 +367,11 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('ready_results_aircraft'), res)
     
     
+    def runQueryAircraftFleet(self, params):
+        res=self.db.queryAircraftFleet(params)
+        self.emit(QtCore.SIGNAL('ready_results_aircraft_fleet'), res)
+    
+    
     def getNrFlights(self):
         res=self.db.getNrFlights()
         dupes=self.db.getNrDuplicates()
@@ -381,6 +386,11 @@ class  DatabaseThread(QtCore.QThread):
     def getNrAircraft(self):
         res=self.db.getNrAircraft()
         self.emit(QtCore.SIGNAL('show_total_nr_aircraft'), str(res))
+    
+    
+    def getNrAircraftFleet(self):
+        res=self.db.getNrAircraftFleet()
+        self.emit(QtCore.SIGNAL('show_total_nr_aircraft_fleet'), str(res))
     
     
     def deleteFlights(self, flightlist):
@@ -435,6 +445,12 @@ class  DatabaseThread(QtCore.QThread):
         self.db.emptyAircraft()
         self.emit(QtCore.SIGNAL('message_success'), 'Info',  'All Aircraft have been deleted')
         self.emit(QtCore.SIGNAL('show_total_nr_aircraft'), '0')
+    
+    
+    def emptyAircraftFleet(self):
+        self.db.emptyAircraftFleet()
+        self.emit(QtCore.SIGNAL('message_success'), 'Info',  'All Aircraft have been deleted')
+        self.emit(QtCore.SIGNAL('show_total_nr_aircraft_fleet'), '0')
 
     
     def editFlight(self, params):
@@ -491,7 +507,86 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('import_progress'), 100)
     
     
+    def generateAllAircraftFleetsTable(self):
+        airlines=self.db.getDistinctAirlinesFromFleets()
+        skipped=0
+        progress_overall=0
+        progress_overall_step=100 / len(airlines)
+        for airline in airlines:
+            skip=self.generateAircraftFleetTable(airline, 1)
+            skipped=skipped+skip
+            progress_overall=progress_overall+progress_overall_step
+            self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','The aircraft table has been regenerated; <b>'+str(skipped)+'</b> aircraft skipped')
+        self.emit(QtCore.SIGNAL('import_progress'), 100)
+    
+    
     def generateAircraftFleet(self, airline, everything=None):
+        if len(airline)!=3:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
+            return
+        fleets=self.db.getAirlineFleets(airline)
+        callsigns=[]
+        skipped=0
+        buf=''
+        bufs=[]
+        for fleet in fleets:
+            for i in range(0, int(fleet[3])):
+                acdata=self.db.getAircraftInfo(str(fleet[2]))
+                homeports=str(fleet[4]).split(',')
+                port_nr=random.randint(0, len(homeports)-1)
+                homeport=homeports[port_nr]
+                callsign=str(fleet[5])
+                while 1:
+                    callsign=str(fleet[5])
+                    while callsign.find('%d')!=-1:
+                        callsign=callsign.replace('%d', self.randCallsign('d'), 1)
+                    while callsign.find('%s')!=-1:
+                        callsign=callsign.replace('%s', self.randCallsign('s'), 1)
+                    if callsign not in callsigns:
+                        callsigns.append(callsign)
+                        break
+                    QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
+                ac_designation=str(acdata[2])
+                ac_type=str(fleet[2])
+                airline=str(fleet[1])
+                model=str(acdata[8])+str(fleet[6])+'.xml'
+                try:
+                    os.stat(os.path.join(self.fgdata_path, 'AI', model))
+                except:
+                    skipped=skipped+1
+                    continue
+                offset=str(acdata[3])
+                radius=str(acdata[4])
+                fl_type=str(acdata[5])
+                perf_class=str(acdata[6])
+                heavy=str(acdata[7])
+                if homeport=='' or callsign=='' or ac_type=='' or ac_designation=='' or airline=='' \
+                    or offset=='' or radius=='' or fl_type=='' or perf_class=='' or heavy=='' or model=='':
+                    skipped=skipped+1
+                    continue
+
+                conf='AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
+                    +'   '+airline+'   '+airline+'   '+offset+'   '+radius+'   '+fl_type\
+                    +'   '+perf_class+'   '+heavy+'   '+model+'\n'
+                bufs.append(conf)
+        buf="".join(bufs)
+        if buf=='':
+            if everything==None:
+                self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
+            return
+        conf_file="###HOMEP RegNo  TypeCode        Type    AirLine         Livery  Offset  Radius  FltType Perf.Class      Heavy   Model\n" +\
+        "############################################################################################################################################\n\n"+buf
+        fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'-ac.conf'),'wb')
+        fw.write(conf_file)
+        fw.close()
+        if everything==None:
+            self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+        else:
+            return skipped
+    
+    
+    def generateAircraftFleetTable(self, airline, everything=None):
         if len(airline)!=3:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
             return

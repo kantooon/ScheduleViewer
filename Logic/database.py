@@ -357,5 +357,63 @@ class FlightsDatabase():
         self.conn.commit()
     
     
+    ## aircraft fleet ##
+    
+    def addAircraftFleet(self, aircraft):
+        self.cursor.execute('INSERT OR ROLLBACK INTO aircraft_fleet (homeport, reg_nr, ac_type, designation, airline, livery, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', aircraft)
+    
+    
+    def getAllAircraftFleet(self):
+        self.cursor.execute('SELECT * FROM aircraft_fleet ORDER BY id ASC')
+        rows=self.cursor.fetchall()
+        return rows
+        
+    
+    def getNrAircraftFleet(self):
+        self.cursor.execute('SELECT COUNT(*) FROM aircraft_fleet ORDER BY id ASC')
+        nr=self.cursor.fetchone()
+        return nr[0]
+
+
+    def getAircraftFleetInfo(self, index):
+        self.cursor.execute('SELECT * FROM aircraft_fleet WHERE ac_type=?', (index, ))
+        aircraft=self.cursor.fetchone()
+        return aircraft
+    
+
+    def queryAircraftFleet(self, params):
+        ## forget about sql injection, must make LIKE % work as expected :)
+        query='SELECT * FROM aircraft_fleet WHERE'
+        query_params=[]
+        for cond,  value in params.iteritems():
+            if cond=='reg_nr':
+                query=query+' '+cond+' LIKE \'%'+value+'%\' AND '
+            elif cond=='designation':
+                query=query+' '+'designation'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='fl_type':
+                query=query+' '+'fl_type'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='perf_class':
+                query=query+' '+'perf_class'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='heavy':
+                query=query+' '+'heavy'+' LIKE \'%'+value+'%\' AND '
+            elif cond=='model':
+                query=query+' '+'model'+' LIKE \'%'+value+'%\' AND '
+            else:
+                query=query+' '+cond+'=? AND '
+                query_params.append(value)
+        query=query+' 1=1 ORDER BY id ASC'
+        #print query, query_params
+        self.cursor.execute(query, query_params)
+        rows=self.cursor.fetchall()
+        return rows
+    
+
+    def emptyAircraftFleet(self):
+        self.cursor.execute('DELETE FROM aircraft_fleet')
+        self.conn.commit()
+    
+    
+    
+    
     
 
