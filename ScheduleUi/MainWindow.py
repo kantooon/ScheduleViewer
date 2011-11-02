@@ -17,7 +17,7 @@
 #
 
 from PyQt4 import QtCore, QtGui
-import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog, SettingsDialog
+import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog, SettingsDialog, DuplicatesDialog
 from Logic.database_thread import DatabaseThread
 from QTableWidgetNumericItem import QTableWidgetNumericItem
 import os, io, random, re
@@ -70,6 +70,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.truncateButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteFlights)
         self.connect(self.ui.addButton, QtCore.SIGNAL("clicked()"), self.addFlight)
         self.connect(self.ui.findDupesButton, QtCore.SIGNAL("clicked()"), self.confirmFindDupes)
+        self.connect(self.ui.deleteDuplicatesButton, QtCore.SIGNAL("clicked()"), self.showDeleteDuplicatesTreshhold)
         
         ## airline fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
@@ -175,6 +176,13 @@ class MainWindow(QtGui.QMainWindow):
         self.settingsDialog=SettingsDialog.SettingsDialog()
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.settingsDialog, QtCore.SLOT('close()'))
         self.settingsDialog.show()
+    
+    
+    def showDeleteDuplicatesTreshhold(self):
+        self.deleteDuplicatesDialog=DuplicatesDialog.DuplicatesDialog()
+        self.connect(self, QtCore.SIGNAL('destroyed()'), self.deleteDuplicatesDialog, QtCore.SLOT('close()'))
+        self.connect(self.deleteDuplicatesDialog, QtCore.SIGNAL("delete_duplicates"), self.databaseThread.deleteDuplicateFlights, QtCore.Qt.QueuedConnection)
+        self.deleteDuplicatesDialog.show()
     
     
     def popMessage(self, type, message): 

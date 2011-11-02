@@ -405,6 +405,12 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('update_required'))
     
     
+    def deleteDuplicateFlights(self, treshhold=7, airline=None):
+        self.db.deleteAllDuplicates(treshhold)
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','Duplicate flights have been deleted')
+        self.emit(QtCore.SIGNAL('update_required'))
+    
+    
     def deleteFleets(self, fleetlist):
         if fleetlist==None or len(fleetlist)==0:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','No fleets selected')
@@ -500,10 +506,9 @@ class  DatabaseThread(QtCore.QThread):
         progress_overall_step=100 / len(airlines)
         for airline in airlines:
             skip=self.generateAircraftFleet(airline, 1)
-            skipped=skipped+skip
             progress_overall=progress_overall+progress_overall_step
             self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
-        self.emit(QtCore.SIGNAL('message_success'), 'Info','All aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+        self.emit(QtCore.SIGNAL('message_success'), 'Info','All aircraft fleet written in the <b>exported_aircraft</b> directory')
         self.emit(QtCore.SIGNAL('import_progress'), 100)
     
     
@@ -623,10 +628,6 @@ class  DatabaseThread(QtCore.QThread):
         fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'-ac.conf'),'wb')
         fw.write(conf_file)
         fw.close()
-        if everything==None:
-            self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
-        else:
-            return skipped
     
     
     def generateAircraftFleetTable(self, airline, everything=None):

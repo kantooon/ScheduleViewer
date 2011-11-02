@@ -417,8 +417,4 @@ class FlightsDatabase():
         self.cursor.execute('DELETE FROM aircraft_fleet')
         self.conn.commit()
     
-    
-    
-    
-    
 

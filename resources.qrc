@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>icons/svn-commit.png</file>
+    <file>icons/bookmarks-organize.png</file>
     <file>icons/main.png</file>
     <file>icons/document-edit.png</file>
     <file>icons/application-exit.png</file>

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/ExportDialog.ui'
 #
-# Created: Tue Sep 27 19:13:32 2011
+# Created: Wed Nov  2 21:37:47 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!

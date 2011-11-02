@@ -244,9 +244,24 @@
                  <item row="1" column="1">
                   <layout class="QHBoxLayout" name="horizontalLayout">
                    <item>
+                    <widget class="QPushButton" name="deleteDuplicatesButton">
+                     <property name="text">
+                      <string>Delete duplicates</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
                     <widget class="QPushButton" name="findDupesButton">
                      <property name="text">
                       <string>Create duplicate index</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/bookmarks-organize.png</normaloff>:/icons/icons/bookmarks-organize.png</iconset>
                      </property>
                     </widget>
                    </item>
@@ -605,9 +620,24 @@
                     </layout>
                    </item>
                    <item>
+                    <widget class="QPushButton" name="generateFlightplansButton">
+                     <property name="text">
+                      <string>Generate flight plans</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/main.png</normaloff>:/icons/icons/main.png</iconset>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
                     <widget class="QPushButton" name="generateAircraftButton">
                      <property name="text">
                       <string>Generate aircraft conf</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
                      </property>
                     </widget>
                    </item>
@@ -925,20 +955,13 @@
                     </layout>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="generateFlightplansButton">
-                     <property name="text">
-                      <string>Generate flight plans</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="../resources.qrc">
-                       <normaloff>:/icons/icons/main.png</normaloff>:/icons/icons/main.png</iconset>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QPushButton" name="generateAircraftFleetButton">
                      <property name="text">
                       <string>Generate aircraft table</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/svn-commit.png</normaloff>:/icons/icons/svn-commit.png</iconset>
                      </property>
                     </widget>
                    </item>
@@ -1215,6 +1238,10 @@
                     <widget class="QPushButton" name="addMissingAircraftButton">
                      <property name="text">
                       <string>Add missing aircraft</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/dialog-warning.png</normaloff>:/icons/icons/dialog-warning.png</iconset>
                      </property>
                     </widget>
                    </item>
