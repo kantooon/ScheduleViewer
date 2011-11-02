@@ -1063,8 +1063,8 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def generateAircraftFleet(self):
-        if self.ui.airlineEdit_fleet.text()!='':
-            airline=str(self.ui.airlineEdit_fleet.text()).upper()
+        if self.ui.airlineEdit_aircraft_fleet.text()!='':
+            airline=str(self.ui.airlineEdit_aircraft_fleet.text()).upper()
             self.emit(QtCore.SIGNAL('generate_aircraft'), airline)
         else:
             self.emit(QtCore.SIGNAL('generate_all_aircraft'))

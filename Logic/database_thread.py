@@ -520,7 +520,8 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('message_success'), 'Info','The aircraft table has been regenerated; <b>'+str(skipped)+'</b> aircraft skipped')
         self.emit(QtCore.SIGNAL('import_progress'), 100)
     
-    
+    #TODO: this code will no longer be used and will be ported to SQL below
+    """ 
     def generateAircraftFleet(self, airline, everything=None):
         if len(airline)!=3:
             self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
@@ -584,6 +585,48 @@ class  DatabaseThread(QtCore.QThread):
             self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
         else:
             return skipped
+    """
+    
+    def generateAircraftFleet(self, airline, everything=None):
+        if len(airline)!=3:
+            self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline designation most likely wrong')
+            return
+        parameters=dict([('airline', airline)])
+        aircraft_fleet=self.db.queryAircraftFleet(parameters)
+        buf=''
+        bufs=[]
+        for ac in aircraft_fleet:
+            homeport=str(ac[1])
+            callsign=str(ac[2])
+            ac_type=str(ac[3])
+            ac_designation=str(ac[4])
+            airline=str(ac[5])
+            livery=str(ac[6])
+            offset=str(ac[7])
+            radius=str(ac[8])
+            fl_type=str(ac[9])
+            perf_class=str(ac[10])
+            heavy=str(ac[11])
+            model=str(ac[12])
+        
+            conf='AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
+                +'   '+airline+'   '+livery+'   '+offset+'   '+radius+'   '+fl_type\
+                +'   '+perf_class+'   '+heavy+'   '+model+'\n'
+            bufs.append(conf)
+        buf="".join(bufs)
+        if buf=='':
+            if everything==None:
+                self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
+            return
+        conf_file="###HOMEP RegNo  TypeCode        Type    AirLine         Livery  Offset  Radius  FltType Perf.Class      Heavy   Model\n" +\
+        "############################################################################################################################################\n\n"+buf
+        fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'-ac.conf'),'wb')
+        fw.write(conf_file)
+        fw.close()
+        if everything==None:
+            self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+        else:
+            return skipped
     
     
     def generateAircraftFleetTable(self, airline, everything=None):
@@ -602,7 +645,6 @@ class  DatabaseThread(QtCore.QThread):
                 port_nr=random.randint(0, len(homeports)-1)
                 homeport=homeports[port_nr]
                 callsign=str(fleet[5])
-                #TODO: check for unique callsign in table
                 while 1:
                     callsign=str(fleet[5])
                     while callsign.find('%d')!=-1:
