@@ -57,6 +57,7 @@ class FlightsDatabase():
         # table flight_duplicates: id, flight_id, duplicate_score
         pass 
     
+    #hubs: SELECT COUNT(id) AS nr, dep_airport FROM flights WHERE ac_type LIKE '%-CCA' GROUP BY dep_airport ORDER BY nr DESC LIMIT 20;
     
     def dumpDatabase(self):
         fw=open(os.path.join(os.getcwd(),'database', 'flights_dump.sql'),'wb')
