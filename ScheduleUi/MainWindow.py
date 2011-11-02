@@ -613,7 +613,6 @@ class MainWindow(QtGui.QMainWindow):
     
     def updateAircraftFleet(self, aclist):
         self.ui.aircraftFleetTableWidget.setSortingEnabled(False)
-        #self.disconnect(self.ui.aircraftFleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraftFleet)
         if aclist==None:
             self.popMessage('Error', 'No results found')
             return
@@ -626,7 +625,6 @@ class MainWindow(QtGui.QMainWindow):
         table.setRowCount(nr_ac)
         r=0
         for ac in aclist:
-            #id=QtGui.QTableWidgetItem(str(ac[0]), 0)
             id=QTableWidgetNumericItem(str(ac[0]), 0)
             id.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             id.setFlags(QtCore.Qt.NoItemFlags)
@@ -682,7 +680,6 @@ class MainWindow(QtGui.QMainWindow):
             table.setItem(r, 12, id)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
             r=r+1
-        #self.connect(self.ui.aircraftFleetTableWidget, QtCore.SIGNAL("itemChanged(QTableWidgetItem*)"), self.itemModifiedAircraftFleet)
         self.ui.aircraftFleetTableWidget.setSortingEnabled(True)
         self.ui.aircraftFleetTableWidget.sortItems(8, QtCore.Qt.AscendingOrder)
     

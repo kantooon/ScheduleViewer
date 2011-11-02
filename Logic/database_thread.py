@@ -602,13 +602,14 @@ class  DatabaseThread(QtCore.QThread):
                 port_nr=random.randint(0, len(homeports)-1)
                 homeport=homeports[port_nr]
                 callsign=str(fleet[5])
+                #TODO: check for unique callsign in table
                 while 1:
                     callsign=str(fleet[5])
                     while callsign.find('%d')!=-1:
                         callsign=callsign.replace('%d', self.randCallsign('d'), 1)
                     while callsign.find('%s')!=-1:
                         callsign=callsign.replace('%s', self.randCallsign('s'), 1)
-                    if callsign not in callsigns:
+                    if (callsign not in callsigns) and (self.db.checkUniqueRegNr(callsign)==0):
                         callsigns.append(callsign)
                         break
                     QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
@@ -631,22 +632,17 @@ class  DatabaseThread(QtCore.QThread):
                     skipped=skipped+1
                     continue
 
-                conf='AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
-                    +'   '+airline+'   '+airline+'   '+offset+'   '+radius+'   '+fl_type\
-                    +'   '+perf_class+'   '+heavy+'   '+model+'\n'
-                bufs.append(conf)
-        buf="".join(bufs)
-        if buf=='':
+                #conf='AC   '+homeport+'   '+callsign+'   '+ac_type+'   '+ac_designation\
+                #    +'   '+airline+'   '+airline+'   '+offset+'   '+radius+'   '+fl_type\
+                #   +'   '+perf_class+'   '+heavy+'   '+model+'\n'
+                self.db.addAircraftFleet((homeport, callsign, ac_type, ac_designation, airline, airline, offset, radius, fl_type, perf_class, heavy, model))
+        self.db.commitTransaction()
+        if len(callsigns)==0:
             if everything==None:
                 self.emit(QtCore.SIGNAL('message_success'), 'Error','Airline '+airline+' has no valid aircraft; none written to disk')
             return
-        conf_file="###HOMEP RegNo  TypeCode        Type    AirLine         Livery  Offset  Radius  FltType Perf.Class      Heavy   Model\n" +\
-        "############################################################################################################################################\n\n"+buf
-        fw=open(os.path.join(os.getcwd(),'exported_aircraft', str(airline)+'-ac.conf'),'wb')
-        fw.write(conf_file)
-        fw.close()
         if everything==None:
-            self.emit(QtCore.SIGNAL('message_success'), 'Info','Airline aircraft fleet written in the <b>exported_aircraft</b> directory; <b>'+str(skipped)+'</b> aircraft skipped')
+            self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft fleet added to database table; <b>'+str(skipped)+'</b> aircraft skipped')
         else:
             return skipped
     

@@ -359,6 +359,11 @@ class FlightsDatabase():
     
     ## aircraft fleet ##
     
+    def checkUniqueRegNr(self, reg_nr):
+        self.cursor.execute('SELECT COUNT(*) FROM aircraft_fleet WHERE reg_nr=? ORDER BY id ASC', (reg_nr, ))
+        nr=self.cursor.fetchone()
+        return nr[0]
+    
     def addAircraftFleet(self, aircraft):
         self.cursor.execute('INSERT OR ROLLBACK INTO aircraft_fleet (homeport, reg_nr, ac_type, designation, airline, livery, offset, radius, fl_type, perf_class, heavy, model) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', aircraft)
     
