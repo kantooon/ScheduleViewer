@@ -420,88 +420,88 @@
                 <layout class="QGridLayout" name="gridLayout_13">
                  <item row="0" column="0">
                   <layout class="QGridLayout" name="gridLayout_8">
-                   <item row="0" column="1">
-                    <widget class="QLineEdit" name="acTypeEdit_aircraft_2"/>
+                   <item row="1" column="1">
+                    <widget class="QLineEdit" name="acTypeEdit_aircraft_fleet"/>
                    </item>
-                   <item row="0" column="0">
+                   <item row="1" column="0">
                     <widget class="QLabel" name="label_37">
                      <property name="text">
                       <string>Ac. Type</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="2">
+                   <item row="1" column="2">
                     <widget class="QLabel" name="label_38">
                      <property name="text">
                       <string>Designation</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="3">
-                    <widget class="QLineEdit" name="designationEdit_aircraft_2"/>
+                   <item row="1" column="3">
+                    <widget class="QLineEdit" name="designationEdit_aircraft_fleet"/>
                    </item>
-                   <item row="0" column="4">
+                   <item row="1" column="4">
                     <widget class="QLabel" name="label_39">
                      <property name="text">
                       <string>Offset</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="5">
-                    <widget class="QLineEdit" name="offsetEdit_aircraft_2"/>
+                   <item row="1" column="5">
+                    <widget class="QLineEdit" name="offsetEdit_aircraft_fleet"/>
                    </item>
-                   <item row="0" column="6">
+                   <item row="1" column="6">
                     <widget class="QLabel" name="label_40">
                      <property name="text">
                       <string>Radius</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="7">
-                    <widget class="QLineEdit" name="radiusEdit_aircraft_2"/>
+                   <item row="1" column="7">
+                    <widget class="QLineEdit" name="radiusEdit_aircraft_fleet"/>
                    </item>
-                   <item row="0" column="8">
+                   <item row="1" column="8">
                     <widget class="QLabel" name="label_41">
                      <property name="text">
                       <string>Fl. Type</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="0" column="9">
-                    <widget class="QLineEdit" name="flTypeEdit_aircraft_2"/>
+                   <item row="1" column="9">
+                    <widget class="QLineEdit" name="flTypeEdit_aircraft_fleet"/>
                    </item>
-                   <item row="1" column="5">
-                    <widget class="QLineEdit" name="modelEdit_aircraft_2"/>
+                   <item row="2" column="5">
+                    <widget class="QLineEdit" name="modelEdit_aircraft_fleet"/>
                    </item>
-                   <item row="1" column="4">
+                   <item row="2" column="4">
                     <widget class="QLabel" name="label_42">
                      <property name="text">
                       <string>Model</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="3">
-                    <widget class="QLineEdit" name="heavyEdit_aircraft_2"/>
+                   <item row="2" column="3">
+                    <widget class="QLineEdit" name="heavyEdit_aircraft_fleet"/>
                    </item>
-                   <item row="1" column="2">
+                   <item row="2" column="2">
                     <widget class="QLabel" name="label_43">
                      <property name="text">
                       <string>Heavy</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="0">
+                   <item row="2" column="0">
                     <widget class="QLabel" name="label_44">
                      <property name="text">
                       <string>Perf. class</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="perfClassEdit_aircraft_2"/>
+                   <item row="2" column="1">
+                    <widget class="QLineEdit" name="perfClassEdit_aircraft_fleet"/>
                    </item>
-                   <item row="1" column="7">
-                    <widget class="QPushButton" name="showButton_aircraft_2">
+                   <item row="2" column="7">
+                    <widget class="QPushButton" name="showButton_aircraft_fleet">
                      <property name="text">
                       <string>Show</string>
                      </property>
@@ -517,8 +517,8 @@
                      </property>
                     </widget>
                    </item>
-                   <item row="1" column="9">
-                    <widget class="QPushButton" name="clearButton_aircraft_2">
+                   <item row="2" column="9">
+                    <widget class="QPushButton" name="clearButton_aircraft_fleet">
                      <property name="text">
                       <string>Clear</string>
                      </property>
@@ -527,6 +527,36 @@
                        <normaloff>:/icons/icons/user-busy.png</normaloff>:/icons/icons/user-busy.png</iconset>
                      </property>
                     </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_21">
+                     <property name="text">
+                      <string>Homeport</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QLineEdit" name="homeportEdit_aircraft_fleet"/>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QLabel" name="label_22">
+                     <property name="text">
+                      <string>Reg. number</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="3">
+                    <widget class="QLineEdit" name="regEdit_aircraft_fleet"/>
+                   </item>
+                   <item row="0" column="4">
+                    <widget class="QLabel" name="label_23">
+                     <property name="text">
+                      <string>Airline</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="5">
+                    <widget class="QLineEdit" name="airlineEdit_aircraft_fleet"/>
                    </item>
                   </layout>
                  </item>
@@ -542,7 +572,7 @@
                       </widget>
                      </item>
                      <item row="0" column="1">
-                      <widget class="QLabel" name="labelTotalAircraft_2">
+                      <widget class="QLabel" name="labelTotalAircraftFleet">
                        <property name="text">
                         <string/>
                        </property>
@@ -556,7 +586,7 @@
                       </widget>
                      </item>
                      <item row="1" column="1">
-                      <widget class="QLabel" name="labelSelectedAircraft_2">
+                      <widget class="QLabel" name="labelSelectedAircraftFleet">
                        <property name="text">
                         <string/>
                        </property>
@@ -572,29 +602,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="addAircraftButton_2">
-                     <property name="text">
-                      <string>Add aircraft</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="../resources.qrc">
-                       <normaloff>:/icons/icons/document-edit.png</normaloff>:/icons/icons/document-edit.png</iconset>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="deleteAircraftButton_2">
-                     <property name="text">
-                      <string>Delete aircraft</string>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="../resources.qrc">
-                       <normaloff>:/icons/icons/application-exit.png</normaloff>:/icons/icons/application-exit.png</iconset>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="truncateAircraftButton_2">
+                    <widget class="QPushButton" name="truncateAircraftFleetButton">
                      <property name="text">
                       <string>Empty aircraft table</string>
                      </property>
@@ -610,7 +618,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QTableWidget" name="aircraftTableWidget_2">
+               <widget class="QTableWidget" name="aircraftfleetTableWidget">
                 <property name="minimumSize">
                  <size>
                   <width>1055</width>
@@ -646,12 +654,32 @@
                 </attribute>
                 <column>
                  <property name="text">
+                  <string>Homeport</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Reg.no.</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
                   <string>Ac. Type</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
                   <string>Designation</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Airline</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Livery</string>
                  </property>
                 </column>
                 <column>
