@@ -31,7 +31,7 @@ from PyQt4 import QtCore
 
 app = QtGui.QApplication(sys.argv)
 app.setApplicationName("ScheduleViewer")
-app.setApplicationVersion("0.2")
+app.setApplicationVersion("0.3")
 window = MainWindow.MainWindow()
 window.show()
 sys.exit(app.exec_())

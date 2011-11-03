@@ -58,7 +58,6 @@ class FlightsDatabase():
         # table aircraft_fleet: id, homeport, reg_nr, ac_type, designation, airline, livery ,offset,radius, fl_type,perf_class,heavy,model
         pass 
     
-    #hubs: SELECT COUNT(id) AS nr, dep_airport FROM flights WHERE ac_type LIKE '%-CCA' GROUP BY dep_airport ORDER BY nr DESC LIMIT 20;
     
     def dumpDatabase(self):
         fw=open(os.path.join(os.getcwd(),'database', 'flights_dump.sql'),'wb')
@@ -159,6 +158,20 @@ class FlightsDatabase():
         rows=self.cursor.fetchall()
         return rows
     
+    
+    def queryHubs(self, params):
+        query='SELECT COUNT(id) AS nr, dep_airport FROM flights WHERE '
+        query_params=[]
+        for cond,  value in params.iteritems():
+            if cond=='ac_type':
+                query=query+' '+cond+' LIKE \''+value+'-%\' AND '
+            elif cond=='airline':
+                query=query+' '+'ac_type'+' LIKE \'%-'+value+'\' AND '
+        query=query+' 1=1 GROUP BY dep_airport ORDER BY nr DESC'
+        #print query, query_params
+        self.cursor.execute(query, query_params)
+        rows=self.cursor.fetchall()
+        return rows
     
     
     def addFlight(self, flight):

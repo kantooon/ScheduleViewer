@@ -355,6 +355,11 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('ready_results'), res)
     
     
+    def runQueryHubs(self, params):
+        res=self.db.queryHubs(params)
+        self.emit(QtCore.SIGNAL('ready_results_hubs'), res)
+    
+    
     def runQueryFleet(self, params):
         res=self.db.queryFleet(params)
         res_f=[]
@@ -1052,16 +1057,17 @@ class  DatabaseThread(QtCore.QThread):
         path=os.path.join(self.fgdata_path, 'AI', model+str(res[0][6])+'.xml')
         try:
             if os.stat(path)!=-1:
+                #TODO: make this portion of code OS agnostic
                 if self.brisa_structure:
                     library='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'+self.viewer_path+'/../../plib/lib:'+self.viewer_path+'/../../OpenSceneGraph3/lib:'+self.viewer_path+'/../../simgear/lib;'
                 else:
                     library=''
-                command=library+' '+self.viewer_path+'/fgviewer --fg-root '+self.fgdata_path+' --window 100 100 800 600 '+path
+                command=library+' '+self.viewer_path+'/fgviewer --fg-root '+self.fgdata_path+' --window 100 100 800 600 '+path+' &'
                 #print command
                 ## choose one method:
                 #QtCore.QProcess.startDetached(command)
-                #subprocess.Popen(command)
-                #os.spawnlp(os.P_NOWAIT, command)
+                #subprocess.Popen(command,args)
+                #os.spawnlp(os.P_NOWAIT, command,args)
                 os.system(command)
         except  Exception as eroare:
             print 'Could not open Fgviewer with model ', path, eroare
