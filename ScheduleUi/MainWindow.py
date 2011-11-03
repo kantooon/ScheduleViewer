@@ -48,6 +48,10 @@ class MainWindow(QtGui.QMainWindow):
         self.del_aircraft_shortcut.setKey(QtGui.QKeySequence(QtGui.QKeySequence.Delete))
         self.del_aircraft_shortcut.setAutoRepeat(False)
         self.del_aircraft_shortcut.setContext(QtCore.Qt.WidgetShortcut)
+        self.prev_aircraft_shortcut=QtGui.QShortcut(self.ui.fleetTableWidget)
+        self.prev_aircraft_shortcut.setKey(QtGui.QKeySequence(QtCore.Qt.Key_P))
+        self.prev_aircraft_shortcut.setAutoRepeat(False)
+        self.prev_aircraft_shortcut.setContext(QtCore.Qt.WidgetShortcut)
     
         ## menu actions
         self.connect(self.ui.actionImport, QtCore.SIGNAL("triggered()"), self.showImportDialog)
@@ -82,7 +86,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.generateAircraftFleetButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleetTable)
         self.connect(self.ui.generateFlightplansButton, QtCore.SIGNAL("clicked()"), self.generateFlightplans)
         self.connect(self.ui.previewModelButton, QtCore.SIGNAL("clicked()"), self.previewModel)
-        
+        self.connect(self.prev_aircraft_shortcut, QtCore.SIGNAL("activated()"), self.ui.previewModelButton, QtCore.SLOT('click()'))
         
         ## aircraft types tab
         self.connect(self.ui.showButton_aircraft, QtCore.SIGNAL("clicked()"), self.sendQueryAircraft)
@@ -98,7 +102,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.clearButton_aircraft_fleet, QtCore.SIGNAL("clicked()"), self.clearAircraftFleet)
         self.connect(self.ui.truncateAircraftFleetButton, QtCore.SIGNAL("clicked()"), self.confirmDeleteAircraftFleet)
         self.connect(self.ui.generateAircraftButton, QtCore.SIGNAL("clicked()"), self.generateAircraftFleet)
-
+        
         
         #self.connect(self.ui.tableWidget, QtCore.SIGNAL("cellChanged(int,int)"), self.itemModified)
 

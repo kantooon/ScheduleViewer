@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Thu Nov  3 01:11:47 2011
+# Created: Thu Nov  3 14:52:04 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -186,6 +186,7 @@ class Ui_MainWindow(object):
         self.tableWidget = QtGui.QTableWidget(self.flightsTab)
         self.tableWidget.setMinimumSize(QtCore.QSize(1055, 436))
         self.tableWidget.setMaximumSize(QtCore.QSize(3000, 3000))
+        self.tableWidget.setEditTriggers(QtGui.QAbstractItemView.DoubleClicked|QtGui.QAbstractItemView.EditKeyPressed)
         self.tableWidget.setDragEnabled(False)
         self.tableWidget.setDragDropOverwriteMode(False)
         self.tableWidget.setDragDropMode(QtGui.QAbstractItemView.NoDragDrop)
@@ -351,7 +352,9 @@ class Ui_MainWindow(object):
         self.aircraftFleetTableWidget = QtGui.QTableWidget(self.tab_2)
         self.aircraftFleetTableWidget.setMinimumSize(QtCore.QSize(1055, 436))
         self.aircraftFleetTableWidget.setMaximumSize(QtCore.QSize(3000, 3000))
+        self.aircraftFleetTableWidget.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.aircraftFleetTableWidget.setAlternatingRowColors(True)
+        self.aircraftFleetTableWidget.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.aircraftFleetTableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.aircraftFleetTableWidget.setObjectName("aircraftFleetTableWidget")
         self.aircraftFleetTableWidget.setColumnCount(13)
@@ -509,6 +512,7 @@ class Ui_MainWindow(object):
         self.fleetTableWidget = QtGui.QTableWidget(self.fleetTab)
         self.fleetTableWidget.setMinimumSize(QtCore.QSize(1055, 436))
         self.fleetTableWidget.setMaximumSize(QtCore.QSize(3000, 3000))
+        self.fleetTableWidget.setEditTriggers(QtGui.QAbstractItemView.DoubleClicked|QtGui.QAbstractItemView.EditKeyPressed)
         self.fleetTableWidget.setAlternatingRowColors(True)
         self.fleetTableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.fleetTableWidget.setObjectName("fleetTableWidget")
@@ -643,6 +647,7 @@ class Ui_MainWindow(object):
         self.aircraftTableWidget = QtGui.QTableWidget(self.aircraftTypesTab)
         self.aircraftTableWidget.setMinimumSize(QtCore.QSize(1055, 436))
         self.aircraftTableWidget.setMaximumSize(QtCore.QSize(3000, 3000))
+        self.aircraftTableWidget.setEditTriggers(QtGui.QAbstractItemView.DoubleClicked|QtGui.QAbstractItemView.EditKeyPressed)
         self.aircraftTableWidget.setAlternatingRowColors(True)
         self.aircraftTableWidget.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.aircraftTableWidget.setObjectName("aircraftTableWidget")
