@@ -1053,7 +1053,7 @@ class  DatabaseThread(QtCore.QThread):
         try:
             if os.stat(path)!=-1:
                 if self.brisa_structure:
-                    library='export LD_LIBRARY_PATH='+self.viewer_path+'/../../plib/lib:'+self.viewer_path+'/../../OpenSceneGraph3/lib:'+self.viewer_path+'/../../simgear/lib;'
+                    library='export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'+self.viewer_path+'/../../plib/lib:'+self.viewer_path+'/../../OpenSceneGraph3/lib:'+self.viewer_path+'/../../simgear/lib;'
                 else:
                     library=''
                 command=library+' '+self.viewer_path+'/fgviewer --fg-root '+self.fgdata_path+' --window 100 100 800 600 '+path
