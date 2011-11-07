@@ -1062,7 +1062,9 @@ class  DatabaseThread(QtCore.QThread):
                     
                 if self.brisa_structure:
                     library_path=str(os.getenv('LD_LIBRARY_PATH'))+':' \
-                              +str(os.path.join(self.viewer_path,'..','..','plib','lib'))+':'+str(os.path.join(self.viewer_path, '..', '..', 'OpenSceneGraph3', 'lib'))+':'+str(os.path.join(self.viewer_path,'..', '..', 'simgear', 'lib'))
+                              +str(os.path.join(self.viewer_path,'..','..','plib','lib'))+':' \
+                              +str(os.path.join(self.viewer_path, '..', '..', 'OpenSceneGraph3', 'lib')) \
+                              +':'+str(os.path.join(self.viewer_path,'..', '..', 'simgear', 'lib'))
                     #print library_path
                     os.putenv('LD_LIBRARY_PATH', library_path)
                     

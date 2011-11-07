@@ -11,9 +11,12 @@ ScheduleViewer is a program that can:
 8. Add flightplans
 9. Perform the above operations for airline fleets and aircraft
 10. Check schedules and insert missing aircraft into the aicraft table
-11. Check liveries and display their status in the fleets tab.
+11. Check model-livery availability and display their status in the airline fleets tab
 12. Export aircraft conf files.
 13. Export complete XML flightplans
+14. View airport statistics / airline hubs
+15. Preview aircraft model with livery in FGViewer
+16. Show the complete aircraft fleet of an airline
 
 
 Requirements:
@@ -69,9 +72,10 @@ See Help -> Help for additional instructions.
 
 Known issues:
 =============
-If you order the table by a column other than id and then apply filters,
-the table may become corrupted. To solve this, simply order by id again, then order by
-the column you want.
+The program can't import aircraft confs yet or lines starting with AC from mixed confs.
+To display duplicate flight schedules, the application needs to build an index of
+duplicate entries in the database. Due to the large number of flights, this operation
+can take a very long time (an hour or more, depending on the machine performance).
 
 
 License information:

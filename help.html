@@ -1,7 +1,8 @@
 <h3>ScheduleViewer Help</h3>
 <b>Basic usage:</b><br/>
 <p><b>Important:</b> You must first edit the <b>Settings</b> (Edit -> Settings menu) and enter the path of your FGFS data directory. This is required for livery checking and aircraft conf exporting.<br/>
-You may also select the checkbox to move flightplans to FGDATA directory as soon as they are generated, but be very careful, unless you know exactly what you are doing, as you may overwrite existing flightplans.
+You may also select the checkbox to move flightplans to FGDATA directory as soon as they are generated, but be very careful, unless you know exactly what you are doing, as you may overwrite existing flightplans.<br/>
+To preview the aircraft models / liveries, you should also provide the path to the FGViewer binary, which is typically the same as the location of the FGFS binary.
 </p>
 <i>Import schedules in *.conf format:</i>
 <p>
@@ -18,6 +19,10 @@ Go to <b>File -> Export</b> and choose the path (directory where the conf files 
 By default the export directory is <b>exported_flights</b> under the main application directory.
 <br/>
 Next choose which flight schedules will be exported: all flights in the current view (table being displayed by filters), only flights selected by you, or the whole database of flight schedules. 
+</p>
+<br/>
+<b>Data organisation</b>
+<p>There are two top-level tabs: <b>Data</b> contains the flight schedule and aircraft information which is used to generate the Flightgear AI flightplans; <b>Fleet info</b> contains meta-data for airline fleets, which is used to construct the aircraft information from the <b>Data</b> tab.<br/>
 </p>
 <br/>
 <i>Using the <b>Filter query tool</b> window</i>
@@ -45,15 +50,23 @@ Limitations: the duplicate indexing is only performed on flights with the same a
 You can select multiple flights at the same time with CTRL and SHIFT to delete. The Del key is a shortcut for the delete button. You will not be asked again so be carefull.<br/>
 Double click a table field to edit it, when you are finished press <b>Enter</b>.
 </p>
+<p><b>Deleting duplicates</b>: pressing this button will open a prompt asking for a treshhold. This represents the duplicate score assigned by checking the number of days one flight has in common with other flights. The score will be maximum (7) when all days are duplicated in other flight entries, thus making the duplicated flight completely safe to delete. The number you must enter cannot be lower than 1 or higher than 7. To delete all duplicate entries in the database, regardless of the number of duplicated days, enter 1. To keep all flights that are not duplicated anywhere, enter 7.
+</p>
 <p>To add a new flight, enter the flight information in the filter fields, then press <b>Add flight</b>. Thorough input checking is not yet implemented so be careful.
+</p>
+<p>The <b>Find hubs</b> function will open a new window containing airport and flights number statistics. The airports with most flights will be displayed at the top, in descending order. The only filter options available for this function are airline and aircraft type.
 </p>
 <p>In the <i>Aircraft types</i> tab, the button <b>Add missing aircraft</b> will trigger a database check for all aircraft types present in the flight schedules table, and add those missing into the table <i>aircraft</i>.
 </p>
 <p>Fleet designation column color coding: <b>GREEN</b>=model livery was found in FGDATA path; <b>RED</b>=model livery was not found. If all entries in the <i>Designation</i> column are red, check you FGDATA path in the <b>settings</b> file. It is most likely wrong.
 </p>
-<p>The <b>Generate aircraft conf</b> button on the fleet tab lets you export aircraft .conf for the selected airline or all airlines with fleets. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will fail.
+<p>The <b>Generate aircraft table</b> button on the Airline fleets tab lets you populate the aircraft table for the selected airline or all airlines with fleets. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. Once that table is populated, you can review the information on the Aircraft tab.
 </p>
-<p>The <b>Generate flight plans</b> button on the fleet tab lets you export flightplans in XML format for the selected airline or all airlines. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will probably fail. If you have checked the <b>"move flightplans"</b> checkbox, the generated files will be copied directly to FGDATA. Exercise extreme caution, as this operation is likely to overwrite any existing flightplans.
+<p>The <b>Preview model</b> button on the Airline fleets tab lets you visualise the aspect of the selected model within a FGViewer window. You must have only one fleet entry selected in the airline fleets table, and also have the FGViewer binary path enterd correctly in the <b>Settings</b>. The shortcut for preview is the key <b>P</b>.
+</p>
+<p>The <b>Generate aircraft conf</b> button on the Aircraft tab lets you export aircraft .conf for the selected airline or all airlines with fleets. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will fail.
+</p>
+<p>The <b>Generate flight plans</b> button on the Aircraft tab lets you export flightplans in XML format for the selected airline or all airlines. To generate only one airline, you must have a valid airline entered in the <b>Airline</b> field. If your FGDATA path is not set correctly in the <b>settings</b> file, there will be no valid model liveries and export will probably fail. If you have checked the <b>"move flightplans"</b> checkbox, the generated files will be copied directly to FGDATA. Exercise extreme caution, as this operation is likely to overwrite any existing flightplans.
 </p>
 <h4>Known issues:</h4>
 The program can't import aircraft confs or lines starting with AC from mixed confs.
