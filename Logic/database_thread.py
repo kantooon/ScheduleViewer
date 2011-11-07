@@ -360,6 +360,11 @@ class  DatabaseThread(QtCore.QThread):
         self.emit(QtCore.SIGNAL('ready_results_hubs'), res)
     
     
+    def runQueryAcTypes(self, params):
+        res=self.db.queryAcTypes(params)
+        self.emit(QtCore.SIGNAL('ready_results_ac_types'), res)
+    
+    
     def runQueryFleet(self, params):
         res=self.db.queryFleet(params)
         res_f=[]

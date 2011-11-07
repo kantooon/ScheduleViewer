@@ -17,7 +17,7 @@
 #
 
 from PyQt4 import QtCore, QtGui
-import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog, SettingsDialog, DuplicatesDialog, HubsDialog
+import Ui_MainWindow, Messages,  ImportDialog,  ExportDialog, AboutDialog, HelpDialog,  ConfirmDialog, SettingsDialog, DuplicatesDialog, HubsDialog, AcTypesDialog
 from Logic.database_thread import DatabaseThread
 from QTableWidgetNumericItem import QTableWidgetNumericItem
 import os, io, random, re
@@ -76,6 +76,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.ui.findDupesButton, QtCore.SIGNAL("clicked()"), self.confirmFindDupes)
         self.connect(self.ui.deleteDuplicatesButton, QtCore.SIGNAL("clicked()"), self.showDeleteDuplicatesTreshhold)
         self.connect(self.ui.findHubsButton, QtCore.SIGNAL("clicked()"), self.findHubs)
+        self.connect(self.ui.findAcTypesButton, QtCore.SIGNAL("clicked()"), self.findAcTypes)
         
         ## airline fleets tab
         self.connect(self.ui.showButton_fleet, QtCore.SIGNAL("clicked()"), self.sendQueryFleet)
@@ -115,6 +116,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_aircraft"), self.updateAircraft, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_aircraft_fleet"), self.updateAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_hubs"), self.showHubs, QtCore.Qt.QueuedConnection)
+        self.connect(self.databaseThread, QtCore.SIGNAL("ready_results_ac_types"), self.showAcTypes, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr"), self.showNrFlights, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr_fleets"), self.showNrFleets, QtCore.Qt.QueuedConnection)
         self.connect(self.databaseThread, QtCore.SIGNAL("show_total_nr_aircraft"), self.showNrAircraft, QtCore.Qt.QueuedConnection)
@@ -139,6 +141,7 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('run_query_aircraft'), self.databaseThread.runQueryAircraft, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query_aircraft_fleet'), self.databaseThread.runQueryAircraftFleet, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL('run_query_hubs'), self.databaseThread.runQueryHubs, QtCore.Qt.QueuedConnection)
+        self.connect(self, QtCore.SIGNAL('run_query_ac_types'), self.databaseThread.runQueryAcTypes, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_flights"), self.databaseThread.deleteFlights, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_fleets"), self.databaseThread.deleteFleets, QtCore.Qt.QueuedConnection)
         self.connect(self, QtCore.SIGNAL("delete_aircraft"), self.databaseThread.deleteAircraft, QtCore.Qt.QueuedConnection)
@@ -318,6 +321,11 @@ class MainWindow(QtGui.QMainWindow):
         self.connect(self, QtCore.SIGNAL('destroyed()'), self.hubsDialog, QtCore.SLOT('close()'))
     
     
+    def showAcTypes(self, ac):
+        self.hubsDialog=AcTypesDialog.AcTypesDialog(ac)
+        self.connect(self, QtCore.SIGNAL('destroyed()'), self.hubsDialog, QtCore.SLOT('close()'))
+    
+    
     def sendQuery(self):
         param_list=[]
         if self.ui.callsignEdit.text()!='':
@@ -350,6 +358,16 @@ class MainWindow(QtGui.QMainWindow):
         
         parameters=dict(param_list)
         self.emit(QtCore.SIGNAL('run_query_hubs'), parameters)
+    
+    
+    def findAcTypes(self):
+        param_list=[]
+        if self.ui.airlineEdit.text()!='':
+            param_list.append(('airline', str(self.ui.airlineEdit.text()).upper()))
+        else:
+            return
+        parameters=dict(param_list)
+        self.emit(QtCore.SIGNAL('run_query_ac_types'), parameters)
     
     
     def sendQueryFleet(self):

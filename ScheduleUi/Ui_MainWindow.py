@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file '/home/adrian/python/fg-ai-flightplan/ScheduleViewer/ScheduleUi/MainWindow.ui'
 #
-# Created: Thu Nov  3 19:17:02 2011
+# Created: Tue Nov  8 00:41:32 2011
 #      by: PyQt4 UI code generator 4.7.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -187,6 +187,10 @@ class Ui_MainWindow(object):
         self.findHubsButton.setIcon(icon7)
         self.findHubsButton.setObjectName("findHubsButton")
         self.gridLayout_11.addWidget(self.findHubsButton, 0, 3, 1, 1)
+        self.findAcTypesButton = QtGui.QPushButton(self.groupBox)
+        self.findAcTypesButton.setIcon(icon7)
+        self.findAcTypesButton.setObjectName("findAcTypesButton")
+        self.gridLayout_11.addWidget(self.findAcTypesButton, 0, 4, 1, 1)
         self.gridLayout_9.addLayout(self.gridLayout_11, 1, 1, 1, 1)
         self.verticalLayout_4.addWidget(self.groupBox)
         self.tableWidget = QtGui.QTableWidget(self.flightsTab)
@@ -818,6 +822,7 @@ class Ui_MainWindow(object):
         self.deleteDuplicatesButton.setText(QtGui.QApplication.translate("MainWindow", "Delete duplicates", None, QtGui.QApplication.UnicodeUTF8))
         self.deleteButton.setText(QtGui.QApplication.translate("MainWindow", "Delete flights", None, QtGui.QApplication.UnicodeUTF8))
         self.findHubsButton.setText(QtGui.QApplication.translate("MainWindow", "Find hubs", None, QtGui.QApplication.UnicodeUTF8))
+        self.findAcTypesButton.setText(QtGui.QApplication.translate("MainWindow", "Find aircraft types", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.setSortingEnabled(True)
         self.tableWidget.horizontalHeaderItem(0).setText(QtGui.QApplication.translate("MainWindow", "Callsign", None, QtGui.QApplication.UnicodeUTF8))
         self.tableWidget.horizontalHeaderItem(1).setText(QtGui.QApplication.translate("MainWindow", "Flight rules", None, QtGui.QApplication.UnicodeUTF8))

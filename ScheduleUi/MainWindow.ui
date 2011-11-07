@@ -309,6 +309,17 @@
                      </property>
                     </widget>
                    </item>
+                   <item row="0" column="4">
+                    <widget class="QPushButton" name="findAcTypesButton">
+                     <property name="text">
+                      <string>Find aircraft types</string>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../resources.qrc">
+                       <normaloff>:/icons/icons/application-x-siag.png</normaloff>:/icons/icons/application-x-siag.png</iconset>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                 </layout>

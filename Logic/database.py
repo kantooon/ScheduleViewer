@@ -174,6 +174,19 @@ class FlightsDatabase():
         return rows
     
     
+    def queryAcTypes(self, params):
+        query='SELECT COUNT(id) AS nr, ac_type FROM flights WHERE '
+        query_params=[]
+        for cond,  value in params.iteritems():
+            if cond=='airline':
+                query=query+' '+'ac_type'+' LIKE \'%-'+value+'\' AND '
+        query=query+' 1=1 GROUP BY ac_type ORDER BY nr DESC'
+        #print query, query_params
+        self.cursor.execute(query, query_params)
+        rows=self.cursor.fetchall()
+        return rows
+    
+    
     def addFlight(self, flight):
         self.cursor.execute('INSERT OR ROLLBACK INTO flights (callsign, flt_rules, dep_day, dep_airport, arr_airport, dep_time, arr_time, ac_type, flt_level) VALUES (?,?,?,?,?,?,?,?,?)', flight)
         #self.conn.commit() # call commit on the whole chunk to speed things up
