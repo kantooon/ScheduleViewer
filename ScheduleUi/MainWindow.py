@@ -322,8 +322,8 @@ class MainWindow(QtGui.QMainWindow):
     
     
     def showAcTypes(self, ac):
-        self.hubsDialog=AcTypesDialog.AcTypesDialog(ac)
-        self.connect(self, QtCore.SIGNAL('destroyed()'), self.hubsDialog, QtCore.SLOT('close()'))
+        self.actypesDialog=AcTypesDialog.AcTypesDialog(ac)
+        self.connect(self, QtCore.SIGNAL('destroyed()'), self.actypesDialog, QtCore.SLOT('close()'))
     
     
     def sendQuery(self):
