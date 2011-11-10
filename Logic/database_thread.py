@@ -371,6 +371,9 @@ class  DatabaseThread(QtCore.QThread):
         needed_ac=[]
         for r in res:
             ac_info=self.db.getAircraftInfo(str(r[2]))
+            if ac_info==None:
+                print 'Need aircraft type entry for:', r[2]
+                return
             model = str(ac_info[8])
             path=os.path.join(self.fgdata_path, 'AI', model+str(r[6])+'.xml')
             try:
