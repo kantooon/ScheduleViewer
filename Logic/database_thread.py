@@ -998,7 +998,7 @@ class  DatabaseThread(QtCore.QThread):
             for day in days:
                 if day.isdigit():
                     numeric_days.append(day)
-            line=( str(flight[0]),  str(flight[1]), str(flight[2]), str(flight[3]), str(flight[4]), str(flight[5]), str(flight[6]), str(flight[7]), str(flight[8]), str(flight[9]), str(flight[10]) )
+            line=( str(flight[0]),  str(flight[1]), str(flight[2]), str(flight[3]), str(flight[4]), str(flight[5]), str(flight[6]), str(flight[7]), str(flight[8]), str(flight[9]) )
             conditions=[]
             conditions.append(('dep_airport', str(flight[4])))
             conditions.append(('arr_airport', str(flight[5])))
@@ -1016,7 +1016,7 @@ class  DatabaseThread(QtCore.QThread):
                 numeric_days2=[]
                 dupe_score=0
                 rev_dupe_score=0
-                line2=( str(row[0]),  str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]), str(row[6]), str(row[7]), str(row[8]), str(row[9]), str(row[10]) )
+                line2=( str(row[0]),  str(row[1]), str(row[2]), str(row[3]), str(row[4]), str(row[5]), str(row[6]), str(row[7]), str(row[8]), str(row[9]) )
                 days2=str(row[3])
                 for day2 in days2:
                     if day2.isdigit():
@@ -1051,7 +1051,8 @@ class  DatabaseThread(QtCore.QThread):
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         if len(flights2) >0:
             self.db.commitTransaction()
-        self.emit(QtCore.SIGNAL('ready_results'), flights2)
+        #self.emit(QtCore.SIGNAL('ready_results'), flights2)
+        self.emit(QtCore.SIGNAL('update_required'))
         self.emit(QtCore.SIGNAL('import_progress'), 100)
     
     
