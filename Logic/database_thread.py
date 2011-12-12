@@ -125,6 +125,7 @@ class  DatabaseThread(QtCore.QThread):
             stubs[5]=stubs[5].rstrip('\n')
             self.db.addFleet(stubs)
             self.db.commitTransaction()
+        self.getNrFleets()
     
     
     def importAircraft(self, filename):
@@ -143,6 +144,7 @@ class  DatabaseThread(QtCore.QThread):
                     stubs.append("")
             self.db.addAircraft(stubs)
             self.db.commitTransaction()
+        self.getNrAircraft()
     
     
     def importConfs(self, path, recurse):
@@ -435,12 +437,14 @@ class  DatabaseThread(QtCore.QThread):
             self.db.deleteFlight(flight)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.db.commitTransaction()
+        self.getNrFlights()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Flights have been deleted')
         self.emit(QtCore.SIGNAL('update_required'))
     
     
     def deleteDuplicateFlights(self, treshhold=7, airline=None):
         self.db.deleteAllDuplicates(treshhold)
+        self.getNrFlights()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Duplicate flights have been deleted')
         self.emit(QtCore.SIGNAL('update_required'))
     
@@ -453,6 +457,7 @@ class  DatabaseThread(QtCore.QThread):
             self.db.deleteFleet(fleet)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.db.commitTransaction()
+        self.getNrFleets()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Fleets have been deleted')
         self.emit(QtCore.SIGNAL('update_required_fleet'))
     
@@ -465,6 +470,7 @@ class  DatabaseThread(QtCore.QThread):
             self.db.deleteAircraft(ac)
             QtCore.QCoreApplication.processEvents(QtCore.QEventLoop.AllEvents)
         self.db.commitTransaction()
+        self.getNrAircraft()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft have been deleted')
         self.emit(QtCore.SIGNAL('update_required_aircraft'))
     
@@ -510,21 +516,25 @@ class  DatabaseThread(QtCore.QThread):
     
     def addFlight(self, params):
         self.db.addFlight(params)
+        self.getNrFlights()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Flight saved')
     
     
     def addFleet(self, params):
         self.db.addFleet(params)
+        self.getNrFleets()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Fleet saved')
     
     
     def addAircraft(self, params):
         self.db.addAircraft(params)
+        self.getNrAircraft()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Aircraft saved')
     
     
     def getMissingAircraft(self):
         self.db.missingAircraftTypes()
+        self.getNrAircraft()
         self.emit(QtCore.SIGNAL('message_success'), 'Info','Missing Aircraft added')
     
     
@@ -557,6 +567,7 @@ class  DatabaseThread(QtCore.QThread):
             progress_overall=progress_overall+progress_overall_step
             self.emit(QtCore.SIGNAL('import_progress'), progress_overall)
         self.emit(QtCore.SIGNAL('message_success'), 'Info','The aircraft table has been regenerated; <b>'+str(skipped)+'</b> aircraft skipped')
+        self.getNrAircraftFleet()
         self.emit(QtCore.SIGNAL('import_progress'), 100)
     
     #TODO: this code will no longer be used and will be ported to SQL below
@@ -1052,6 +1063,7 @@ class  DatabaseThread(QtCore.QThread):
         if len(flights2) >0:
             self.db.commitTransaction()
         #self.emit(QtCore.SIGNAL('ready_results'), flights2)
+        self.getNrFlights()
         self.emit(QtCore.SIGNAL('update_required'))
         self.emit(QtCore.SIGNAL('import_progress'), 100)
     
