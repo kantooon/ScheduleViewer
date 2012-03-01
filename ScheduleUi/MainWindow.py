@@ -571,7 +571,8 @@ class MainWindow(QtGui.QMainWindow):
             ac_type=QtGui.QTableWidgetItem(str(fleet[2]), 0)
             ac_type.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
-            nr_ac=QtGui.QTableWidgetItem(str(fleet[3]), 0)
+            #nr_ac=QtGui.QTableWidgetItem(str(fleet[3]), 0)
+            nr_ac=QTableWidgetNumericItem(str(fleet[3]), 0)
             nr_ac.setTextAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
             
             hubs=QtGui.QTableWidgetItem(str(fleet[4]), 0)
